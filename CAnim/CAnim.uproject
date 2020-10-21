@@ -1,0 +1,23 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "4.23",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "CAnim",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "CAnimEditor",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit",
+			"AdditionalDependencies": [
+				"Engine",
+				"CoreUObject",
+				"UnrealEd"
+			]
+		}
+	]
+}
