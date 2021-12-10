@@ -40,6 +40,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Camera", Meta = (MakeEditWidget = true))
 		FVector CameraOffset;
 
+	UPROPERTY(EditAnywhere, Category = "Fire")
+		TSubclassOf<AActor> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Fire", Meta = (MakeEditWidget = true))
+		FVector FireOffset;
+
 	UPROPERTY(EditAnywhere, Category = "Movement")
 		float RotationRate;
 };

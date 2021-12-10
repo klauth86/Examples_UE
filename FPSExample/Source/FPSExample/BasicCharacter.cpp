@@ -36,17 +36,29 @@ void ABasicCharacter::SetupCamera() {
 
 		FRotator cameraRotation = (selfLocation - cameraLocation).Rotation();
 
-		auto cameraActor = GetWorld()->SpawnActor<ACameraActor>(CameraActorClass, cameraLocation, cameraRotation);
-		cameraActor->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
-		
-		if (auto playerController = GetController<APlayerController>()) {
-			playerController->SetViewTargetWithBlend(cameraActor, 0);
+		if (ACameraActor* cameraActor = GetWorld()->SpawnActor<ACameraActor>(CameraActorClass, cameraLocation, cameraRotation))
+		{
+			cameraActor->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+
+			if (APlayerController* playerController = GetController<APlayerController>())
+			{
+				playerController->SetViewTargetWithBlend(cameraActor, 0);
+			}
 		}
 	}
 }
 
 void ABasicCharacter::OnFirePressed() {
+	if (ProjectileClass) {
 
+		const FVector selfLocation = GetActorLocation();
+		const FVector spawnLocation = selfLocation + FireOffset;
+
+		if (AActor* projectile = GetWorld()->SpawnActor<AActor>(ProjectileClass, spawnLocation, FRotator::ZeroRotator))
+		{
+
+		}
+	}
 }
 
 void ABasicCharacter::OnFireReleased() {
