@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "BasicCharacter.h"
+#include "Camera/CameraActor.h"
+#include "GameFramework/PlayerController.h"
 
 // Sets default values
 ABasicCharacter::ABasicCharacter()
@@ -16,6 +17,24 @@ void ABasicCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	SetupCamera();
+}
+
+void ABasicCharacter::SetupCamera() {
+	if (CameraActorClass)
+	{
+		const FVector selfLocation = GetActorLocation();
+		const FVector cameraLocation = selfLocation + CameraOffset;
+
+		FRotator cameraRotation = (selfLocation - cameraLocation).Rotation();
+
+		auto cameraActor = GetWorld()->SpawnActor<ACameraActor>(CameraActorClass);
+		cameraActor->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+		
+		if (auto playerController = GetController<APlayerController>()) {
+			playerController->SetViewTargetWithBlend(cameraActor, 0);
+		}
+	}
 }
 
 // Called every frame
@@ -31,4 +50,3 @@ void ABasicCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
-
