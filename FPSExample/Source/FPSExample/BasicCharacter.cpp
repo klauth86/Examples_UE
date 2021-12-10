@@ -3,16 +3,24 @@
 #include "BasicCharacter.h"
 #include "Camera/CameraActor.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
 
-// Sets default values
 ABasicCharacter::ABasicCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	RotationRate = 120;
 }
 
-// Called when the game starts or when spawned
+void ABasicCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABasicCharacter::OnFirePressed);
+	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ABasicCharacter::OnFireReleased);
+
+	PlayerInputComponent->BindAxis("MoveRight", this, &ABasicCharacter::OnMoveRight);
+	PlayerInputComponent->BindAxis("MoveUp", this, &ABasicCharacter::OnMoveUp);
+}
+
 void ABasicCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -28,7 +36,7 @@ void ABasicCharacter::SetupCamera() {
 
 		FRotator cameraRotation = (selfLocation - cameraLocation).Rotation();
 
-		auto cameraActor = GetWorld()->SpawnActor<ACameraActor>(CameraActorClass);
+		auto cameraActor = GetWorld()->SpawnActor<ACameraActor>(CameraActorClass, cameraLocation, cameraRotation);
 		cameraActor->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 		
 		if (auto playerController = GetController<APlayerController>()) {
@@ -37,16 +45,20 @@ void ABasicCharacter::SetupCamera() {
 	}
 }
 
-// Called every frame
-void ABasicCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+void ABasicCharacter::OnFirePressed() {
 
 }
 
-// Called to bind functionality to input
-void ABasicCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+void ABasicCharacter::OnFireReleased() {
 
+}
+
+void ABasicCharacter::OnMoveRight(float value)
+{
+	AddControllerYawInput(value * RotationRate * GetWorld()->GetDeltaSeconds());
+}
+
+void ABasicCharacter::OnMoveUp(float value)
+{
+	AddMovementInput(GetActorForwardVector() * value);
 }

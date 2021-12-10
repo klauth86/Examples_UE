@@ -13,22 +13,24 @@ class FPSEXAMPLE_API ABasicCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+
 	ABasicCharacter();
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
 
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void SetupCamera();
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	void OnFirePressed();
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void OnFireReleased();
+
+	void OnMoveRight(float value);
+
+	void OnMoveUp(float value);
 
 protected:
 
@@ -37,4 +39,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Camera", Meta = (MakeEditWidget = true))
 		FVector CameraOffset;
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+		float RotationRate;
 };
