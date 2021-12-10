@@ -5,6 +5,8 @@
 #include "GameFramework/Actor.h"
 #include "BasicProjectile.generated.h"
 
+class USphereComponent;
+
 UCLASS()
 class FPSEXAMPLE_API ABasicProjectile : public AActor
 {
@@ -26,4 +28,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Projectile")
 		float Velocity;
+
+	UPROPERTY(VisibleAnywhere, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
+		USphereComponent* SphereComponent;
 };
