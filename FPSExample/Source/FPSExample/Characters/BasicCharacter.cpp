@@ -11,14 +11,15 @@
 
 ABasicCharacter::ABasicCharacter()
 {
-	UAISenseConfig_Sight senseConfig;
-	senseConfig.SightRadius = 750;
-	senseConfig.LoseSightRadius = 1200;
-	senseConfig.PeripheralVisionAngleDegrees = 60;
+	UAISenseConfig_Sight* senseConfig = NewObject<UAISenseConfig_Sight>(this, UAISenseConfig_Sight::StaticClass(), TEXT("UAISenseConfig_Sight"));
+	senseConfig->SightRadius = 750;
+	senseConfig->LoseSightRadius = 1200;
+	senseConfig->PeripheralVisionAngleDegrees = 60;
 
 	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>("AIPerceptionComponent");
-	AIPerceptionComponent->ConfigureSense(senseConfig);
-	
+	AIPerceptionComponent->ConfigureSense(*senseConfig);
+	AIPerceptionComponent->SetDominantSense(UAISenseConfig_Sight::StaticClass());
+
 	AIPerceptionStimuliSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AIPerceptionStimuliSourceComponent");
 	AIPerceptionStimuliSourceComponent->RegisterForSense(UAISenseConfig_Sight::StaticClass());
 
