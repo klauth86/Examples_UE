@@ -4,6 +4,7 @@
 #include "Camera/CameraActor.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
+#include "BasicProjectile.h"
 
 ABasicCharacter::ABasicCharacter()
 {
@@ -54,9 +55,9 @@ void ABasicCharacter::OnFirePressed() {
 		const FVector selfLocation = GetActorLocation();
 		const FVector spawnLocation = selfLocation + FireOffset;
 
-		if (AActor* projectile = GetWorld()->SpawnActor<AActor>(ProjectileClass, spawnLocation, FRotator::ZeroRotator))
+		if (ABasicProjectile* projectile = GetWorld()->SpawnActor<ABasicProjectile>(ProjectileClass, spawnLocation, FRotator::ZeroRotator))
 		{
-
+			projectile->Launch(GetActorForwardVector());
 		}
 	}
 }

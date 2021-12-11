@@ -5,6 +5,7 @@
 #include "GameFramework/Character.h"
 #include "BasicCharacter.generated.h"
 
+class ABasicProjectile;
 class ACameraActor;
 
 UCLASS()
@@ -41,7 +42,7 @@ protected:
 		FVector CameraOffset;
 
 	UPROPERTY(EditAnywhere, Category = "Fire")
-		TSubclassOf<AActor> ProjectileClass;
+		TSubclassOf<ABasicProjectile> ProjectileClass;
 
 	UPROPERTY(EditAnywhere, Category = "Fire", Meta = (MakeEditWidget = true))
 		FVector FireOffset;
