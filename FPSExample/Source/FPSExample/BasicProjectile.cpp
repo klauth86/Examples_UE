@@ -10,7 +10,7 @@ ABasicProjectile::ABasicProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 	SetActorTickEnabled(false);
 
-	Velocity = 400;
+	Velocity = 1000;
 	RechargeTime = 1;
 }
 
