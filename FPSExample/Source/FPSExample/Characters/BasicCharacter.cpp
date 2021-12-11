@@ -8,6 +8,8 @@
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
 
+FName ABasicCharacter::PlayerTag = FName("Player");
+
 ABasicCharacter::ABasicCharacter()
 {
 	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>("AIPerceptionComponent");

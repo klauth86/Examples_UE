@@ -20,6 +20,8 @@ class FPSEXAMPLE_API ABasicCharacter : public ACharacter
 
 public:
 
+	static FName PlayerTag;
+
 	ABasicCharacter();
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
