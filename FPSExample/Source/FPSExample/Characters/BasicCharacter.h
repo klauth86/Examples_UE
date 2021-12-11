@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Character.h"
+#include "Perception/AIPerceptionTypes.h"
 #include "BasicCharacter.generated.h"
 
 class ABasicProjectile;
@@ -37,6 +38,12 @@ protected:
 	void OnMoveRight(float value);
 
 	void OnMoveUp(float value);
+
+	void OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors);
+	
+	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
+	
+	void OnTargetPerceptionInfoUpdated(AActor* Actor, FAIStimulus Stimulus);
 
 protected:
 
