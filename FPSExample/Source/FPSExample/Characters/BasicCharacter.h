@@ -8,6 +8,9 @@
 class ABasicProjectile;
 class ACameraActor;
 
+class UAIPerceptionComponent;
+class UAIPerceptionStimuliSourceComponent;
+
 UCLASS()
 class FPSEXAMPLE_API ABasicCharacter : public ACharacter
 {
@@ -36,6 +39,12 @@ protected:
 	void OnMoveUp(float value);
 
 protected:
+
+	UPROPERTY(VisibleAnywhere, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
+		UAIPerceptionComponent* AIPerceptionComponent;
+
+	UPROPERTY(VisibleAnywhere, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
+		UAIPerceptionStimuliSourceComponent* AIPerceptionStimuliSourceComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 		TSubclassOf<ACameraActor> CameraActorClass;

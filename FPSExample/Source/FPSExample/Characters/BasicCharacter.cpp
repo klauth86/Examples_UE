@@ -5,9 +5,23 @@
 #include "Camera/CameraActor.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
+#include "Perception/AIPerceptionComponent.h"
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "Perception/AISenseConfig_Sight.h"
 
 ABasicCharacter::ABasicCharacter()
 {
+	UAISenseConfig_Sight senseConfig;
+	senseConfig.SightRadius = 750;
+	senseConfig.LoseSightRadius = 1200;
+	senseConfig.PeripheralVisionAngleDegrees = 60;
+
+	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>("AIPerceptionComponent");
+	AIPerceptionComponent->ConfigureSense(senseConfig);
+	
+	AIPerceptionStimuliSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AIPerceptionStimuliSourceComponent");
+	AIPerceptionStimuliSourceComponent->RegisterForSense(UAISenseConfig_Sight::StaticClass());
+
 	RotationRate = 120;
 	CanFire = true;
 	SetCanBeDamaged(true);
