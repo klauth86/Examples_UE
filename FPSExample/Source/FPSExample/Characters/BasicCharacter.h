@@ -28,6 +28,8 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
+	bool CanFire() const { return bCanFire; }
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -72,7 +74,7 @@ protected:
 		FVector FireOffset;
 
 	UPROPERTY(EditAnywhere, Category = "Fire")
-		uint8 CanFire : 1;
+		uint8 bCanFire : 1;
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 		float RotationRate;

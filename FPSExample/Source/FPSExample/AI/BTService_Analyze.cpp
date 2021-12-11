@@ -12,7 +12,9 @@ void UBTService_Analyze::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* Node
 	{
 		if (ABasicCharacter* self = Cast<ABasicCharacter>(bb->GetValueAsObject(BK_SelfActor.SelectedKeyName)))
 		{
-
+			if (self->CanFire()) {
+			
+			}
 		}
 	}
 }

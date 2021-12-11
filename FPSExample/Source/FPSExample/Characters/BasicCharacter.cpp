@@ -20,7 +20,7 @@ ABasicCharacter::ABasicCharacter()
 	AIPerceptionStimuliSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AIPerceptionStimuliSourceComponent");
 
 	RotationRate = 120;
-	CanFire = true;
+	bCanFire = true;
 	SetCanBeDamaged(true);
 }
 
@@ -68,7 +68,7 @@ void ABasicCharacter::SetupCamera() {
 }
 
 void ABasicCharacter::OnFirePressed() {
-	if (CanFire && ProjectileClass) {
+	if (bCanFire && ProjectileClass) {
 
 		FVector projectileOrigin;
 		FVector projectileBounds;
@@ -84,7 +84,7 @@ void ABasicCharacter::OnFirePressed() {
 		{
 			projectile->Launch(this, GetActorForwardVector());
 
-			CanFire = false;
+			bCanFire = false;
 
 			TWeakObjectPtr<ABasicCharacter> characterPtr = this;
 
