@@ -89,7 +89,7 @@ void ABasicCharacter::OnFirePressed() {
 			TWeakObjectPtr<ABasicCharacter> characterPtr = this;
 
 			FTimerHandle timerHandle;
-			world->GetTimerManager().SetTimer(timerHandle, [characterPtr]() { if (ABasicCharacter* character = characterPtr.Get()) character->CanFire = true; }, defaultProjectile->GetRechargeTime(), false);
+			world->GetTimerManager().SetTimer(timerHandle, [characterPtr]() { if (ABasicCharacter* character = characterPtr.Get()) character->bCanFire = true; }, defaultProjectile->GetRechargeTime(), false);
 		}
 	}
 }

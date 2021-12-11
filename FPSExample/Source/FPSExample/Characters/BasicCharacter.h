@@ -30,6 +30,8 @@ public:
 
 	bool CanFire() const { return bCanFire; }
 
+	const TSubclassOf<ABasicProjectile>& GetProjectileClass() const { return ProjectileClass; }
+
 protected:
 
 	virtual void BeginPlay() override;
