@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "BasicCharacter.h"
+#include "Characters/BasicCharacter.h"
+#include "Projectiles/BasicProjectile.h"
 #include "Camera/CameraActor.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
-#include "BasicProjectile.h"
 
 ABasicCharacter::ABasicCharacter()
 {
