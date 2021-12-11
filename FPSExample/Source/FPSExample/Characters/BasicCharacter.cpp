@@ -24,6 +24,11 @@ void ABasicCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis("MoveUp", this, &ABasicCharacter::OnMoveUp);
 }
 
+float ABasicCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) {
+	Destroy();
+	return DamageAmount;
+}
+
 void ABasicCharacter::BeginPlay()
 {
 	Super::BeginPlay();
