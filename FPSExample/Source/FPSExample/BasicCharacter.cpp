@@ -52,8 +52,12 @@ void ABasicCharacter::SetupCamera() {
 void ABasicCharacter::OnFirePressed() {
 	if (ProjectileClass) {
 
+		FVector projectileOrigin;
+		FVector projectileBounds;
+		ProjectileClass->GetDefaultObject<ABasicProjectile>()->GetActorBounds(false, projectileOrigin , projectileBounds);
+		
 		const FVector selfLocation = GetActorLocation();
-		const FVector spawnLocation = selfLocation + FireOffset;
+		const FVector spawnLocation = selfLocation + GetActorRotation().RotateVector(FireOffset) + FVector(projectileBounds.X / 2, 0, 0);
 
 		if (ABasicProjectile* projectile = GetWorld()->SpawnActor<ABasicProjectile>(ProjectileClass, spawnLocation, FRotator::ZeroRotator))
 		{
