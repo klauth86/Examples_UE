@@ -5,27 +5,17 @@
 #include "Camera/CameraActor.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
-#include "Perception/AIPerceptionComponent.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
 
 ABasicCharacter::ABasicCharacter()
 {
-	UAISenseConfig_Sight* senseConfig = NewObject<UAISenseConfig_Sight>(this, UAISenseConfig_Sight::StaticClass(), TEXT("UAISenseConfig_Sight"));
-	senseConfig->SightRadius = 750;
-	senseConfig->LoseSightRadius = 1000;
-	senseConfig->PeripheralVisionAngleDegrees = 30;
-	senseConfig->SetMaxAge(3);
-
 	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>("AIPerceptionComponent");
-	AIPerceptionComponent->ConfigureSense(*senseConfig);
-	AIPerceptionComponent->SetDominantSense(UAISenseConfig_Sight::StaticClass());
 	AIPerceptionComponent->OnPerceptionUpdated.AddDynamic(this, &ABasicCharacter::OnPerceptionUpdated);
 	AIPerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &ABasicCharacter::OnTargetPerceptionUpdated);
 	AIPerceptionComponent->OnTargetPerceptionInfoUpdated.AddDynamic(this, &ABasicCharacter::OnTargetPerceptionInfoUpdated);
 
 	AIPerceptionStimuliSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AIPerceptionStimuliSourceComponent");
-	AIPerceptionStimuliSourceComponent->RegisterForSense(UAISenseConfig_Sight::StaticClass());
 
 	RotationRate = 120;
 	CanFire = true;
@@ -116,14 +106,17 @@ void ABasicCharacter::OnMoveUp(float value)
 	AddMovementInput(GetActorForwardVector() * value);
 }
 
-void ABasicCharacter::OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors) {
+void ABasicCharacter::OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors)
+{
 	UE_LOG(LogTemp, Warning, TEXT("$$$ OnPerceptionUpdated %d"), UpdatedActors.Num())
 }
 
-void ABasicCharacter::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus) {
+void ABasicCharacter::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
+{
 	UE_LOG(LogTemp, Warning, TEXT("$$$ OnTargetPerceptionUpdated %s"), *Actor->GetName())
 }
 
-void ABasicCharacter::OnTargetPerceptionInfoUpdated(AActor* Actor, FAIStimulus Stimulus) {
-	UE_LOG(LogTemp, Warning, TEXT("$$$ OnTargetPerceptionInfoUpdated %s"), *Actor->GetName())
+void ABasicCharacter::OnTargetPerceptionInfoUpdated(const FActorPerceptionUpdateInfo& UpdateInfo)
+{
+	UE_LOG(LogTemp, Warning, TEXT("$$$ OnTargetPerceptionInfoUpdated %s"), UpdateInfo.Target.Get() ? *UpdateInfo.Target.Get()->GetName() : *FString("NULL"))
 }

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Character.h"
+#include "Perception/AIPerceptionComponent.h"
 #include "Perception/AIPerceptionTypes.h"
 #include "BasicCharacter.generated.h"
 
@@ -39,11 +40,14 @@ protected:
 
 	void OnMoveUp(float value);
 
+	UFUNCTION()
 	void OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors);
 	
+	UFUNCTION()
 	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 	
-	void OnTargetPerceptionInfoUpdated(AActor* Actor, FAIStimulus Stimulus);
+	UFUNCTION()
+	void OnTargetPerceptionInfoUpdated(const FActorPerceptionUpdateInfo& UpdateInfo);
 
 protected:
 
