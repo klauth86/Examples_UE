@@ -47,6 +47,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Fire", Meta = (MakeEditWidget = true))
 		FVector FireOffset;
 
+	UPROPERTY(EditAnywhere, Category = "Fire")
+		uint8 CanFire : 1;
+
 	UPROPERTY(EditAnywhere, Category = "Movement")
 		float RotationRate;
 };

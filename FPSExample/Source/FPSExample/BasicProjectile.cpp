@@ -9,6 +9,9 @@ ABasicProjectile::ABasicProjectile()
 
 	PrimaryActorTick.bCanEverTick = true;
 	SetActorTickEnabled(false);
+
+	Velocity = 400;
+	RechargeTime = 1;
 }
 
 void ABasicProjectile::Launch(FVector direction)
