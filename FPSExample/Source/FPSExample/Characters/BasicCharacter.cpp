@@ -71,7 +71,7 @@ void ABasicCharacter::OnFirePressed() {
 
 		if (ABasicProjectile* projectile = world->SpawnActor<ABasicProjectile>(ProjectileClass, spawnLocation, FRotator::ZeroRotator))
 		{
-			projectile->Launch(GetActorForwardVector());
+			projectile->Launch(this, GetActorForwardVector());
 
 			CanFire = false;
 

@@ -18,16 +18,18 @@ public:
 
 public:
 
-	void Launch(FVector direction);
+	void Launch(AActor* actor, FVector direction);
 
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-	void OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+		void OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 	float GetRechargeTime() const { return RechargeTime; }
 
 protected:
+
+	TWeakObjectPtr<AActor> OwnerPtr;
 
 	FVector Direction;
 
@@ -36,6 +38,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Projectile")
 		float RechargeTime;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+		float Range;
 
 	UPROPERTY(VisibleAnywhere, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
 		USphereComponent* SphereComponent;
