@@ -10,6 +10,7 @@ ABasicCharacter::ABasicCharacter()
 {
 	RotationRate = 120;
 	CanFire = true;
+	SetCanBeDamaged(true);
 }
 
 void ABasicCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
