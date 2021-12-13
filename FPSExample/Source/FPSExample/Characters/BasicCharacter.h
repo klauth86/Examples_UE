@@ -36,15 +36,17 @@ public:
 
 	float GetRotationRate() const { return RotationRate; }
 
+	void Fire();
+
 protected:
 
 	virtual void BeginPlay() override;
 
 	void SetupCamera();
 
-	void OnFirePressed();
+	void OnFirePressed() { Fire(); }
 
-	void OnFireReleased();
+	void OnFireReleased() {}
 
 	void OnMoveRight(float value);
 

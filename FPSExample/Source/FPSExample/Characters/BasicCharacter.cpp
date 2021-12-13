@@ -40,6 +40,35 @@ float ABasicCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const&
 	return DamageAmount;
 }
 
+void ABasicCharacter::Fire()
+{
+	if (bCanFire && ProjectileClass)
+	{
+
+		FVector projectileOrigin;
+		FVector projectileBounds;
+		ABasicProjectile* defaultProjectile = ProjectileClass->GetDefaultObject<ABasicProjectile>();
+		defaultProjectile->GetActorBounds(false, projectileOrigin, projectileBounds);
+
+		const FVector selfLocation = GetActorLocation();
+		const FVector spawnLocation = selfLocation + GetActorRotation().RotateVector(FireOffset) + FVector(projectileBounds.X / 2, 0, 0);
+
+		UWorld* world = GetWorld();
+
+		if (ABasicProjectile* projectile = world->SpawnActor<ABasicProjectile>(ProjectileClass, spawnLocation, FRotator::ZeroRotator))
+		{
+			projectile->Launch(this, GetActorForwardVector());
+
+			bCanFire = false;
+
+			TWeakObjectPtr<ABasicCharacter> characterPtr = this;
+
+			FTimerHandle timerHandle;
+			world->GetTimerManager().SetTimer(timerHandle, [characterPtr]() { if (ABasicCharacter* character = characterPtr.Get()) character->bCanFire = true; }, defaultProjectile->GetRechargeTime(), false);
+		}
+	}
+}
+
 void ABasicCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -65,37 +94,6 @@ void ABasicCharacter::SetupCamera() {
 			}
 		}
 	}
-}
-
-void ABasicCharacter::OnFirePressed() {
-	if (bCanFire && ProjectileClass) {
-
-		FVector projectileOrigin;
-		FVector projectileBounds;
-		ABasicProjectile* defaultProjectile = ProjectileClass->GetDefaultObject<ABasicProjectile>();
-		defaultProjectile->GetActorBounds(false, projectileOrigin , projectileBounds);
-		
-		const FVector selfLocation = GetActorLocation();
-		const FVector spawnLocation = selfLocation + GetActorRotation().RotateVector(FireOffset) + FVector(projectileBounds.X / 2, 0, 0);
-
-		UWorld* world = GetWorld();
-
-		if (ABasicProjectile* projectile = world->SpawnActor<ABasicProjectile>(ProjectileClass, spawnLocation, FRotator::ZeroRotator))
-		{
-			projectile->Launch(this, GetActorForwardVector());
-
-			bCanFire = false;
-
-			TWeakObjectPtr<ABasicCharacter> characterPtr = this;
-
-			FTimerHandle timerHandle;
-			world->GetTimerManager().SetTimer(timerHandle, [characterPtr]() { if (ABasicCharacter* character = characterPtr.Get()) character->bCanFire = true; }, defaultProjectile->GetRechargeTime(), false);
-		}
-	}
-}
-
-void ABasicCharacter::OnFireReleased() {
-
 }
 
 void ABasicCharacter::OnMoveRight(float value)
