@@ -16,7 +16,7 @@ void UEnvQueryContext_Target::ProvideContext(FEnvQueryInstance& QueryInstance, F
 	ContextData.RawData.SetNumUninitialized(sizeof(FWeakObjectPtr));
 
 	AAIController* controller = PawnOwner->GetController<AAIController>();
-	AActor* target = Cast<AActor>(controller->GetBlackboardComponent()->GetValueAsObject(FName("Target")))
+	AActor* target = Cast<AActor>(controller->GetBlackboardComponent()->GetValueAsObject(FName("Target")));
 
 	UEnvQueryItemType_Actor::SetValue(ContextData.RawData.GetData(), target);
 }
