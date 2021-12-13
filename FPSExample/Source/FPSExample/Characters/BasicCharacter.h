@@ -60,6 +60,9 @@ protected:
 	UFUNCTION()
 		void OnTargetPerceptionInfoUpdated(const FActorPerceptionUpdateInfo& UpdateInfo);
 
+	UFUNCTION(BlueprintCallable)
+		void Test();
+
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Projectile", meta = (AllowPrivateAccess = "true"))

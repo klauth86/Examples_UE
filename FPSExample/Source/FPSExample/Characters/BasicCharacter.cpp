@@ -120,3 +120,10 @@ void ABasicCharacter::OnTargetPerceptionInfoUpdated(const FActorPerceptionUpdate
 {
 	UE_LOG(LogTemp, Warning, TEXT("$$$ OnTargetPerceptionInfoUpdated %s"), UpdateInfo.Target.Get() ? *UpdateInfo.Target.Get()->GetName() : *FString("NULL"))
 }
+
+void ABasicCharacter::Test() {
+	TArray<AActor*> perceivedActors;
+	auto aipComponent = GetAIPerceptionComponent();
+
+	aipComponent->GetCurrentlyPerceivedActors(nullptr, perceivedActors);
+}
