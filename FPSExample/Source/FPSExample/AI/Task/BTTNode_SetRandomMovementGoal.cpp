@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AI/BTTNode_SetRandomMovementGoal.h"
+#include "AI/Task/BTTNode_SetRandomMovementGoal.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Characters/BasicCharacter.h"
 #include "NavigationSystem.h"
