@@ -12,4 +12,6 @@ EBTNodeResult::Type UBTTNode_Fire::ExecuteTask(UBehaviorTreeComponent& OwnerComp
 			self->Fire();
 		}
 	}
+
+	return EBTNodeResult::Type::Succeeded;
 }
