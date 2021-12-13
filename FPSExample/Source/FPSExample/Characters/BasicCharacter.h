@@ -4,7 +4,6 @@
 
 #include "GameFramework/Character.h"
 #include "Perception/AIPerceptionComponent.h"
-#include "Perception/AIPerceptionTypes.h"
 #include "BasicCharacter.generated.h"
 
 class ABasicProjectile;

@@ -20,7 +20,7 @@ public:
 
 protected:
 
-	EBTNodeResult::Type ExecuteTask_Internal(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds);
+	EBTNodeResult::Type AimAtTarget(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds);
 
 protected:
 

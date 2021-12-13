@@ -5,6 +5,11 @@
 #include "Characters/BasicCharacter.h"
 #include "NavigationSystem.h"
 
+UBTTNode_SetRandomMovementGoal::UBTTNode_SetRandomMovementGoal()
+{
+	Radius = 400;
+}
+
 EBTNodeResult::Type UBTTNode_SetRandomMovementGoal::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	if (UBlackboardComponent* bb = OwnerComp.GetBlackboardComponent())
@@ -16,7 +21,7 @@ EBTNodeResult::Type UBTTNode_SetRandomMovementGoal::ExecuteTask(UBehaviorTreeCom
 			UWorld* world = self->GetWorld();
 			if (UNavigationSystemV1* navSys = Cast<UNavigationSystemV1>(world->GetNavigationSystem()))
 			{
-				FVector result = navSys->GetRandomReachablePointInRadius(world, self->GetActorLocation(), 200.f);
+				FVector result = navSys->GetRandomReachablePointInRadius(world, self->GetActorLocation(), Radius);
 				bb->SetValueAsVector(BK_MovementGoal.SelectedKeyName, result);
 			}
 		}

@@ -11,10 +11,14 @@ class FPSEXAMPLE_API UBTTNode_SetRandomMovementGoal : public UBTTaskNode
 	GENERATED_BODY()
 
 public:
+	UBTTNode_SetRandomMovementGoal();
 
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
 protected:
+
+	UPROPERTY(EditAnywhere, Category = Blackboard)
+		float Radius;
 
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 		struct FBlackboardKeySelector BK_SelfActor;

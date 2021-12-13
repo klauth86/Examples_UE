@@ -9,18 +9,18 @@ UBTTNode_AimAtTarget::UBTTNode_AimAtTarget() {
 }
 
 EBTNodeResult::Type UBTTNode_AimAtTarget::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) {
-	return ExecuteTask_Internal(OwnerComp, NodeMemory, 0);
+	return AimAtTarget(OwnerComp, NodeMemory, 0);
 }
 
 void UBTTNode_AimAtTarget::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) {
 	UBTTaskNode::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
 
-	EBTNodeResult::Type result = ExecuteTask_Internal(OwnerComp, NodeMemory, DeltaSeconds);
+	EBTNodeResult::Type result = AimAtTarget(OwnerComp, NodeMemory, DeltaSeconds);
 	
 	if (result != EBTNodeResult::Type::InProgress) FinishLatentTask(OwnerComp, result);
 }
 
-EBTNodeResult::Type UBTTNode_AimAtTarget::ExecuteTask_Internal(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+EBTNodeResult::Type UBTTNode_AimAtTarget::AimAtTarget(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 
 	if (UBlackboardComponent* bb = OwnerComp.GetBlackboardComponent())
