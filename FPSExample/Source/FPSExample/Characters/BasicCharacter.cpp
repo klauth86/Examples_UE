@@ -78,7 +78,7 @@ void ABasicCharacter::OnFirePressed() {
 		const FVector selfLocation = GetActorLocation();
 		const FVector spawnLocation = selfLocation + GetActorRotation().RotateVector(FireOffset) + FVector(projectileBounds.X / 2, 0, 0);
 
-		auto world = GetWorld();
+		UWorld* world = GetWorld();
 
 		if (ABasicProjectile* projectile = world->SpawnActor<ABasicProjectile>(ProjectileClass, spawnLocation, FRotator::ZeroRotator))
 		{

@@ -44,7 +44,7 @@ void ABasicProjectile::Tick(float DeltaTime)
 		return;
 	}
 
-	auto deltaLocation = Direction * deltaPath;
+	FVector deltaLocation = Direction * deltaPath;
 
 	SphereComponent->MoveComponent(deltaLocation, GetActorRotation(), true);
 }

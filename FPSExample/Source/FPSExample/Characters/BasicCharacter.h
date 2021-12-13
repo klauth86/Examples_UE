@@ -34,6 +34,8 @@ public:
 
 	UAIPerceptionComponent* GetAIPerceptionComponent() const { return AIPerceptionComponent; }
 
+	float GetRotationRate() const { return RotationRate; }
+
 protected:
 
 	virtual void BeginPlay() override;
