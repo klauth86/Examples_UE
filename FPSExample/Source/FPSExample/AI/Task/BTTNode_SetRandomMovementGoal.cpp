@@ -14,15 +14,17 @@ EBTNodeResult::Type UBTTNode_SetRandomMovementGoal::ExecuteTask(UBehaviorTreeCom
 {
 	if (UBlackboardComponent* bb = OwnerComp.GetBlackboardComponent())
 	{
-		bb->SetValueAsVector(BK_MovementGoal.SelectedKeyName, FVector::ZeroVector);
+		bb->ClearValue(BK_MovementGoal.SelectedKeyName);
 
 		if (ABasicCharacter* self = Cast<ABasicCharacter>(bb->GetValueAsObject(BK_SelfActor.SelectedKeyName)))
 		{
 			UWorld* world = self->GetWorld();
 			if (UNavigationSystemV1* navSys = Cast<UNavigationSystemV1>(world->GetNavigationSystem()))
 			{
-				FVector result = navSys->GetRandomReachablePointInRadius(world, self->GetActorLocation(), Radius);
-				bb->SetValueAsVector(BK_MovementGoal.SelectedKeyName, result);
+				FNavLocation navLocation;
+				if (navSys->GetRandomReachablePointInRadius(self->GetActorLocation(), Radius, navLocation)) {
+					bb->SetValueAsVector(BK_MovementGoal.SelectedKeyName, navLocation.Location);
+				}
 			}
 		}
 	}
