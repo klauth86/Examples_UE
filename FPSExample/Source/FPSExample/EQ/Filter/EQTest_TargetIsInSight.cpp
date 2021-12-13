@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "EQ/Filter/EQTest_TargetIsInSight.h"
+#include "EnvironmentQuery/Items/EnvQueryItemType_Actor.h"
+#include "Characters/BasicCharacter.h"
 
 void UEQTest_TargetIsInSight::RunTest(FEnvQueryInstance& QueryInstance) const
 {
@@ -16,7 +18,7 @@ void UEQTest_TargetIsInSight::RunTest(FEnvQueryInstance& QueryInstance) const
 		return;
 	}
 
-	ContextData.RawData.GetData();
+	ABasicCharacter* characterOwner = Cast<ABasicCharacter>(UEnvQueryItemType_Actor::GetValue(ContextData.RawData.GetData()));
 
 	for (FEnvQueryInstance::ItemIterator It(this, QueryInstance); It; ++It)
 	{
