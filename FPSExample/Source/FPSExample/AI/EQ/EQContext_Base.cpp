@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "EQ/EQContext_Base.h"
+#include "AI/EQ/EQContext_Base.h"
 #include "EnvironmentQuery/Items/EnvQueryItemType_Actor.h"
 #include "EnvironmentQuery/EnvQueryTypes.h"
 

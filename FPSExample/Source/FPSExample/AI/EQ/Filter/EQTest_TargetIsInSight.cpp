@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "EQ/Filter/EQTest_TargetIsInSight.h"
+#include "AI/EQ/Filter/EQTest_TargetIsInSight.h"
 #include "EnvironmentQuery/Items/EnvQueryItemType_Actor.h"
 #include "Characters/BasicCharacter.h"
 
