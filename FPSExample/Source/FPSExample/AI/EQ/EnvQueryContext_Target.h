@@ -3,10 +3,10 @@
 #pragma once
 
 #include "EnvironmentQuery/EnvQueryContext.h"
-#include "EQContext_Base.generated.h"
+#include "EnvQueryContext_Target.generated.h"
 
 UCLASS()
-class FPSEXAMPLE_API UEQContext_Base : public UEnvQueryContext
+class FPSEXAMPLE_API UEnvQueryContext_Target : public UEnvQueryContext
 {
 	GENERATED_BODY()
 	
