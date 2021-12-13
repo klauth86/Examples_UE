@@ -8,6 +8,5 @@
 UCLASS()
 class FPSEXAMPLE_API AFPSExampleGameModeBase : public AGameModeBase
 {
-	GENERATED_BODY()
-	
+	GENERATED_BODY()	
 };
