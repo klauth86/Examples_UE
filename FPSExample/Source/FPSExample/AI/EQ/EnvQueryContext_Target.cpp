@@ -5,6 +5,7 @@
 #include "EnvironmentQuery/EnvQueryTypes.h"
 #include "GameFramework/Pawn.h"
 #include "AIController.h"
+#include "BehaviorTree/BlackboardComponent.h"
 
 void UEnvQueryContext_Target::ProvideContext(FEnvQueryInstance& QueryInstance, FEnvQueryContextData& ContextData) const
 {
@@ -15,7 +16,7 @@ void UEnvQueryContext_Target::ProvideContext(FEnvQueryInstance& QueryInstance, F
 	ContextData.RawData.SetNumUninitialized(sizeof(FWeakObjectPtr));
 
 	AAIController* controller = PawnOwner->GetController<AAIController>();
-	//controller->
+	AActor* target = Cast<AActor>(controller->GetBlackboardComponent()->GetValueAsObject(FName("Target")))
 
-	UEnvQueryItemType_Actor::SetValue(ContextData.RawData.GetData(), PawnOwner);
+	UEnvQueryItemType_Actor::SetValue(ContextData.RawData.GetData(), target);
 }

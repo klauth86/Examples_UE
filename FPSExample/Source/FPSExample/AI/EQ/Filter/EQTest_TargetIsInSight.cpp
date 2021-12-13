@@ -13,12 +13,12 @@ void UEQTest_TargetIsInSight::RunTest(FEnvQueryInstance& QueryInstance) const
 	}
 
 	FEnvQueryContextData ContextData;
-	if (!QueryInstance.PrepareContext(ContextClass, ContextData))
+	if (!QueryInstance.PrepareContext(Target, ContextData))
 	{
 		return;
 	}
 
-	ABasicCharacter* characterOwner = Cast<ABasicCharacter>(UEnvQueryItemType_Actor::GetValue(ContextData.RawData.GetData()));
+	ABasicCharacter* target = Cast<ABasicCharacter>(UEnvQueryItemType_Actor::GetValue(ContextData.RawData.GetData()));
 
 	for (FEnvQueryInstance::ItemIterator It(this, QueryInstance); It; ++It)
 	{
