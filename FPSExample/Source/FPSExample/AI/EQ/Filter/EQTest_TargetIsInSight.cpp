@@ -12,7 +12,7 @@ void UEQTest_TargetIsInSight::RunTest(FEnvQueryInstance& QueryInstance) const
 		return;
 	}
 
-	FEnvQueryContext_TargetData ContextData;
+	FEnvQueryContextData ContextData;
 	if (!QueryInstance.PrepareContext(ContextClass, ContextData))
 	{
 		return;
