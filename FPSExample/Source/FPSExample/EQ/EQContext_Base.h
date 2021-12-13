@@ -10,4 +10,5 @@ class FPSEXAMPLE_API UEQContext_Base : public UEnvQueryContext
 {
 	GENERATED_BODY()
 	
+	virtual void ProvideContext(FEnvQueryInstance& QueryInstance, FEnvQueryContextData& ContextData) const;
 };

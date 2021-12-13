@@ -9,5 +9,11 @@ UCLASS()
 class FPSEXAMPLE_API UEQTest_TargetIsInSight : public UEnvQueryTest
 {
 	GENERATED_BODY()
-	
+
+public:
+
+	UPROPERTY(EditDefaultsOnly, Category = "Target Is In Sight")
+		TSubclassOf<UEnvQueryContext> ContextClass;
+
+	virtual void RunTest(FEnvQueryInstance& QueryInstance) const override;
 };
