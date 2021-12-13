@@ -32,6 +32,8 @@ public:
 
 	const TSubclassOf<ABasicProjectile>& GetProjectileClass() const { return ProjectileClass; }
 
+	UAIPerceptionComponent* GetAIPerceptionComponent() const { return AIPerceptionComponent; }
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -47,13 +49,13 @@ protected:
 	void OnMoveUp(float value);
 
 	UFUNCTION()
-	void OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors);
-	
+		void OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors);
+
 	UFUNCTION()
-	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
-	
+		void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
+
 	UFUNCTION()
-	void OnTargetPerceptionInfoUpdated(const FActorPerceptionUpdateInfo& UpdateInfo);
+		void OnTargetPerceptionInfoUpdated(const FActorPerceptionUpdateInfo& UpdateInfo);
 
 protected:
 

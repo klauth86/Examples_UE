@@ -21,7 +21,4 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 		struct FBlackboardKeySelector BK_Target;
-
-	UPROPERTY(EditAnywhere, Category = Blackboard)
-		struct FBlackboardKeySelector BK_State;
 };
