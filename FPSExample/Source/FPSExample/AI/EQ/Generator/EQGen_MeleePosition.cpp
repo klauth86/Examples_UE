@@ -31,7 +31,7 @@ void UEQGen_MeleePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 
 		const float range = querier->GetProjectileClass()->GetDefaultObject<ABasicProjectile>()->GetRange();
 		const FVector fireOffset = querier->GetFireOffset();
-		const float effectiveRange = range + fireOffset.Size2D();
+		const float effectiveRange = range + 2 * fireOffset.Size2D();
 
 		const FVector querierLocation = querier->GetActorLocation();
 		const FVector targetLocation = target->GetActorLocation();

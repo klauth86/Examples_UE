@@ -5,7 +5,7 @@
 #include "EnvironmentQuery/Generators/EnvQueryGenerator_ProjectedPoints.h"
 #include "EQGen_MeleePosition.generated.h"
 
-UCLASS()
+UCLASS(meta = (DisplayName = "Points: Melee Position"))
 class FPSEXAMPLE_API UEQGen_MeleePosition : public UEnvQueryGenerator_ProjectedPoints
 {
 	GENERATED_BODY()

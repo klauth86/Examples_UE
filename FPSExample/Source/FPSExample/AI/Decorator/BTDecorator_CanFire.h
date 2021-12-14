@@ -18,4 +18,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 		struct FBlackboardKeySelector BK_SelfActor;
+
+	UPROPERTY(EditAnywhere, Category = Blackboard)
+		struct FBlackboardKeySelector BK_Target;
 };
