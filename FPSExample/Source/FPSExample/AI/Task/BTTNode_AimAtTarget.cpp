@@ -39,7 +39,7 @@ EBTNodeResult::Type UBTTNode_AimAtTarget::AimAtTarget(UBehaviorTreeComponent& Ow
 			float rotRate = self->GetRotationRate();
 			float deltaYaw = FMath::Min(diffYaw, rotRate * DeltaSeconds);
 
-			self->AddControllerYawInput(deltaYaw);
+			self->AddActorWorldRotation(FRotator(0, deltaYaw, 0));
 
 			return EBTNodeResult::Type::InProgress;
 		}
