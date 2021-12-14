@@ -10,7 +10,7 @@
 #define LOCTEXT_NAMESPACE "EnvQueryGenerator"
 
 UEQGen_FirePosition::UEQGen_FirePosition() {
-	SpaceBetween = 100;
+	SpaceBetween.DefaultValue = 100.f;
 	Querier = UEnvQueryContext_Querier::StaticClass();
 	Target = UEnvQueryContext_Target::StaticClass();
 }
@@ -40,19 +40,22 @@ void UEQGen_FirePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 
 		const float distance = (querierLocation - targetLocation).Size2D();
 		const FVector direction = FVector(querierLocation.X - targetLocation.X, querierLocation.Y - targetLocation.Y, 0) / distance;
+		const FVector normal = FVector(-direction.Y, direction.X, 0);
 
 		const FVector centerLocation = (querierLocation + targetLocation) / 2;
 
 		float spaceBetweenValue = SpaceBetween.GetValue();
 
-		const int32 ItemCount = FPlatformMath::TruncToInt(((querierLocation - targetLocation).Size2D() / spaceBetweenValue) + 1);
+		const int32 ItemCount = FPlatformMath::TruncToInt((distance / spaceBetweenValue) + 1);
 		const int32 ItemCountHalf = ItemCount / 2;
 
-		for (size_t i = -ItemCountHalf; i < ItemCountHalf; i++)
+		UE_LOG(LogTemp, Warning, TEXT("!!! %d"), ItemCountHalf)
+
+		for (size_t i = -ItemCountHalf; i <= ItemCountHalf; i++)
 		{
-			for (size_t j = -ItemCountHalf; j < ItemCountHalf; j++)
+			for (size_t j = -ItemCountHalf; j <= ItemCountHalf; j++)
 			{
-				const FVector testLocation = centerLocation - FVector(spaceBetweenValue * i, spaceBetweenValue * j, 0);
+				const FVector testLocation = centerLocation + spaceBetweenValue * i * direction + spaceBetweenValue * j * normal;
 				if ((testLocation - targetLocation).SizeSquared2D() < rangeSquared) {
 					GridPoints.Add(FNavLocation(testLocation));
 				}

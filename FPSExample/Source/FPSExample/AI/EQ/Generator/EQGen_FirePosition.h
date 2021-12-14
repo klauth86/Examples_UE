@@ -6,7 +6,7 @@
 #include "DataProviders/AIDataProvider.h"
 #include "EQGen_FirePosition.generated.h"
 
-UCLASS()
+UCLASS(meta = (DisplayName = "Points: Fire Positions"))
 class FPSEXAMPLE_API UEQGen_FirePosition : public UEnvQueryGenerator_ProjectedPoints
 {
 	GENERATED_BODY()
@@ -15,7 +15,7 @@ public:
 
 	UEQGen_FirePosition();
 
-	UPROPERTY(EditDefaultsOnly, Category = Generator)
+	UPROPERTY(EditDefaultsOnly, Category = Generator, meta = (DisplayName = "MinStep"))
 		FAIDataProviderFloatValue SpaceBetween;
 
 	UPROPERTY(EditDefaultsOnly, Category = Generator)
