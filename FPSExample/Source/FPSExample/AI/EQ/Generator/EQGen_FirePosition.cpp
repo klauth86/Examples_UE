@@ -49,18 +49,21 @@ void UEQGen_FirePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 		const int32 ItemCount = FPlatformMath::TruncToInt((distance / spaceBetweenValue) + 1);
 		const int32 ItemCountHalf = ItemCount / 2;
 
-		UE_LOG(LogTemp, Warning, TEXT("!!! %d"), ItemCountHalf)
-
-		for (size_t i = -ItemCountHalf; i <= ItemCountHalf; i++)
+		for (size_t i = 0; i <= 2 * ItemCountHalf; i++)
 		{
-			for (size_t j = -ItemCountHalf; j <= ItemCountHalf; j++)
+			for (size_t j = 0; j <= 2 * ItemCountHalf; j++)
 			{
-				const FVector testLocation = centerLocation + spaceBetweenValue * i * direction + spaceBetweenValue * j * normal;
-				if ((testLocation - targetLocation).SizeSquared2D() < rangeSquared) {
+				const FVector testLocation = centerLocation + spaceBetweenValue * (i - ItemCountHalf) * direction
+					+ spaceBetweenValue * (j - ItemCountHalf) * normal;
+
+				if ((testLocation - targetLocation).SizeSquared2D() < rangeSquared)
+				{
 					GridPoints.Add(FNavLocation(testLocation));
 				}
 			}
 		}
+
+		UE_LOG(LogTemp, Warning, TEXT("!!! CNT[%d] NUM[%d]"), ItemCountHalf, GridPoints.Num())
 	}
 
 	ProjectAndFilterNavPoints(GridPoints, QueryInstance);
