@@ -9,6 +9,6 @@ UCLASS()
 class FPSEXAMPLE_API UEnvQueryContext_Target : public UEnvQueryContext
 {
 	GENERATED_BODY()
-	
+
 	virtual void ProvideContext(FEnvQueryInstance& QueryInstance, FEnvQueryContextData& ContextData) const;
 };

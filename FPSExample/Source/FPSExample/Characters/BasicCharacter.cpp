@@ -123,7 +123,6 @@ void ABasicCharacter::OnTargetPerceptionInfoUpdated(const FActorPerceptionUpdate
 
 void ABasicCharacter::Test() {
 	TArray<AActor*> perceivedActors;
-	auto aipComponent = GetAIPerceptionComponent();
-
+	UAIPerceptionComponent* aipComponent = GetAIPerceptionComponent();
 	aipComponent->GetCurrentlyPerceivedActors(nullptr, perceivedActors);
 }

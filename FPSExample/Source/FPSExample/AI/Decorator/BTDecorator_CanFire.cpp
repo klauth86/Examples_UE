@@ -10,7 +10,7 @@ bool UBTDecorator_CanFire::CalculateRawConditionValue(UBehaviorTreeComponent& Ow
 	if (UBlackboardComponent* bb = OwnerComp.GetBlackboardComponent())
 	{
 		ABasicCharacter* self = Cast<ABasicCharacter>(bb->GetValueAsObject(BK_SelfActor.SelectedKeyName));
-		ABasicCharacter * target = Cast<ABasicCharacter>(bb->GetValueAsObject(BK_Target.SelectedKeyName));
+		ABasicCharacter* target = Cast<ABasicCharacter>(bb->GetValueAsObject(BK_Target.SelectedKeyName));
 		if (self && target)
 		{
 			ABasicProjectile* defaultProjectile = self->GetProjectileClass()->GetDefaultObject<ABasicProjectile>();
