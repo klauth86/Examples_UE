@@ -36,6 +36,8 @@ EBTNodeResult::Type UBTTNode_AimAtTarget::AimAtTarget(UBehaviorTreeComponent& Ow
 			float diffYaw = aimRot.Yaw - selfRot.Yaw;
 			float deltaYaw = self->GetRotationRate() * DeltaSeconds;
 
+			UE_LOG(LogTemp, Warning, TEXT("@@@ DIFF[%f] DELTA[%f] R[%s]"), diffYaw, deltaYaw, *selfRot.ToString())
+
 			const bool bHasAimed = diffYaw < deltaYaw;
 
 			self->AddActorWorldRotation(FRotator(0, bHasAimed ? diffYaw : deltaYaw, 0));

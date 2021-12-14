@@ -17,9 +17,7 @@ void UBTService_Analyze::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* Node
 			self->GetAIPerceptionComponent()->GetCurrentlyPerceivedActors(nullptr, perceivedActors);
 
 			AActor** playerActor = perceivedActors.FindByPredicate([](const AActor* actor) { return actor->ActorHasTag(ABasicCharacter::PlayerTag); });
-			return playerActor
-				? bb->SetValueAsObject(BK_Target.SelectedKeyName, *playerActor)
-				: bb->ClearValue(BK_Target.SelectedKeyName);
+			if (playerActor) bb->SetValueAsObject(BK_Target.SelectedKeyName, *playerActor);
 		}
 	}
 }
