@@ -3,6 +3,8 @@
 #include "AI/Task/BTTNode_AimAtTarget.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Characters/BasicCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "AIController.h"
 
 UBTTNode_AimAtTarget::UBTTNode_AimAtTarget() {
 	bNotifyTick = true;
@@ -10,6 +12,17 @@ UBTTNode_AimAtTarget::UBTTNode_AimAtTarget() {
 
 EBTNodeResult::Type UBTTNode_AimAtTarget::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) {
 	return AimAtTarget(OwnerComp, NodeMemory, 0);
+}
+
+EBTNodeResult::Type UBTTNode_AimAtTarget::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) {
+	if (UBlackboardComponent* bb = OwnerComp.GetBlackboardComponent())
+	{
+		ABasicCharacter* self = Cast<ABasicCharacter>(bb->GetValueAsObject(BK_SelfActor.SelectedKeyName));
+		
+		if (self) Unfocus(self);
+	}
+
+	return EBTNodeResult::Type::Aborted;
 }
 
 void UBTTNode_AimAtTarget::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) {
@@ -22,7 +35,6 @@ void UBTTNode_AimAtTarget::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
 
 EBTNodeResult::Type UBTTNode_AimAtTarget::AimAtTarget(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
-
 	if (UBlackboardComponent* bb = OwnerComp.GetBlackboardComponent())
 	{
 		ABasicCharacter* self = Cast<ABasicCharacter>(bb->GetValueAsObject(BK_SelfActor.SelectedKeyName));
@@ -30,22 +42,38 @@ EBTNodeResult::Type UBTTNode_AimAtTarget::AimAtTarget(UBehaviorTreeComponent& Ow
 
 		if (self && target)
 		{
-			FRotator aimRot = (target->GetActorLocation() - self->GetActorLocation()).Rotation();
-			FRotator selfRot = self->GetActorRotation();
+			Focus(self, target);
 
-			float diffYaw = aimRot.Yaw - selfRot.Yaw;
-			float deltaYaw = self->GetRotationRate() * DeltaSeconds;
+			const FRotator controlRot = self->GetControlRotation();
+			const FRotator aimRot = (target->GetActorLocation() - self->GetActorLocation()).Rotation();
 
-			const bool bHasAimed = diffYaw < deltaYaw;
+			float diffYaw = controlRot.Yaw - aimRot.Yaw;
+			const bool aimedSuccessfully = FMath::Abs(diffYaw) < 1;
 
-			FRotator deltaRot = FRotator(0, bHasAimed ? diffYaw : deltaYaw, 0);
+			if (aimedSuccessfully) {
+				Unfocus(self);
+				return EBTNodeResult::Type::Succeeded;
+			}
 
-			UE_LOG(LogTemp, Warning, TEXT("@@@ DIFF[%f] DELTA[%f] AIM[%s] R[%s] DR[%s]"), diffYaw, deltaYaw, *FString(bHasAimed ? "T" : "F"), *selfRot.ToString(), *deltaRot.ToString())
-
-			self->AddActorWorldRotation(deltaRot);
-			return bHasAimed ? EBTNodeResult::Type::Succeeded : EBTNodeResult::Type::InProgress;
+			return EBTNodeResult::Type::InProgress;
 		}
 	}
 
 	return EBTNodeResult::Type::Succeeded;
+}
+
+void UBTTNode_AimAtTarget::Focus(ABasicCharacter* self, AActor* target) {
+	self->GetCharacterMovement()->bOrientRotationToMovement = false;
+	self->GetCharacterMovement()->bUseControllerDesiredRotation = true;
+
+	AAIController* controller = self->GetController<AAIController>();
+	controller->SetFocus(target, EAIFocusPriority::Gameplay);
+}
+
+void UBTTNode_AimAtTarget::Unfocus(ABasicCharacter* self) {
+	self->GetCharacterMovement()->bOrientRotationToMovement = true;
+	self->GetCharacterMovement()->bUseControllerDesiredRotation =false;
+
+	AAIController* controller = self->GetController<AAIController>();
+	controller->ClearFocus(EAIFocusPriority::Gameplay);
 }

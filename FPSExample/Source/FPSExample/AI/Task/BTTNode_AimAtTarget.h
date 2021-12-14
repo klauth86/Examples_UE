@@ -5,6 +5,8 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "BTTNode_AimAtTarget.generated.h"
 
+class ABasicCharacter;
+
 UCLASS()
 class FPSEXAMPLE_API UBTTNode_AimAtTarget : public UBTTaskNode
 {
@@ -16,11 +18,17 @@ public:
 
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
-	virtual void TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
-
 protected:
 
+	virtual EBTNodeResult::Type AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
+	virtual void TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
+
 	EBTNodeResult::Type AimAtTarget(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds);
+
+	void Focus(ABasicCharacter* character, AActor* target);
+
+	void Unfocus(ABasicCharacter* character);
 
 protected:
 
