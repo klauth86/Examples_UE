@@ -36,27 +36,34 @@ void UEQGen_MeleePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 		const FVector querierLocation = querier->GetActorLocation();
 		const FVector targetLocation = target->GetActorLocation();
 
+		const float distance = (querierLocation - targetLocation).Size2D();
+
 		const FVector direction = FVector(querierLocation.X - targetLocation.X, querierLocation.Y - targetLocation.Y, 0) / distance;
 		const FVector normal = FVector(-direction.Y, direction.X, 0);
 
-		const float distance = (querierLocation - targetLocation).Size2D();
 		if (distance < effectiveRange)
 		{
 			// Change location and attack!
-
+			FVector rotatedDirection = FRotator(0, FMath::Rand() % 31 + 30, 0).RotateVector(direction);
+			FVector testLocation = targetLocation + rotatedDirection * (effectiveRange - 1);
+			GridPoints.Add(FNavLocation(testLocation));
 		}
 		else
 		{
 			const float nextDistance = distance / 2;
 			if (nextDistance < effectiveRange)
 			{
-				// Already can attack
-
+				// Get close and attack
+				FVector rotatedDirection = FRotator(0, FMath::Rand() % 31 + 30, 0).RotateVector(direction);
+				FVector testLocation = targetLocation + rotatedDirection * (effectiveRange - 1);
+				GridPoints.Add(FNavLocation(testLocation));
 			}
 			else
 			{
 				// Zig zag a little bit
-
+				FVector rotatedDirection = FRotator(0, FMath::Rand() % 31 + 30, 0).RotateVector(direction);
+				FVector testLocation = targetLocation + rotatedDirection * nextDistance;
+				GridPoints.Add(FNavLocation(testLocation));
 			}
 		}
 	}
