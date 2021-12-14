@@ -34,14 +34,12 @@ EBTNodeResult::Type UBTTNode_AimAtTarget::AimAtTarget(UBehaviorTreeComponent& Ow
 			FRotator selfRot = self->GetActorRotation();
 
 			float diffYaw = aimRot.Yaw - selfRot.Yaw;
-			if (diffYaw < SMALL_NUMBER) return EBTNodeResult::Type::Succeeded;
+			float deltaYaw = self->GetRotationRate() * DeltaSeconds;
 
-			float rotRate = self->GetRotationRate();
-			float deltaYaw = FMath::Min(diffYaw, rotRate * DeltaSeconds);
+			const bool bHasAimed = diffYaw < deltaYaw;
 
-			self->AddActorWorldRotation(FRotator(0, deltaYaw, 0));
-
-			return EBTNodeResult::Type::InProgress;
+			self->AddActorWorldRotation(FRotator(0, bHasAimed ? diffYaw : deltaYaw, 0));
+			return bHasAimed ? EBTNodeResult::Type::Succeeded : EBTNodeResult::Type::InProgress;
 		}
 	}
 
