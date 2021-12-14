@@ -35,6 +35,8 @@ public:
 
 	float GetRotationRate() const { return RotationRate; }
 
+	FVector GetFireOffset() const { return FireOffset; }
+
 	void Fire();
 
 protected:
