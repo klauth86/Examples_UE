@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AI/EQ/EnvQueryContext_Target.h"
+#include "AI/EQ/Context/EnvQueryContext_Target.h"
 #include "EnvironmentQuery/Items/EnvQueryItemType_Actor.h"
 #include "EnvironmentQuery/EnvQueryTypes.h"
 #include "GameFramework/Pawn.h"

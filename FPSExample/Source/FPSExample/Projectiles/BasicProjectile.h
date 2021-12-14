@@ -27,6 +27,8 @@ public:
 
 	float GetRechargeTime() const { return RechargeTime; }
 
+	float GetRange() const { return Range; }
+
 protected:
 
 	TWeakObjectPtr<AActor> OwnerPtr;
