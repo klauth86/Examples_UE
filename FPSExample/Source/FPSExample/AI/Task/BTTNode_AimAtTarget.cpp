@@ -31,9 +31,9 @@ EBTNodeResult::Type UBTTNode_AimAtTarget::AimAtTarget(UBehaviorTreeComponent& Ow
 		if (self && target)
 		{
 			FRotator aimRot = (target->GetActorLocation() - self->GetActorLocation()).Rotation();
-			FRotator controllerRot = self->GetControlRotation();
+			FRotator selfRot = self->GetActorRotation();
 
-			float diffYaw = aimRot.Yaw - controllerRot.Yaw;
+			float diffYaw = aimRot.Yaw - selfRot.Yaw;
 			if (diffYaw < SMALL_NUMBER) return EBTNodeResult::Type::Succeeded;
 
 			float rotRate = self->GetRotationRate();
