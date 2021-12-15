@@ -29,14 +29,18 @@ void UEQGen_MeleePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 
 	if (querier && target)
 	{
+		float querierRadius;
+		float querierHalfHeight;
+		querier->GetCapsuleComponent()->GetScaledCapsuleSize(querierRadius, querierHalfHeight);
+
 		const float range = querier->GetProjectileClass()->GetDefaultObject<ABasicProjectile>()->GetRange();
 
 		float targetRadius;
 		float targetHalfHeight;
 		target->GetCapsuleComponent()->GetScaledCapsuleSize(targetRadius, targetHalfHeight);
-		
+
 		const FVector fireOffset = querier->GetFireOffset();
-		const float effectiveRange = range + fireOffset.Size2D() + targetRadius / 2;
+		const float effectiveRange = range + fireOffset.Size2D() + targetRadius - 1;
 
 		const FVector querierLocation = querier->GetActorLocation();
 		const FVector targetLocation = target->GetActorLocation();
@@ -48,17 +52,20 @@ void UEQGen_MeleePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 
 		if (distance < effectiveRange)
 		{
-			// 30 % chance to change position
-			GridPoints.Add(FNavLocation(FMath::Rand() % 3 == 0
-				? targetLocation - direction * distance
-				: querierLocation));
+			// No need o move
+
+			GridPoints.Add(FNavLocation(querierLocation));
 		}
-		else if (distance < 4 * effectiveRange) {
+		else if (distance < 4 * effectiveRange)
+		{
+			// Move to target
+
 			GridPoints.Add(FNavLocation(targetLocation));
 		}
 		else
 		{
 			// Zig zag a little bit
+
 			const float nextDistance = distance / 2;
 
 			int32 randomSide = FMath::Rand() % 2;
