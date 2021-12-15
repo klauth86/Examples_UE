@@ -7,11 +7,16 @@
 #include "Engine/World.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
+#include "Components/WidgetComponent.h"
+#include "UI/UserWidget_HealthBar.h"
 
 FName ABasicCharacter::PlayerTag = FName("Player");
 
 ABasicCharacter::ABasicCharacter()
 {
+	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>("WidgetComponent");
+	WidgetComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
 	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>("AIPerceptionComponent");
 	AIPerceptionComponent->OnPerceptionUpdated.AddDynamic(this, &ABasicCharacter::OnPerceptionUpdated);
 	AIPerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &ABasicCharacter::OnTargetPerceptionUpdated);
@@ -39,7 +44,14 @@ void ABasicCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 float ABasicCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) {
 	HitPoints--;
+	
+	if (UUserWidget_HealthBar* healthBar = Cast<UUserWidget_HealthBar>(WidgetComponent->GetWidget()))
+	{
+		healthBar->RefreshHealthBar();
+	}
+
 	if (HitPoints == 0) SetLifeSpan(0.1f);
+	
 	return DamageAmount;
 }
 
@@ -75,7 +87,12 @@ void ABasicCharacter::Fire()
 void ABasicCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (UUserWidget_HealthBar* healthBar = Cast<UUserWidget_HealthBar>(WidgetComponent->GetWidget()))
+	{
+		healthBar->RefreshHealthBar();
+	}
+
 	SetupCamera();
 }
 

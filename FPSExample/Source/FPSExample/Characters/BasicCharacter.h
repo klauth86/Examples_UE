@@ -11,6 +11,7 @@ class ACameraActor;
 
 class UAIPerceptionComponent;
 class UAIPerceptionStimuliSourceComponent;
+class UWidgetComponent;
 
 UCLASS()
 class FPSEXAMPLE_API ABasicCharacter : public ACharacter
@@ -32,6 +33,8 @@ public:
 	const TSubclassOf<ABasicProjectile>& GetProjectileClass() const { return ProjectileClass; }
 
 	UAIPerceptionComponent* GetAIPerceptionComponent() const { return AIPerceptionComponent; }
+
+	UWidgetComponent* GetWidgetComponent() const { return WidgetComponent; }
 
 	float GetRotationRate() const { return RotationRate; }
 
@@ -75,6 +78,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
 		UAIPerceptionStimuliSourceComponent* AIPerceptionStimuliSourceComponent;
+
+	UPROPERTY(VisibleAnywhere, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
+		UWidgetComponent* WidgetComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 		TSubclassOf<ACameraActor> CameraActorClass;
