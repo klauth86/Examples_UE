@@ -60,10 +60,12 @@ void UEQGen_FirePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 		{
 			for (size_t j = 0; j <= 2 * ItemCountHalf; j++)
 			{
-				const FVector testLocation = centerLocation + spaceBetweenValue * (i - ItemCountHalf) * direction
+				const FVector testLocation = targetLocation + spaceBetweenValue * (i - ItemCountHalf) * direction
 					+ spaceBetweenValue * (j - ItemCountHalf) * normal;
 
-				if ((testLocation - targetLocation).SizeSquared2D() < rangeSquared)
+				float distanceSquared = (testLocation - targetLocation).SizeSquared2D();
+
+				if (distanceSquared < effectiveRangeSquared && 4 * distanceSquared > effectiveRangeSquared)
 				{
 					GridPoints.Add(FNavLocation(testLocation));
 				}
