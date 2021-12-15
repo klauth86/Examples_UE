@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "MoveGraphEditor.h"
+#include "MoveEditor.h"
 
 #define LOCTEXT_NAMESPACE "FMoveGraphEditorModule"
 
@@ -13,6 +14,13 @@ void FMoveGraphEditorModule::ShutdownModule()
 {
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
+}
+
+TSharedRef<IMoveEditor> FMoveGraphEditorModule::CreateMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr< IToolkitHost >& InitToolkitHost, UMove* move) override
+{
+	TSharedRef<IMoveEditor> NewMoveEditor;//(new FMoveEditor());
+	//NewSoundCueEditor->InitSoundCueEditor(Mode, InitToolkitHost, move);
+	return NewMoveEditor;
 }
 
 #undef LOCTEXT_NAMESPACE

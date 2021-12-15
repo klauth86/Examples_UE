@@ -4,11 +4,17 @@
 
 #include "Modules/ModuleManager.h"
 
+class IMoveEditor;
+class UMove;
+
 class FMoveGraphEditorModule : public IModuleInterface
 {
 public:
 
-	/** IModuleInterface implementation */
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
+
+protected:
+
+	TSharedRef<IMoveEditor> CreateMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr< IToolkitHost >& InitToolkitHost, UMove* move);
 };
