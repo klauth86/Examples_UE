@@ -2,16 +2,11 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "Node.generated.h"
+#include "Move.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class MOVEGRAPH_API UNode : public UObject
+class MOVEGRAPH_API UMove : public UObject
 {
-	GENERATED_BODY()
-	
+	GENERATED_BODY()	
 };
