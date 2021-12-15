@@ -22,5 +22,11 @@ class MOVEGRAPH_API UMove : public UObject
 
 public:
 
+#if WITH_EDITORONLY_DATA
+	UPROPERTY()
+		TArray<UMoveNode*> AllNodes;
 
+	UPROPERTY()
+		UEdGraph* MoveGraph;
+#endif
 };

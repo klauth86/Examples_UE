@@ -494,7 +494,7 @@ bool FMoveEditor::CanDeleteInput() const
 void FMoveEditor::OnCreateComment()
 {
 	FSoundCueGraphSchemaAction_NewComment CommentAction;
-	CommentAction.PerformAction(SoundCue->SoundCueGraph, NULL, SoundCueGraphEditor->GetPasteLocation());
+	CommentAction.PerformAction(Move->MoveGraph, NULL, SoundCueGraphEditor->GetPasteLocation());
 }
 
 TSharedRef<SGraphEditor> FMoveEditor::CreateGraphEditorWidget()
@@ -606,7 +606,7 @@ TSharedRef<SGraphEditor> FMoveEditor::CreateGraphEditorWidget()
 		.AdditionalCommands(GraphEditorCommands)
 		.IsEditable(true)
 		.Appearance(AppearanceInfo)
-		.GraphToEdit(SoundCue->GetGraph())
+		.GraphToEdit(Move->MoveGraph)
 		.GraphEvents(InEvents)
 		.AutoExpandActionMenu(true)
 		.ShowGraphStateOverlay(false);
@@ -689,18 +689,15 @@ void FMoveEditor::DeleteSelectedNodes()
 
 		if (Node->CanUserDeleteNode())
 		{
-			if (USoundCueGraphNode* SoundGraphNode = Cast<USoundCueGraphNode>(Node))
+			if (UMoveGraphNode* SoundGraphNode = Cast<UMoveGraphNode>(Node))
 			{
-				USoundNode* DelNode = SoundGraphNode->SoundNode;
+				UMoveNode* DelNode = SoundGraphNode->MoveNode;
 
 				FBlueprintEditorUtils::RemoveNode(NULL, SoundGraphNode, true);
 
-				// Make sure SoundCue is updated to match graph
-				SoundCue->CompileSoundNodesFromGraphNodes();
-
 				// Remove this node from the SoundCue's list of all SoundNodes
-				SoundCue->AllNodes.Remove(DelNode);
-				SoundCue->MarkPackageDirty();
+				Move->AllNodes.Remove(DelNode);
+				Move->MarkPackageDirty();
 			}
 			else
 			{
@@ -830,8 +827,8 @@ void FMoveEditor::PasteNodesHere(const FVector2D& Location)
 {
 	// Undo/Redo support
 	const FScopedTransaction Transaction(NSLOCTEXT("UnrealEd", "MoveEditorPaste", "Paste Sound Cue Node"));
-	SoundCue->GetGraph()->Modify();
-	SoundCue->Modify();
+	Move->MoveGraph->Modify();
+	Move->Modify();
 
 	// Clear the selection set (newly pasted stuff will be selected)
 	SoundCueGraphEditor->ClearSelectionSet();
@@ -842,7 +839,7 @@ void FMoveEditor::PasteNodesHere(const FVector2D& Location)
 
 	// Import the nodes
 	TSet<UEdGraphNode*> PastedNodes;
-	FEdGraphUtilities::ImportNodesFromText(SoundCue->GetGraph(), TextToImport, /*out*/ PastedNodes);
+	FEdGraphUtilities::ImportNodesFromText(Move->MoveGraph, TextToImport, /*out*/ PastedNodes);
 
 	//Average position of nodes so we can move them while still maintaining relative distances to each other
 	FVector2D AvgNodePosition(0.0f, 0.0f);
@@ -865,9 +862,9 @@ void FMoveEditor::PasteNodesHere(const FVector2D& Location)
 	{
 		UEdGraphNode* Node = *It;
 
-		if (USoundCueGraphNode* SoundGraphNode = Cast<USoundCueGraphNode>(Node))
+		if (UMoveGraphNode* SoundGraphNode = Cast<UMoveGraphNode>(Node))
 		{
-			SoundCue->AllNodes.Add(SoundGraphNode->SoundNode);
+			Move->AllNodes.Add(SoundGraphNode->MoveNode);
 		}
 
 		// Select the newly pasted stuff
@@ -882,14 +879,11 @@ void FMoveEditor::PasteNodesHere(const FVector2D& Location)
 		Node->CreateNewGuid();
 	}
 
-	// Force new pasted SoundNodes to have same connections as graph nodes
-	SoundCue->CompileSoundNodesFromGraphNodes();
-
 	// Update UI
 	SoundCueGraphEditor->NotifyGraphChanged();
 
-	SoundCue->PostEditChange();
-	SoundCue->MarkPackageDirty();
+	Move->PostEditChange();
+	Move->MarkPackageDirty();
 }
 
 bool FMoveEditor::CanPasteNodes() const
@@ -897,7 +891,7 @@ bool FMoveEditor::CanPasteNodes() const
 	FString ClipboardContent;
 	FPlatformApplicationMisc::ClipboardPaste(ClipboardContent);
 
-	return FEdGraphUtilities::CanImportNodesFromText(SoundCue->SoundCueGraph, ClipboardContent);
+	return FEdGraphUtilities::CanImportNodesFromText(Move->MoveGraph, ClipboardContent);
 }
 
 void FMoveEditor::DuplicateNodes()

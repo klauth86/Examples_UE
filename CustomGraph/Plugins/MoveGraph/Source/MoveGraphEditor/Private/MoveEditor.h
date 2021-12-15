@@ -3,7 +3,18 @@
 #include "EditorUndoClient.h"
 #include "IMoveEditor.h"
 
+class UMoveNode;
 class UMove;
+
+UCLASS(MinimalAPI)
+class UMoveGraphNode : public UEdGraphNode
+{
+	GENERATED_BODY()
+
+public:
+
+	UMoveNode* MoveNode;
+};
 
 class FMoveEditor : public FEditorUndoClient, public IMoveEditor, public FNotifyHook
 {
