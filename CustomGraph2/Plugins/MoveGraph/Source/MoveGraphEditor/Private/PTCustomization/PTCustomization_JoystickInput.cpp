@@ -11,7 +11,6 @@ TSharedRef<IPropertyTypeCustomization> FPTCustomization_JoystickInput::MakeInsta
 
 void FPTCustomization_JoystickInput::CustomizeHeader(TSharedRef<IPropertyHandle> PropertyHandle, FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& CustomizationUtils)
 {
-
 	StructPropertyHandle = PropertyHandle;
 	TSharedPtr<IPropertyUtilities> PropertyUtils = CustomizationUtils.GetPropertyUtilities();
 
