@@ -11,7 +11,7 @@
 #define LOCTEXT_NAMESPACE "EnvQueryGenerator"
 
 UEQGen_FirePosition::UEQGen_FirePosition() {
-	SpaceBetween.DefaultValue = 100.f;
+	SpaceBetween.DefaultValue = 50.f;
 	Querier = UEnvQueryContext_Querier::StaticClass();
 	Target = UEnvQueryContext_Target::StaticClass();
 }
@@ -47,13 +47,12 @@ void UEQGen_FirePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 		const FVector querierLocation = querier->GetActorLocation();
 		const FVector targetLocation = target->GetActorLocation();
 
-		const float distance = (querierLocation - targetLocation).Size2D();
-		const FVector direction = FVector(querierLocation.X - targetLocation.X, querierLocation.Y - targetLocation.Y, 0) / distance;
+		const FVector direction = (querierLocation - targetLocation).GetSafeNormal2D();
 		const FVector normal = FVector(-direction.Y, direction.X, 0);
 
 		float spaceBetweenValue = SpaceBetween.GetValue();
 
-		const int32 ItemCount = FPlatformMath::TruncToInt((distance / spaceBetweenValue) + 1);
+		const int32 ItemCount = FPlatformMath::TruncToInt((effectiveRange / spaceBetweenValue) + 1);
 		const int32 ItemCountHalf = ItemCount / 2;
 
 		for (size_t i = 0; i <= 2 * ItemCountHalf; i++)
