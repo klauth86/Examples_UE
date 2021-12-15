@@ -19,6 +19,8 @@ ABasicCharacter::ABasicCharacter()
 
 	AIPerceptionStimuliSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>("AIPerceptionStimuliSourceComponent");
 
+	HitPoints = 5;
+
 	RotationRate = 120;
 	bCanFire = true;
 	SetCanBeDamaged(true);
@@ -36,7 +38,8 @@ void ABasicCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 }
 
 float ABasicCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) {
-	Destroy();
+	HitPoints--;
+	if (HitPoints == 0) SetLifeSpan(0.1f);
 	return DamageAmount;
 }
 
