@@ -67,7 +67,8 @@ protected:
 
 protected:
 
-	int32 HitPoints;
+	UPROPERTY(BlueprintReadOnly, Category = "BasicCharacter")
+		int32 HitPoints;
 
 	UPROPERTY(VisibleAnywhere, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
 		UAIPerceptionComponent* AIPerceptionComponent;

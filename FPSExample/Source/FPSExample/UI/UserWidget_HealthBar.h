@@ -11,16 +11,16 @@ UCLASS()
 class FPSEXAMPLE_API UUserWidget_HealthBar : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 public:
 
 	UFUNCTION(BlueprintImplementableEvent)
-		void OnSetCharacter();
+		void RefreshHealthBar();
 
-	void SetCharacter(ABasicCharacter* character) { Character = character; OnSetCharacter(); }
+	void SetCharacter(ABasicCharacter* character) { Character = character; RefreshHealthBar(); }
 
 protected:
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly, Category = "HealthBar")
 		ABasicCharacter* Character;
 };
