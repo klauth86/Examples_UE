@@ -1,7 +1,7 @@
 #pragma once
 
 #include "EdGraph/EdGraph.h"
-#include "SoundCueGraph.generated.h"
+#include "MoveGraph.generated.h"
 
 class UMove;
 
