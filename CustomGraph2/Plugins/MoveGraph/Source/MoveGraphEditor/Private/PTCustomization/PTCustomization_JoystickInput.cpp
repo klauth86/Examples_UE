@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "PTCustomization_JoystickInput.h"
+#include "IDetailChildrenBuilder.h"
+#include "DetailWidgetRow.h"
 
 #define LOCTEXT_NAMESPACE "PropertyTypeCustomization_JoystickInput.h"
 
@@ -18,7 +20,9 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 	StructPropertyHandle = PropertyHandle;
 	TSharedPtr<IPropertyUtilities> PropertyUtils = CustomizationUtils.GetPropertyUtilities();
 
+	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
 
+	];
 }
 
 #undef LOCTEXT_NAMESPACE
