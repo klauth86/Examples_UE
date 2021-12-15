@@ -11,7 +11,6 @@
 #include "SoundCueGraph/SoundCueGraphSchema.h"
 #include "Sound/SoundWave.h"
 #include "Sound/DialogueWave.h"
-#include "Sound/SoundCue.h"
 #include "Components/AudioComponent.h"
 #include "AudioEditorModule.h"
 #include "Sound/SoundNodeWavePlayer.h"
@@ -39,7 +38,7 @@ const FName FMoveEditor::GraphCanvasTabId(TEXT("MoveEditor_GraphCanvas"));
 const FName FMoveEditor::PropertiesTabId(TEXT("MoveEditor_Properties"));
 
 FMoveEditor::FMoveEditor()
-	: SoundCue(nullptr)
+	: Move(nullptr)
 {
 }
 
@@ -83,10 +82,10 @@ FMoveEditor::~FMoveEditor()
 
 void FMoveEditor::InitMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr< class IToolkitHost >& InitToolkitHost, UObject* ObjectToEdit)
 {
-	SoundCue = CastChecked<USoundCue>(ObjectToEdit);
+	Move = CastChecked<UMove>(ObjectToEdit);
 
 	// Support undo/redo
-	SoundCue->SetFlags(RF_Transactional);
+	Move->SetFlags(RF_Transactional);
 
 	GEditor->RegisterForUndo(this);
 
@@ -173,12 +172,12 @@ FName FMoveEditor::GetToolkitFName() const
 
 FText FMoveEditor::GetBaseToolkitName() const
 {
-	return LOCTEXT("AppLabel", "SoundCue Editor");
+	return LOCTEXT("AppLabel", "Move Editor");
 }
 
 FString FMoveEditor::GetWorldCentricTabPrefix() const
 {
-	return LOCTEXT("WorldCentricTabPrefix", "SoundCue ").ToString();
+	return LOCTEXT("WorldCentricTabPrefix", "Move ").ToString();
 }
 
 FLinearColor FMoveEditor::GetWorldCentricTabColorScale() const
@@ -215,7 +214,7 @@ TSharedRef<SDockTab> FMoveEditor::SpawnTab_Properties(const FSpawnTabArgs& Args)
 
 void FMoveEditor::AddReferencedObjects(FReferenceCollector& Collector)
 {
-	Collector.AddReferencedObject(SoundCue);
+	Collector.AddReferencedObject(Move);
 }
 
 void FMoveEditor::PostUndo(bool bSuccess)
@@ -247,7 +246,7 @@ void FMoveEditor::CreateInternalWidgets()
 
 	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
 	SoundCueProperties = PropertyModule.CreateDetailView(Args);
-	SoundCueProperties->SetObject(SoundCue);
+	SoundCueProperties->SetObject(Move);
 }
 
 void FMoveEditor::ExtendToolbar()
@@ -323,7 +322,7 @@ void FMoveEditor::BindGraphCommands()
 
 void FMoveEditor::PlayCue()
 {
-	GEditor->PlayPreviewSound(SoundCue);
+	GEditor->PlayPreviewSound(Move);
 
 	SoundCueGraphEditor->RegisterActiveTimer(0.0f,
 		FWidgetActiveTimerDelegate::CreateLambda(
