@@ -2,21 +2,12 @@
 
 #include "EditorUndoClient.h"
 #include "IMoveEditor.h"
+#include "UObject/GCObject.h"
 
 class UMoveNode;
 class UMove;
 
-UCLASS(MinimalAPI)
-class UMoveGraphNode : public UEdGraphNode
-{
-	GENERATED_BODY()
-
-public:
-
-	UMoveNode* MoveNode;
-};
-
-class FMoveEditor : public FEditorUndoClient, public IMoveEditor, public FNotifyHook
+class FMoveEditor : public FEditorUndoClient, public IMoveEditor, public FNotifyHook, public FGCObject
 {
 public:
 	FMoveEditor();
@@ -136,18 +127,6 @@ private:
 
 	/** Binds new graph commands to delegates */
 	void BindGraphCommands();
-
-	/** Toolbar command methods */
-	void PlayCue();
-	void PlayNode();
-	/** Whether we can play the current selection of nodes */
-	bool CanPlayNode() const;
-	void Stop();
-	/** Either play the cue or stop currently playing sound */
-	void TogglePlayback();
-
-	/** Plays a single specified node */
-	void PlaySingleNode(UEdGraphNode* Node);
 
 	/** Sync the content browser to the current selection of nodes */
 	void SyncInBrowser();

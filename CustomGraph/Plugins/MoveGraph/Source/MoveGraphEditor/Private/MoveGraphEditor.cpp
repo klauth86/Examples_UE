@@ -16,10 +16,10 @@ void FMoveGraphEditorModule::ShutdownModule()
 	// we call this function before unloading the module.
 }
 
-TSharedRef<IMoveEditor> FMoveGraphEditorModule::CreateMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr< IToolkitHost >& InitToolkitHost, UMove* move) override
+TSharedRef<IMoveEditor> FMoveGraphEditorModule::CreateMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr< IToolkitHost >& InitToolkitHost, UMove* move)
 {
-	TSharedRef<IMoveEditor> NewMoveEditor;//(new FMoveEditor());
-	//NewSoundCueEditor->InitSoundCueEditor(Mode, InitToolkitHost, move);
+	TSharedRef<IMoveEditor> NewMoveEditor(new FMoveEditor());
+	NewMoveEditor->InitMoveEditor(Mode, InitToolkitHost, move);
 	return NewMoveEditor;
 }
 

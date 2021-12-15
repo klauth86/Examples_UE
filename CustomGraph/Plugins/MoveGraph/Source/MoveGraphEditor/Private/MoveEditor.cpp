@@ -70,13 +70,6 @@ void FMoveEditor::UnregisterTabSpawners(const TSharedRef<class FTabManager>& InT
 
 FMoveEditor::~FMoveEditor()
 {
-	// Stop any playing sound cues when the cue editor closes
-	UAudioComponent* PreviewComp = GEditor->GetPreviewAudioComponent();
-	if (PreviewComp && PreviewComp->IsPlaying())
-	{
-		Stop();
-	}
-
 	GEditor->UnregisterForUndo(this);
 }
 
@@ -295,98 +288,12 @@ void FMoveEditor::BindGraphCommands()
 	const FSoundCueGraphEditorCommands& Commands = FSoundCueGraphEditorCommands::Get();
 
 	ToolkitCommands->MapAction(
-		Commands.PlayCue,
-		FExecuteAction::CreateSP(this, &FMoveEditor::PlayCue));
-
-	ToolkitCommands->MapAction(
-		Commands.PlayNode,
-		FExecuteAction::CreateSP(this, &FMoveEditor::PlayNode),
-		FCanExecuteAction::CreateSP(this, &FMoveEditor::CanPlayNode));
-
-	ToolkitCommands->MapAction(
-		Commands.StopCueNode,
-		FExecuteAction::CreateSP(this, &FMoveEditor::Stop));
-
-	ToolkitCommands->MapAction(
-		Commands.TogglePlayback,
-		FExecuteAction::CreateSP(this, &FMoveEditor::TogglePlayback));
-
-	ToolkitCommands->MapAction(
 		FGenericCommands::Get().Undo,
 		FExecuteAction::CreateSP(this, &FMoveEditor::UndoGraphAction));
 
 	ToolkitCommands->MapAction(
 		FGenericCommands::Get().Redo,
 		FExecuteAction::CreateSP(this, &FMoveEditor::RedoGraphAction));
-}
-
-void FMoveEditor::PlayCue()
-{
-	GEditor->PlayPreviewSound(Move);
-
-	SoundCueGraphEditor->RegisterActiveTimer(0.0f,
-		FWidgetActiveTimerDelegate::CreateLambda(
-			[](double InCurrentTime, float InDeltaTime)
-			{
-				UAudioComponent* PreviewComp = GEditor->GetPreviewAudioComponent();
-				if (PreviewComp && PreviewComp->IsPlaying())
-				{
-					return EActiveTimerReturnType::Continue;
-				}
-				else
-				{
-					return EActiveTimerReturnType::Stop;
-				}
-			}));
-}
-
-void FMoveEditor::PlayNode()
-{
-	// already checked that only one node is selected
-	const FGraphPanelSelectionSet SelectedNodes = GetSelectedNodes();
-
-	for (FGraphPanelSelectionSet::TConstIterator NodeIt(SelectedNodes); NodeIt; ++NodeIt)
-	{
-		PlaySingleNode(CastChecked<UEdGraphNode>(*NodeIt));
-	}
-}
-
-bool FMoveEditor::CanPlayNode() const
-{
-	return GetSelectedNodes().Num() == 1;
-}
-
-void FMoveEditor::Stop()
-{
-	GEditor->ResetPreviewAudioComponent();
-}
-
-void FMoveEditor::TogglePlayback()
-{
-	UAudioComponent* PreviewComp = GEditor->GetPreviewAudioComponent();
-	if (PreviewComp && PreviewComp->IsPlaying())
-	{
-		Stop();
-	}
-	else
-	{
-		PlayCue();
-	}
-}
-
-void FMoveEditor::PlaySingleNode(UEdGraphNode* Node)
-{
-	USoundCueGraphNode* SoundGraphNode = Cast<USoundCueGraphNode>(Node);
-
-	if (SoundGraphNode)
-	{
-		GEditor->PlayPreviewSound(NULL, SoundGraphNode->SoundNode);
-	}
-	else
-	{
-		// must be root node, play the whole cue
-		PlayCue();
-	}
 }
 
 void FMoveEditor::SyncInBrowser()
@@ -503,10 +410,6 @@ TSharedRef<SGraphEditor> FMoveEditor::CreateGraphEditorWidget()
 	{
 		GraphEditorCommands = MakeShareable(new FUICommandList);
 
-		GraphEditorCommands->MapAction(FSoundCueGraphEditorCommands::Get().PlayNode,
-			FExecuteAction::CreateSP(this, &FMoveEditor::PlayNode),
-			FCanExecuteAction::CreateSP(this, &FMoveEditor::CanPlayNode));
-
 		GraphEditorCommands->MapAction(FSoundCueGraphEditorCommands::Get().BrowserSync,
 			FExecuteAction::CreateSP(this, &FMoveEditor::SyncInBrowser),
 			FCanExecuteAction::CreateSP(this, &FMoveEditor::CanSyncInBrowser));
@@ -600,7 +503,6 @@ TSharedRef<SGraphEditor> FMoveEditor::CreateGraphEditorWidget()
 	SGraphEditor::FGraphEditorEvents InEvents;
 	InEvents.OnSelectionChanged = SGraphEditor::FOnSelectionChanged::CreateSP(this, &FMoveEditor::OnSelectedNodesChanged);
 	InEvents.OnTextCommitted = FOnNodeTextCommitted::CreateSP(this, &FMoveEditor::OnNodeTitleCommitted);
-	InEvents.OnNodeDoubleClicked = FSingleNodeEvent::CreateSP(this, &FMoveEditor::PlaySingleNode);
 
 	return SNew(SGraphEditor)
 		.AdditionalCommands(GraphEditorCommands)
