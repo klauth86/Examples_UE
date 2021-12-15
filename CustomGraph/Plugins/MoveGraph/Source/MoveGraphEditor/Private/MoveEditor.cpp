@@ -31,6 +31,7 @@
 #include "HAL/PlatformApplicationMisc.h"
 #include "AudioDeviceManager.h"
 #include "Audio/AudioDebug.h"
+#include "Move.h"
 
 #define LOCTEXT_NAMESPACE "MoveEditor"
 
@@ -145,11 +146,6 @@ void FMoveEditor::InitMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr
 		SpawnToolkitTab(GraphCanvasTabId, FString(), EToolkitTabSpot::Viewport);
 		SpawnToolkitTab(PropertiesTabId, FString(), EToolkitTabSpot::Details);
 	}*/
-}
-
-USoundCue* FMoveEditor::GetSoundCue() const
-{
-	return SoundCue;
 }
 
 void FMoveEditor::SetSelection(TArray<UObject*> SelectedObjects)
@@ -637,7 +633,7 @@ void FMoveEditor::OnSelectedNodesChanged(const TSet<class UObject*>& NewSelectio
 		{
 			if (Cast<USoundCueGraphNode_Root>(*SetIt))
 			{
-				Selection.Add(GetSoundCue());
+				Selection.Add(GetMove());
 			}
 			else if (USoundCueGraphNode* GraphNode = Cast<USoundCueGraphNode>(*SetIt))
 			{
@@ -652,7 +648,7 @@ void FMoveEditor::OnSelectedNodesChanged(const TSet<class UObject*>& NewSelectio
 	}
 	else
 	{
-		Selection.Add(GetSoundCue());
+		Selection.Add(GetMove());
 	}
 
 	SetSelection(Selection);

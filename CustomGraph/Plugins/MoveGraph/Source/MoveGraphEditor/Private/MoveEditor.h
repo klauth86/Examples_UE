@@ -3,7 +3,9 @@
 #include "EditorUndoClient.h"
 #include "IMoveEditor.h"
 
-class FMoveEditor : public FEditorUndoClient, public IMoveEditor
+class UMove;
+
+class FMoveEditor : public FEditorUndoClient, public IMoveEditor, public FNotifyHook
 {
 public:
 	FMoveEditor();
@@ -18,7 +20,7 @@ public:
 	void InitMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr< class IToolkitHost >& InitToolkitHost, UObject* ObjectToEdit);
 
 	/** IMoveEditor interface */
-	virtual USoundCue* GetSoundCue() const override;
+	virtual UMove* GetMove() const override { return Move; }
 	virtual void SetSelection(TArray<UObject*> SelectedObjects) override;
 	virtual bool GetBoundsForSelectedNodes(class FSlateRect& Rect, float Padding) override;
 	virtual int32 GetNumberOfSelectedNodes() const override;
@@ -159,7 +161,7 @@ private:
 
 private:
 	/** The SoundCue asset being inspected */
-	USoundCue* SoundCue;
+	UMove* Move;
 
 	/** List of open tool panels; used to ensure only one exists at any one time */
 	TMap< FName, TWeakPtr<SDockableTab> > SpawnedToolPanels;
