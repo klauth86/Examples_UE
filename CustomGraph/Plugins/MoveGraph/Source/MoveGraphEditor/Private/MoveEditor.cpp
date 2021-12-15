@@ -28,7 +28,6 @@
 #include "Widgets/Docking/SDockTab.h"
 #include "Framework/Commands/GenericCommands.h"
 #include "Sound/SoundNodeDialoguePlayer.h"
-#include "SSoundCuePalette.h"
 #include "HAL/PlatformApplicationMisc.h"
 #include "AudioDeviceManager.h"
 #include "Audio/AudioDebug.h"
@@ -37,7 +36,6 @@
 
 const FName FMoveEditor::GraphCanvasTabId(TEXT("MoveEditor_GraphCanvas"));
 const FName FMoveEditor::PropertiesTabId(TEXT("MoveEditor_Properties"));
-const FName FMoveEditor::PaletteTabId(TEXT("MoveEditor_Palette"));
 
 FMoveEditor::FMoveEditor()
 	: SoundCue(nullptr)
@@ -60,11 +58,6 @@ void FMoveEditor::RegisterTabSpawners(const TSharedRef<class FTabManager>& InTab
 		.SetDisplayName(LOCTEXT("DetailsTab", "Details"))
 		.SetGroup(WorkspaceMenuCategoryRef)
 		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.Details"));
-
-	InTabManager->RegisterTabSpawner(PaletteTabId, FOnSpawnTab::CreateSP(this, &FMoveEditor::SpawnTab_Palette))
-		.SetDisplayName(LOCTEXT("PaletteTab", "Palette"))
-		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "Kismet.Tabs.Palette"));
 }
 
 void FMoveEditor::UnregisterTabSpawners(const TSharedRef<class FTabManager>& InTabManager)
@@ -73,7 +66,6 @@ void FMoveEditor::UnregisterTabSpawners(const TSharedRef<class FTabManager>& InT
 
 	InTabManager->UnregisterTabSpawner(GraphCanvasTabId);
 	InTabManager->UnregisterTabSpawner(PropertiesTabId);
-	InTabManager->UnregisterTabSpawner(PaletteTabId);
 }
 
 FMoveEditor::~FMoveEditor()
@@ -132,13 +124,6 @@ void FMoveEditor::InitMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr
 					->SetSizeCoefficient(0.65f)
 					->SetHideTabWell(true)
 					->AddTab(GraphCanvasTabId, ETabState::OpenedTab)
-				)
-				->Split
-				(
-					FTabManager::NewStack()
-					->SetSizeCoefficient(0.125f)
-					->SetHideTabWell(true)
-					->AddTab(PaletteTabId, ETabState::OpenedTab)
 				)
 			)
 		);
@@ -232,18 +217,6 @@ TSharedRef<SDockTab> FMoveEditor::SpawnTab_Properties(const FSpawnTabArgs& Args)
 		];
 }
 
-TSharedRef<SDockTab> FMoveEditor::SpawnTab_Palette(const FSpawnTabArgs& Args)
-{
-	check(Args.GetTabId() == PaletteTabId);
-
-	return SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("Kismet.Tabs.Palette"))
-		.Label(LOCTEXT("SoundCuePaletteTitle", "Palette"))
-		[
-			Palette.ToSharedRef()
-		];
-}
-
 void FMoveEditor::AddReferencedObjects(FReferenceCollector& Collector)
 {
 	Collector.AddReferencedObject(SoundCue);
@@ -279,8 +252,6 @@ void FMoveEditor::CreateInternalWidgets()
 	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
 	SoundCueProperties = PropertyModule.CreateDetailView(Args);
 	SoundCueProperties->SetObject(SoundCue);
-
-	Palette = SNew(SSoundCuePalette);
 }
 
 void FMoveEditor::ExtendToolbar()
@@ -352,18 +323,6 @@ void FMoveEditor::BindGraphCommands()
 	ToolkitCommands->MapAction(
 		FGenericCommands::Get().Redo,
 		FExecuteAction::CreateSP(this, &FMoveEditor::RedoGraphAction));
-
-	ToolkitCommands->MapAction(
-		Commands.ToggleSolo,
-		FExecuteAction::CreateSP(this, &FMoveEditor::ToggleSolo),
-		FCanExecuteAction::CreateSP(this, &FMoveEditor::CanExcuteToggleSolo),
-		FIsActionChecked::CreateSP(this, &FMoveEditor::IsSoloToggled));
-
-	ToolkitCommands->MapAction(
-		Commands.ToggleMute,
-		FExecuteAction::CreateSP(this, &FMoveEditor::ToggleMute),
-		FCanExecuteAction::CreateSP(this, &FMoveEditor::CanExcuteToggleMute),
-		FIsActionChecked::CreateSP(this, &FMoveEditor::IsMuteToggled));
 }
 
 void FMoveEditor::PlayCue()
