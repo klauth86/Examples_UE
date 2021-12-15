@@ -16,5 +16,5 @@ public:
 
 protected:
 
-	TSharedRef<IMoveEditor> CreateMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr< IToolkitHost >& InitToolkitHost, UMove* move);
+	//TSharedRef<IMoveEditor> CreateMoveEditor(const EToolkitMode::Type Mode, const TSharedPtr< IToolkitHost >& InitToolkitHost, UMove* move);
 };

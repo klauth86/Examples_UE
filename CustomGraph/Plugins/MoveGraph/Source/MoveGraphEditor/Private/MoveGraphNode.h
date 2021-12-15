@@ -3,7 +3,7 @@
 #include "EdGraph/EdGraph.h"
 #include "MoveGraphNode.generated.h"
 
-class MoveNode;
+class UMoveNode;
 
 UCLASS(MinimalAPI)
 class UMoveGraphNode : public UEdGraphNode

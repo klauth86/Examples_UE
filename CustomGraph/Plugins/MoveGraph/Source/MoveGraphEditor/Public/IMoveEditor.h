@@ -7,6 +7,7 @@ class UMove;
 class IMoveEditor : public FAssetEditorToolkit
 {
 public:
+
 	virtual UMove* GetMove() const = 0;
 
 	virtual void SetSelection(TArray<UObject*> SelectedObjects) = 0;
