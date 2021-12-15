@@ -6,7 +6,7 @@
 #include "JoystickInput.generated.h"
 
 USTRUCT(BlueprintType)
-struct CUSTOMGRAPH2_API FJoystickInput
+struct MOVEGRAPH_API FJoystickInput
 {
 	GENERATED_USTRUCT_BODY()
 
