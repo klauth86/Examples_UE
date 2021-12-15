@@ -29,7 +29,6 @@ void UEQGen_MeleePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 
 	if (querier && target)
 	{
-
 		const float range = querier->GetProjectileClass()->GetDefaultObject<ABasicProjectile>()->GetRange();
 
 		float targetRadius;
