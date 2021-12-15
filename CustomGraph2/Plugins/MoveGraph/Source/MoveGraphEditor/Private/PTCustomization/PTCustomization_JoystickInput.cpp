@@ -11,22 +11,14 @@ TSharedRef<IPropertyTypeCustomization> FPTCustomization_JoystickInput::MakeInsta
 
 void FPTCustomization_JoystickInput::CustomizeHeader(TSharedRef<IPropertyHandle> PropertyHandle, FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& CustomizationUtils)
 {
+	FPTCustomization_Base::CustomizeHeader(PropertyHandle, HeaderRow, CustomizationUtils);
+}
+
+void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandle> PropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& CustomizationUtils) {
 	StructPropertyHandle = PropertyHandle;
 	TSharedPtr<IPropertyUtilities> PropertyUtils = CustomizationUtils.GetPropertyUtilities();
 
-	////// Get list of enum indexes
-	////TArray< TSharedPtr<int32> > ComboItems;
-	////GenerateComboBoxIndexes(ComboItems);
 
-	////ComboBox = SNew(SPinComboBox)
-	////	.ComboItemList(ComboItems)
-	////	.VisibleText(this, &FPropertyTypeCustomization_Replica::OnGetText)
-	////	.OnSelectionChanged(this, &FPropertyTypeCustomization_Replica::ComboBoxSelectionChanged)
-	////	.OnGetDisplayName(this, &FPropertyTypeCustomization_Replica::OnGetFriendlyName)
-	////	.OnGetTooltip(this, &FPropertyTypeCustomization_Replica::OnGetTooltip);
-
-	////HeaderRow.NameContent()[PropertyHandle->CreatePropertyNameWidget()]
-	////	.ValueContent()[ComboBox.ToSharedRef()].IsEnabled(MakeAttributeLambda([=] { return !PropertyHandle->IsEditConst() && PropertyUtils->IsPropertyEditingEnabled(); }));
 }
 
 #undef LOCTEXT_NAMESPACE
