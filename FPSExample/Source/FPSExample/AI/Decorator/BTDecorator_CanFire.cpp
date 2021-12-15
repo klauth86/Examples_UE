@@ -13,9 +13,14 @@ bool UBTDecorator_CanFire::CalculateRawConditionValue(UBehaviorTreeComponent& Ow
 		ABasicCharacter* target = Cast<ABasicCharacter>(bb->GetValueAsObject(BK_Target.SelectedKeyName));
 		if (self && target)
 		{
-			ABasicProjectile* defaultProjectile = self->GetProjectileClass()->GetDefaultObject<ABasicProjectile>();
-			float range = defaultProjectile->GetRange();
-			float effectiveRange = range + self->GetFireOffset().Size2D();
+			const float range = querier->GetProjectileClass()->GetDefaultObject<ABasicProjectile>()->GetRange();
+			
+			float targetRadius;
+			float targetHalfHeight;
+			target->GetCapsuleComponent()->GetScaledCapsuleSize(targetRadius, targetHalfHeight);
+
+			const FVector fireOffset = querier->GetFireOffset();
+			const float effectiveRange = range + fireOffset.Size2D() + targetRadius - 1;
 
 			const FVector selfLocation = self->GetActorLocation();
 			const FVector targetLocation = target->GetActorLocation();
