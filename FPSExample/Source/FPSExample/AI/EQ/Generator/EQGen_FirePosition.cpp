@@ -6,6 +6,7 @@
 #include "AI/EQ/Context/EnvQueryContext_Target.h"
 #include "Characters/BasicCharacter.h"
 #include "Projectiles/BasicProjectile.h"
+#include "Components/CapsuleComponent.h"
 
 #define LOCTEXT_NAMESPACE "EnvQueryGenerator"
 
@@ -33,6 +34,14 @@ void UEQGen_FirePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 	if (querier && target) {
 		
 		const float range = querier->GetProjectileClass()->GetDefaultObject<ABasicProjectile>()->GetRange();
+
+		float targetRadius;
+		float targetHalfHeight;
+		querier->GetCapsuleComponent()->GetScaledCapsuleSize(targetRadius, targetHalfHeight);
+
+		const FVector fireOffset = self->GetFireOffset();
+		const float effectiveRange = range + fireOffset.Size2D() + targetRadius - 1;
+
 		const float rangeSquared = range * range;
 
 		const FVector querierLocation = querier->GetActorLocation();
@@ -41,8 +50,6 @@ void UEQGen_FirePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 		const float distance = (querierLocation - targetLocation).Size2D();
 		const FVector direction = FVector(querierLocation.X - targetLocation.X, querierLocation.Y - targetLocation.Y, 0) / distance;
 		const FVector normal = FVector(-direction.Y, direction.X, 0);
-
-		const FVector centerLocation = (querierLocation + targetLocation) / 2;
 
 		float spaceBetweenValue = SpaceBetween.GetValue();
 
