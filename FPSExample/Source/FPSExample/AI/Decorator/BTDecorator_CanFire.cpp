@@ -4,6 +4,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Characters/BasicCharacter.h"
 #include "Projectiles/BasicProjectile.h"
+#include "Components/CapsuleComponent.h"
 
 bool UBTDecorator_CanFire::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {
@@ -13,13 +14,13 @@ bool UBTDecorator_CanFire::CalculateRawConditionValue(UBehaviorTreeComponent& Ow
 		ABasicCharacter* target = Cast<ABasicCharacter>(bb->GetValueAsObject(BK_Target.SelectedKeyName));
 		if (self && target)
 		{
-			const float range = querier->GetProjectileClass()->GetDefaultObject<ABasicProjectile>()->GetRange();
+			const float range = self->GetProjectileClass()->GetDefaultObject<ABasicProjectile>()->GetRange();
 			
 			float targetRadius;
 			float targetHalfHeight;
 			target->GetCapsuleComponent()->GetScaledCapsuleSize(targetRadius, targetHalfHeight);
 
-			const FVector fireOffset = querier->GetFireOffset();
+			const FVector fireOffset = self->GetFireOffset();
 			const float effectiveRange = range + fireOffset.Size2D() + targetRadius - 1;
 
 			const FVector selfLocation = self->GetActorLocation();
