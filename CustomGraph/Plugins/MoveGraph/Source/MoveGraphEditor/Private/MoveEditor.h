@@ -30,11 +30,6 @@ public:
 	virtual FString GetWorldCentricTabPrefix() const override;
 	virtual FLinearColor GetWorldCentricTabColorScale() const override;
 
-	virtual FString GetDocumentationLink() const override
-	{
-		return FString(TEXT("Engine/Audio/SoundCues/Editor"));
-	}
-
 	/** FGCObject interface */
 	virtual void AddReferencedObjects(FReferenceCollector& Collector) override;
 
