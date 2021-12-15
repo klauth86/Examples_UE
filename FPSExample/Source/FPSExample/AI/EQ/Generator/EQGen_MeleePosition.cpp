@@ -6,6 +6,7 @@
 #include "AI/EQ/Context/EnvQueryContext_Target.h"
 #include "Characters/BasicCharacter.h"
 #include "Projectiles/BasicProjectile.h"
+#include "Components/CapsuleComponent.h"
 
 #define LOCTEXT_NAMESPACE "EnvQueryGenerator"
 
@@ -30,8 +31,13 @@ void UEQGen_MeleePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 	{
 
 		const float range = querier->GetProjectileClass()->GetDefaultObject<ABasicProjectile>()->GetRange();
+
+		float targetRadius;
+		float targetHalfHeight;
+		target->GetCapsuleComponent()->GetScaledCapsuleSize(targetRadius, targetHalfHeight);
+		
 		const FVector fireOffset = querier->GetFireOffset();
-		const float effectiveRange = range + 2 * fireOffset.Size2D();
+		const float effectiveRange = range + fireOffset.Size2D() + targetRadius / 2;
 
 		const FVector querierLocation = querier->GetActorLocation();
 		const FVector targetLocation = target->GetActorLocation();
@@ -43,28 +49,23 @@ void UEQGen_MeleePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 
 		if (distance < effectiveRange)
 		{
-			// Change location and attack!
-			FVector rotatedDirection = FRotator(0, FMath::Rand() % 31 + 30, 0).RotateVector(direction);
-			FVector testLocation = targetLocation + rotatedDirection * (effectiveRange - 1);
-			GridPoints.Add(FNavLocation(testLocation));
+			// 30 % chance to change position
+			GridPoints.Add(FNavLocation(FMath::Rand() % 3 == 0
+				? targetLocation - direction * distance
+				: querierLocation));
+		}
+		else if (distance < 4 * effectiveRange) {
+			GridPoints.Add(FNavLocation(targetLocation));
 		}
 		else
 		{
+			// Zig zag a little bit
 			const float nextDistance = distance / 2;
-			if (nextDistance < effectiveRange)
-			{
-				// Get close and attack
-				FVector rotatedDirection = FRotator(0, FMath::Rand() % 31 + 30, 0).RotateVector(direction);
-				FVector testLocation = targetLocation + rotatedDirection * (effectiveRange - 1);
-				GridPoints.Add(FNavLocation(testLocation));
-			}
-			else
-			{
-				// Zig zag a little bit
-				FVector rotatedDirection = FRotator(0, FMath::Rand() % 31 + 30, 0).RotateVector(direction);
-				FVector testLocation = targetLocation + rotatedDirection * nextDistance;
-				GridPoints.Add(FNavLocation(testLocation));
-			}
+
+			int32 randomSide = FMath::Rand() % 2;
+			FVector rotatedDirection = FRotator(0, 90 * randomSide - 45, 0).RotateVector(direction);
+			FVector testLocation = targetLocation + rotatedDirection * nextDistance;
+			GridPoints.Add(FNavLocation(testLocation));
 		}
 	}
 
