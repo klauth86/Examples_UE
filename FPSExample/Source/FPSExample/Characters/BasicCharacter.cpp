@@ -90,7 +90,7 @@ void ABasicCharacter::BeginPlay()
 
 	if (UUserWidget_HealthBar* healthBar = Cast<UUserWidget_HealthBar>(WidgetComponent->GetWidget()))
 	{
-		healthBar->RefreshHealthBar();
+		healthBar->SetCharacter(this);
 	}
 
 	SetupCamera();

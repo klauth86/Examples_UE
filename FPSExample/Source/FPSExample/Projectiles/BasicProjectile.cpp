@@ -59,7 +59,7 @@ void ABasicProjectile::OnComponentHit(UPrimitiveComponent* HitComponent, AActor*
 
 		if (OtherActor->CanBeDamaged())
 		{
-			//OtherActor->TakeDamage(100, FDamageEvent(), nullptr, this);
+			OtherActor->TakeDamage(100, FDamageEvent(), nullptr, this);
 		}
 		else
 		{
