@@ -39,10 +39,10 @@ void UEQGen_FirePosition::GenerateItems(FEnvQueryInstance& QueryInstance) const
 		float targetHalfHeight;
 		querier->GetCapsuleComponent()->GetScaledCapsuleSize(targetRadius, targetHalfHeight);
 
-		const FVector fireOffset = self->GetFireOffset();
+		const FVector fireOffset = querier->GetFireOffset();
 		const float effectiveRange = range + fireOffset.Size2D() + targetRadius - 1;
 
-		const float rangeSquared = range * range;
+		const float effectiveRangeSquared = effectiveRange * effectiveRange;
 
 		const FVector querierLocation = querier->GetActorLocation();
 		const FVector targetLocation = target->GetActorLocation();
