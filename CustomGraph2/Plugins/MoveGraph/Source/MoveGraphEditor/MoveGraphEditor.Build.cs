@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class MoveGraph : ModuleRules
+public class MoveGraphEditor : ModuleRules
 {
-	public MoveGraph(ReadOnlyTargetRules Target) : base(Target)
+	public MoveGraphEditor(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
