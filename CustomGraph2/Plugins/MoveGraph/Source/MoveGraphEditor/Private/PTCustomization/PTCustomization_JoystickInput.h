@@ -30,6 +30,8 @@ protected:
 	FText Text_RightTrigger() const;
 	FReply OnClicked_RightTrigger();
 
+	bool IsEnabled_LeftStick() const;
+
 	FText Text_LeftStick_315() const;
 	FReply OnClicked_LeftStick_315();
 
@@ -53,6 +55,8 @@ protected:
 
 	FText Text_LeftStick_135() const;
 	FReply OnClicked_LeftStick_135();
+
+	bool IsEnabled_RightStick() const;
 
 	FText Text_RightStick_315() const;
 	FReply OnClicked_RightStick_315();

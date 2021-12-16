@@ -71,30 +71,38 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			+SGridPanel::Slot(1, 1)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftStick_315)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_315)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_315)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftStick)]
 			+ SGridPanel::Slot(2, 1)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftStick_0)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_0)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_0)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftStick)]
 			+ SGridPanel::Slot(3, 1)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftStick_45)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_45)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_45)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftStick)]
 
 			+ SGridPanel::Slot(1, 2)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftStick_270)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_270)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_270)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftStick)]
 			+ SGridPanel::Slot(3, 2)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftStick_90)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_90)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_90)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftStick)]
 
 			+ SGridPanel::Slot(1, 3)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftStick_225)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_225)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_225)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftStick)]
 			+ SGridPanel::Slot(2, 3)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftStick_180)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_180)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_180)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftStick)]
 			+ SGridPanel::Slot(3, 3)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftStick_135)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_135)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_135)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftStick)]
 
 			+ SGridPanel::Slot(1, 4).ColumnSpan(3).HAlign(HAlign_Center)[
 				SNew(SCheckBox)
@@ -110,30 +118,38 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			+ SGridPanel::Slot(4, 1)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightStick_315)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_315)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_315)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightStick)]
 			+ SGridPanel::Slot(5, 1)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightStick_0)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_0)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_0)
+					.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightStick)]
 			+ SGridPanel::Slot(6, 1)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightStick_45)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_45)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_45)
+					.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightStick)]
 
 			+ SGridPanel::Slot(4, 2)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightStick_270)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_270)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_270)
+					.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightStick)]
 			+ SGridPanel::Slot(6, 2)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightStick_90)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_90)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_90)
+					.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightStick)]
 
 			+ SGridPanel::Slot(4, 3)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightStick_225)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_225)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_225)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightStick)]
 			+ SGridPanel::Slot(5, 3)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightStick_180)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_180)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_180)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightStick)]
 			+ SGridPanel::Slot(6, 3)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightStick_135)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_135)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_135)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightStick)]
 
 			+ SGridPanel::Slot(4, 4).ColumnSpan(3).HAlign(HAlign_Center)[
 				SNew(SCheckBox)
@@ -405,6 +421,15 @@ ECheckBoxState FPTCustomization_JoystickInput::IsChecked_RightStick() const {
 	return ECheckBoxState::Undetermined;
 }
 
+bool FPTCustomization_JoystickInput::IsEnabled_LeftStick() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_HOLD_IN_PARENT && !joystickInput->LeftStick_HOLD;
+	}
+
+	return false;
+}
+
 FText FPTCustomization_JoystickInput::Text_LeftStick_315() const {
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
@@ -563,6 +588,16 @@ FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_135() {
 	}
 
 	return FReply::Handled();
+}
+
+bool FPTCustomization_JoystickInput::IsEnabled_RightStick() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_HOLD_IN_PARENT && !joystickInput->RightStick_HOLD;
+	}
+
+	return false;
 }
 
 FText FPTCustomization_JoystickInput::Text_RightStick_315() const
