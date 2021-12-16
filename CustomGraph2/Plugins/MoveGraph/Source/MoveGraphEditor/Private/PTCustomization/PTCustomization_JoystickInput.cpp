@@ -137,6 +137,27 @@ FText FPTCustomization_JoystickInput::Text_LeftUpperTrigger() const {
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LeftUpperTrigger() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftUpperTrigger_HOLD_IN_PARENT) {
+			if (!joystickInput->LeftUpperTrigger) {
+			
+			}
+		}
+		else {
+			if (!joystickInput->LeftUpperTrigger)
+			{
+				joystickInput->LeftUpperTrigger = true;
+			}
+			else if (!joystickInput->LeftUpperTrigger_HOLD) {
+				joystickInput->LeftUpperTrigger_HOLD = true;
+			}
+			else {
+				joystickInput->LeftUpperTrigger = false;
+				joystickInput->LeftUpperTrigger_HOLD = false;
+			}
+		}
+	}
 
 	return FReply::Handled();
 }
