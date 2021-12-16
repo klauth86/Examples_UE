@@ -67,6 +67,8 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			// LEFT STICK
 
+			+SGridPanel::Slot(1, 0).ColumnSpan(3).HAlign(HAlign_Center)[SNew(STextBlock).Text(FText::FromString("Left stick:"))]
+
 			+SGridPanel::Slot(1, 1)[SNew(STextBlock).Text(FText::FromString("315"))]
 			+ SGridPanel::Slot(2, 1)[SNew(STextBlock).Text(FText::FromString("0"))]
 			+ SGridPanel::Slot(3, 1)[SNew(STextBlock).Text(FText::FromString("45"))]
@@ -87,6 +89,8 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			]
 
 			// RIGHT STICK
+					
+			+SGridPanel::Slot(4, 0).ColumnSpan(3).HAlign(HAlign_Center)[SNew(STextBlock).Text(FText::FromString("Right stick:"))]
 
 			+SGridPanel::Slot(4, 1)[SNew(STextBlock).Text(FText::FromString("315"))]
 			+ SGridPanel::Slot(5, 1)[SNew(STextBlock).Text(FText::FromString("0"))]
@@ -120,6 +124,8 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightTrigger)]
 
 			// XYAB
+
+			+SGridPanel::Slot(8, 0).ColumnSpan(2).HAlign(HAlign_Center)[SNew(STextBlock).Text(FText::FromString("Buttons:"))]
 
 			+SGridPanel::Slot(8, 1)[SNew(STextBlock).Text(FText::FromString("X"))]
 			+ SGridPanel::Slot(8, 2)[SNew(STextBlock).Text(FText::FromString("A"))]
