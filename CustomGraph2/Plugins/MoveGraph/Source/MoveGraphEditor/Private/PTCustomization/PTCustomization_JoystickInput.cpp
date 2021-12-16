@@ -5,6 +5,8 @@
 #include "DetailWidgetRow.h"
 #include "Widgets/Layout/SGridPanel.h"
 #include "Widgets/Text/STextBlock.h"
+#include "Widgets/Input/SCheckBox.h"
+#include "JoystickInput.h"
 
 #define LOCTEXT_NAMESPACE "PropertyTypeCustomization_JoystickInput.h"
 
@@ -20,7 +22,6 @@ void FPTCustomization_JoystickInput::CustomizeHeader(TSharedRef<IPropertyHandle>
 
 void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandle> PropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& CustomizationUtils) {
 	StructPropertyHandle = PropertyHandle;
-	TSharedPtr<IPropertyUtilities> PropertyUtils = CustomizationUtils.GetPropertyUtilities();
 
 	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
 		SNew(SGridPanel)
@@ -40,8 +41,9 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			.FillColumn(9, 1)
 
 			.FillRow(0, 1)
-			.FillRow(0, 2)
-			.FillRow(0, 3)
+			.FillRow(1, 1)
+			.FillRow(2, 1)
+			.FillRow(3, 1)
 
 			// LEFT TRIGGERS
 
@@ -55,12 +57,19 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			+ SGridPanel::Slot(3, 0)[SNew(STextBlock).Text(FText::FromString("45"))]
 
 			+ SGridPanel::Slot(1, 1)[SNew(STextBlock).Text(FText::FromString("270"))]
-
 			+ SGridPanel::Slot(3, 1)[SNew(STextBlock).Text(FText::FromString("90"))]
 
 			+ SGridPanel::Slot(1, 2)[SNew(STextBlock).Text(FText::FromString("225"))]
 			+ SGridPanel::Slot(2, 2)[SNew(STextBlock).Text(FText::FromString("180"))]
 			+ SGridPanel::Slot(3, 2)[SNew(STextBlock).Text(FText::FromString("135"))]
+
+			+ SGridPanel::Slot(1, 3).ColumnSpan(3).HAlign(HAlign_Center)[
+				SNew(SCheckBox)
+					.Visibility_Raw(this, &FPTCustomization_JoystickInput::Visibility_LeftStick)
+					.OnCheckStateChanged(this, &FPTCustomization_JoystickInput::OnCheckStateChanged_LeftStick)
+					.IsChecked_Raw(this, &FPTCustomization_JoystickInput::IsChecked_LeftStick)
+					.Content()[SNew(STextBlock).Text(FText::FromString("HOLD"))]
+			]
 
 			// RIGHT STICK
 
@@ -69,12 +78,19 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			+ SGridPanel::Slot(6, 0)[SNew(STextBlock).Text(FText::FromString("45"))]
 
 			+ SGridPanel::Slot(4, 1)[SNew(STextBlock).Text(FText::FromString("270"))]
-
 			+ SGridPanel::Slot(6, 1)[SNew(STextBlock).Text(FText::FromString("90"))]
 
 			+ SGridPanel::Slot(4, 2)[SNew(STextBlock).Text(FText::FromString("225"))]
 			+ SGridPanel::Slot(5, 2)[SNew(STextBlock).Text(FText::FromString("180"))]
 			+ SGridPanel::Slot(6, 2)[SNew(STextBlock).Text(FText::FromString("135"))]
+
+			+ SGridPanel::Slot(4, 3).ColumnSpan(3).HAlign(HAlign_Center)[
+				SNew(SCheckBox)
+					.Visibility_Raw(this, &FPTCustomization_JoystickInput::Visibility_RightStick)
+					.OnCheckStateChanged(this, &FPTCustomization_JoystickInput::OnCheckStateChanged_RightStick)
+					.IsChecked_Raw(this, &FPTCustomization_JoystickInput::IsChecked_RightStick)
+					.Content()[SNew(STextBlock).Text(FText::FromString("HOLD"))]
+			]
 
 			// RIGHT TRIGGERS
 
@@ -88,6 +104,37 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			+ SGridPanel::Slot(9, 0)[SNew(STextBlock).Text(FText::FromString("Y"))]
 			+ SGridPanel::Slot(9, 1)[SNew(STextBlock).Text(FText::FromString("B"))]
 	];
+}
+
+EVisibility FPTCustomization_JoystickInput::Visibility_LeftStick() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>()) {
+		return joystickInput->HasLeftStick() || joystickInput->LeftStick_HOLD_IN_PARENT ? EVisibility::Visible : EVisibility::Hidden;
+	}
+
+	return EVisibility::Hidden;
+}
+
+void FPTCustomization_JoystickInput::OnCheckStateChanged_LeftStick(ECheckBoxState NewState) {
+
+}
+
+ECheckBoxState FPTCustomization_JoystickInput::IsChecked_LeftStick() const {
+
+}
+
+EVisibility FPTCustomization_JoystickInput::Visibility_RightStick() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->HasRightStick() || joystickInput->RightStick_HOLD_IN_PARENT ? EVisibility::Visible : EVisibility::Hidden;
+	}
+
+	return EVisibility::Hidden;
+}
+
+void FPTCustomization_JoystickInput::OnCheckStateChanged_RightStick(ECheckBoxState NewState) {}
+
+ECheckBoxState FPTCustomization_JoystickInput::IsChecked_RightStick() const {
+
 }
 
 #undef LOCTEXT_NAMESPACE

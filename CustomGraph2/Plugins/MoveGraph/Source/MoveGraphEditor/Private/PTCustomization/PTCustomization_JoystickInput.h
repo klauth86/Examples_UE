@@ -15,4 +15,18 @@ public:
 	virtual void CustomizeHeader(TSharedRef<IPropertyHandle> PropertyHandle, FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& CustomizationUtils) override;
 	virtual void CustomizeChildren(TSharedRef<IPropertyHandle> PropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& CustomizationUtils) override;
 	// End of IPropertyTypeCustomization interface
+
+protected:
+
+	EVisibility Visibility_LeftStick() const;
+
+	void OnCheckStateChanged_LeftStick(ECheckBoxState NewState);
+
+	ECheckBoxState IsChecked_LeftStick() const;
+
+	EVisibility Visibility_RightStick() const;
+
+	void OnCheckStateChanged_RightStick(ECheckBoxState NewState);
+
+	ECheckBoxState IsChecked_RightStick() const;
 };
