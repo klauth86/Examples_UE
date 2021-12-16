@@ -34,7 +34,7 @@ public class MoveGraphEditor : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"CoreUObject", "PropertyEditor"
+				"CoreUObject", "PropertyEditor", "SlateCore", "Slate"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

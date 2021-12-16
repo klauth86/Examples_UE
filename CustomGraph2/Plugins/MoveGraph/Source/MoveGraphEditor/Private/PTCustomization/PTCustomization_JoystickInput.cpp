@@ -3,6 +3,8 @@
 #include "PTCustomization_JoystickInput.h"
 #include "IDetailChildrenBuilder.h"
 #include "DetailWidgetRow.h"
+#include "Widgets/Layout/SGridPanel.h"
+#include "Widgets/Text/STextBlock.h"
 
 #define LOCTEXT_NAMESPACE "PropertyTypeCustomization_JoystickInput.h"
 
@@ -21,7 +23,70 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 	TSharedPtr<IPropertyUtilities> PropertyUtils = CustomizationUtils.GetPropertyUtilities();
 
 	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
+		SNew(SGridPanel)
+			.FillColumn(0, 1)
 
+			.FillColumn(1, 1)
+			.FillColumn(2, 1)
+			.FillColumn(3, 1)
+
+			.FillColumn(4, 1)
+			.FillColumn(5, 1)
+			.FillColumn(6, 1)
+
+			.FillColumn(7, 1)
+
+			.FillColumn(8, 1)
+			.FillColumn(9, 1)
+
+			.FillRow(0, 1)
+			.FillRow(0, 2)
+			.FillRow(0, 3)
+
+			// LEFT TRIGGERS
+
+			+SGridPanel::Slot(0, 0)[SNew(STextBlock).Text(FText::FromString("LEFT UPPER TRIGGER"))]
+			+ SGridPanel::Slot(0, 1)[SNew(STextBlock).Text(FText::FromString("LEFT TRIGGER"))]
+
+			// LEFT STICK
+
+			+SGridPanel::Slot(1, 0)[SNew(STextBlock).Text(FText::FromString("315"))]
+			+ SGridPanel::Slot(2, 0)[SNew(STextBlock).Text(FText::FromString("0"))]
+			+ SGridPanel::Slot(3, 0)[SNew(STextBlock).Text(FText::FromString("45"))]
+
+			+ SGridPanel::Slot(1, 1)[SNew(STextBlock).Text(FText::FromString("270"))]
+
+			+ SGridPanel::Slot(3, 1)[SNew(STextBlock).Text(FText::FromString("90"))]
+
+			+ SGridPanel::Slot(1, 2)[SNew(STextBlock).Text(FText::FromString("225"))]
+			+ SGridPanel::Slot(2, 2)[SNew(STextBlock).Text(FText::FromString("180"))]
+			+ SGridPanel::Slot(3, 2)[SNew(STextBlock).Text(FText::FromString("135"))]
+
+			// RIGHT STICK
+
+			+SGridPanel::Slot(4, 0)[SNew(STextBlock).Text(FText::FromString("315"))]
+			+ SGridPanel::Slot(5, 0)[SNew(STextBlock).Text(FText::FromString("0"))]
+			+ SGridPanel::Slot(6, 0)[SNew(STextBlock).Text(FText::FromString("45"))]
+
+			+ SGridPanel::Slot(4, 1)[SNew(STextBlock).Text(FText::FromString("270"))]
+
+			+ SGridPanel::Slot(6, 1)[SNew(STextBlock).Text(FText::FromString("90"))]
+
+			+ SGridPanel::Slot(4, 2)[SNew(STextBlock).Text(FText::FromString("225"))]
+			+ SGridPanel::Slot(5, 2)[SNew(STextBlock).Text(FText::FromString("180"))]
+			+ SGridPanel::Slot(6, 2)[SNew(STextBlock).Text(FText::FromString("135"))]
+
+			// RIGHT TRIGGERS
+
+			+SGridPanel::Slot(7, 0)[SNew(STextBlock).Text(FText::FromString("RIGHT UPPER TRIGGER"))]
+			+ SGridPanel::Slot(7, 1)[SNew(STextBlock).Text(FText::FromString("RIGHT UPPER TRIGGER"))]
+
+			// XYAB
+
+			+SGridPanel::Slot(8, 0)[SNew(STextBlock).Text(FText::FromString("X"))]
+			+ SGridPanel::Slot(8, 1)[SNew(STextBlock).Text(FText::FromString("A"))]
+			+ SGridPanel::Slot(9, 0)[SNew(STextBlock).Text(FText::FromString("Y"))]
+			+ SGridPanel::Slot(9, 1)[SNew(STextBlock).Text(FText::FromString("B"))]
 	];
 }
 
