@@ -54,16 +54,35 @@ protected:
 	FText Text_LS_135() const;
 	FReply OnClicked_LS_135();
 
-	FReply OnClicked_RightTrigger();
+	FText Text_RS_315() const;
+	FReply OnClicked_RS_315();
+
+	FText Text_RS_0() const;
+	FReply OnClicked_RS_0();
+
+	FText Text_RS_45() const;
+	FReply OnClicked_RS_45();
+
+	FText Text_RS_270() const;
+	FReply OnClicked_RS_270();
+
+	FText Text_RS_90() const;
+	FReply OnClicked_RS_90();
+
+	FText Text_RS_225() const;
+	FReply OnClicked_RS_225();
+
+	FText Text_RS_180() const;
+	FReply OnClicked_RS_180();
+
+	FText Text_RS_135() const;
+	FReply OnClicked_RS_135();
+
 	EVisibility Visibility_LeftStick() const;
-
 	void OnCheckStateChanged_LeftStick(ECheckBoxState NewState);
-
 	ECheckBoxState IsChecked_LeftStick() const;
 
 	EVisibility Visibility_RightStick() const;
-
 	void OnCheckStateChanged_RightStick(ECheckBoxState NewState);
-
 	ECheckBoxState IsChecked_RightStick() const;
 };

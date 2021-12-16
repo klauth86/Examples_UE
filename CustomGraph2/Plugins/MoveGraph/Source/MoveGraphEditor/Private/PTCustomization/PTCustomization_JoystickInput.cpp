@@ -108,16 +108,32 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 					
 			+SGridPanel::Slot(4, 0).ColumnSpan(3).HAlign(HAlign_Center)[SNew(STextBlock).Text(FText::FromString("Right stick:"))]
 
-			+SGridPanel::Slot(4, 1)[SNew(STextBlock).Text(FText::FromString("315"))]
-			+ SGridPanel::Slot(5, 1)[SNew(STextBlock).Text(FText::FromString("0"))]
-			+ SGridPanel::Slot(6, 1)[SNew(STextBlock).Text(FText::FromString("45"))]
+			+ SGridPanel::Slot(4, 1)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RS_315)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RS_315)]
+			+ SGridPanel::Slot(5, 1)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RS_0)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RS_0)]
+			+ SGridPanel::Slot(6, 1)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RS_45)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RS_45)]
 
-			+ SGridPanel::Slot(4, 2)[SNew(STextBlock).Text(FText::FromString("270"))]
-			+ SGridPanel::Slot(6, 2)[SNew(STextBlock).Text(FText::FromString("90"))]
+			+ SGridPanel::Slot(4, 2)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RS_270)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RS_270)]
+			+ SGridPanel::Slot(6, 2)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RS_90)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RS_90)]
 
-			+ SGridPanel::Slot(4, 3)[SNew(STextBlock).Text(FText::FromString("225"))]
-			+ SGridPanel::Slot(5, 3)[SNew(STextBlock).Text(FText::FromString("180"))]
-			+ SGridPanel::Slot(6, 3)[SNew(STextBlock).Text(FText::FromString("135"))]
+			+ SGridPanel::Slot(4, 3)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RS_225)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RS_225)]
+			+ SGridPanel::Slot(5, 3)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RS_180)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RS_180)]
+			+ SGridPanel::Slot(6, 3)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RS_135)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RS_135)]
 
 			+ SGridPanel::Slot(4, 4).ColumnSpan(3).HAlign(HAlign_Center)[
 				SNew(SCheckBox)
@@ -390,66 +406,322 @@ ECheckBoxState FPTCustomization_JoystickInput::IsChecked_RightStick() const {
 }
 
 FText FPTCustomization_JoystickInput::Text_LS_315() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_315 ? PressedText : ReleasedText;
+	}
+
 	return UndeterminedText;
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LS_315() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetLeftStick();
+		joystickInput->LeftStick_315 = true;
+	}
+
 	return FReply::Handled();
 }
 
 FText FPTCustomization_JoystickInput::Text_LS_0() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_0 ? PressedText : ReleasedText;
+	}
+
 	return UndeterminedText;
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LS_0() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetLeftStick();
+		joystickInput->LeftStick_0 = true;
+	}
+
 	return FReply::Handled();
 }
 
 FText FPTCustomization_JoystickInput::Text_LS_45() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_45 ? PressedText : ReleasedText;
+	}
+
 	return UndeterminedText;
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LS_45() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetLeftStick();
+		joystickInput->LeftStick_45 = true;
+	}
+
 	return FReply::Handled();
 }
 
 FText FPTCustomization_JoystickInput::Text_LS_270() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_270 ? PressedText : ReleasedText;
+	}
+
 	return UndeterminedText;
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LS_270() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetLeftStick();
+		joystickInput->LeftStick_270 = true;
+	}
+
 	return FReply::Handled();
 }
 
 FText FPTCustomization_JoystickInput::Text_LS_90() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_90 ? PressedText : ReleasedText;
+	}
+
 	return UndeterminedText;
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LS_90() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetLeftStick();
+		joystickInput->LeftStick_90 = true;
+	}
+
 	return FReply::Handled();
 }
 
 FText FPTCustomization_JoystickInput::Text_LS_225() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_225 ? PressedText : ReleasedText;
+	}
+
 	return UndeterminedText;
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LS_225() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetLeftStick();
+		joystickInput->LeftStick_225 = true;
+	}
+
 	return FReply::Handled();
 }
 
 FText FPTCustomization_JoystickInput::Text_LS_180() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_180 ? PressedText : ReleasedText;
+	}
+
 	return UndeterminedText;
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LS_180() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetLeftStick();
+		joystickInput->LeftStick_180 = true;
+	}
+
 	return FReply::Handled();
 }
 
 FText FPTCustomization_JoystickInput::Text_LS_135() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_135 ? PressedText : ReleasedText;
+	}
+
 	return UndeterminedText;
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LS_135() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetLeftStick();
+		joystickInput->LeftStick_135 = true;
+	}
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RS_315() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_315 ? PressedText : ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RS_315()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetRightStick();
+		joystickInput->RightStick_315 = true;
+	}
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RS_0() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_0 ? PressedText : ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RS_0()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetRightStick();
+		joystickInput->RightStick_0 = true;
+	}
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RS_45() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_45 ? PressedText : ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RS_45()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetRightStick();
+		joystickInput->RightStick_45 = true;
+	}
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RS_270() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_270 ? PressedText : ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RS_270()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetRightStick();
+		joystickInput->RightStick_270 = true;
+	}
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RS_90() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_90 ? PressedText : ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RS_90()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetRightStick();
+		joystickInput->RightStick_90 = true;
+	}
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RS_225() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_225 ? PressedText : ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RS_225()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetRightStick();
+		joystickInput->RightStick_225 = true;
+	}
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RS_180() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_180 ? PressedText : ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RS_180()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetRightStick();
+		joystickInput->RightStick_180 = true;
+	}
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RS_135() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_135 ? PressedText : ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RS_135()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->ResetRightStick();
+		joystickInput->RightStick_135 = true;
+	}
+
 	return FReply::Handled();
 }
 
