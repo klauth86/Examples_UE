@@ -18,6 +18,14 @@ public:
 
 protected:
 
+	FText Text_LeftUpperTrigger() const;
+
+	FReply OnClicked_LeftUpperTrigger();
+
+	FText Text_LeftTrigger() const;
+
+	FReply OnClicked_LeftTrigger();
+
 	EVisibility Visibility_LeftStick() const;
 
 	void OnCheckStateChanged_LeftStick(ECheckBoxState NewState);

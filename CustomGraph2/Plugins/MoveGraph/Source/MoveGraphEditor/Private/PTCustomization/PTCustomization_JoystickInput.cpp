@@ -6,9 +6,16 @@
 #include "Widgets/Layout/SGridPanel.h"
 #include "Widgets/Text/STextBlock.h"
 #include "Widgets/Input/SCheckBox.h"
+#include "Widgets/Input/SButton.h"
 #include "JoystickInput.h"
 
 #define LOCTEXT_NAMESPACE "PropertyTypeCustomization_JoystickInput.h"
+
+FText UndeterminedText = LOCTEXT("UndeterminedText", "???");
+
+FText ReleasedText = LOCTEXT("ReleasedText", "RELEASED");
+FText PressedText = LOCTEXT("PressedText", "PRESSED");
+FText HoldText = LOCTEXT("HoldText", "HOLD");
 
 TSharedRef<IPropertyTypeCustomization> FPTCustomization_JoystickInput::MakeInstance()
 {
@@ -47,8 +54,13 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			// LEFT TRIGGERS
 
-			+SGridPanel::Slot(0, 0)[SNew(STextBlock).Text(FText::FromString("LB"))]
-			+ SGridPanel::Slot(0, 1)[SNew(STextBlock).Text(FText::FromString("LT"))]
+			+SGridPanel::Slot(0, 0)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftUpperTrigger)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftUpperTrigger)]
+			
+			+ SGridPanel::Slot(0, 1)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftTrigger)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftTrigger)]
 
 			// LEFT STICK
 
@@ -104,6 +116,29 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			+ SGridPanel::Slot(9, 0)[SNew(STextBlock).Text(FText::FromString("Y"))]
 			+ SGridPanel::Slot(9, 1)[SNew(STextBlock).Text(FText::FromString("B"))]
 	];
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftUpperTrigger() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->A_HOLD) return HoldText;
+
+
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftUpperTrigger() {
+
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftTrigger() const {
+
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftTrigger() {
+
 }
 
 EVisibility FPTCustomization_JoystickInput::Visibility_LeftStick() const {
