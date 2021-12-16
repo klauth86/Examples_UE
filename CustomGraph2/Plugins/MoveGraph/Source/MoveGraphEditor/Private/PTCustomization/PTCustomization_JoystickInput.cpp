@@ -45,8 +45,8 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			// LEFT TRIGGERS
 
-			+SGridPanel::Slot(0, 0)[SNew(STextBlock).Text(FText::FromString("LEFT UPPER TRIGGER"))]
-			+ SGridPanel::Slot(0, 1)[SNew(STextBlock).Text(FText::FromString("LEFT TRIGGER"))]
+			+SGridPanel::Slot(0, 0)[SNew(STextBlock).Text(FText::FromString("LB"))]
+			+ SGridPanel::Slot(0, 1)[SNew(STextBlock).Text(FText::FromString("LT"))]
 
 			// LEFT STICK
 
@@ -78,8 +78,8 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			// RIGHT TRIGGERS
 
-			+SGridPanel::Slot(7, 0)[SNew(STextBlock).Text(FText::FromString("RIGHT UPPER TRIGGER"))]
-			+ SGridPanel::Slot(7, 1)[SNew(STextBlock).Text(FText::FromString("RIGHT UPPER TRIGGER"))]
+			+SGridPanel::Slot(7, 0)[SNew(STextBlock).Text(FText::FromString("RB"))]
+			+ SGridPanel::Slot(7, 1)[SNew(STextBlock).Text(FText::FromString("RT"))]
 
 			// XYAB
 

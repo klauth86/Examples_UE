@@ -2,17 +2,51 @@
 
 #include "MoveGraphEditor.h"
 
+#include "AssetToolsModule.h"
+#include "ATActions/ATActions_Move.h"
+
+#include "PropertyEditorModule.h"
+#include "JoystickInput.h"
+#include "PTCustomization/PTCustomization_JoystickInput.h"
+
 #define LOCTEXT_NAMESPACE "FMoveGraphEditorModule"
 
 void FMoveGraphEditorModule::StartupModule()
 {
-	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
+	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
+	PropertyModule.RegisterCustomPropertyTypeLayout(FJoystickInput::StaticStruct()->GetFName(), FOnGetPropertyTypeCustomizationInstance::CreateStatic(&FPTCustomization_JoystickInput::MakeInstance));
+
+	RegisteredAssetTypeActions.Add(MakeShared<FATActions_Move>());
+
+	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
+	for (auto& registeredAssetTypeAction : RegisteredAssetTypeActions)
+	{
+		if (registeredAssetTypeAction.IsValid())
+		{
+			AssetTools.RegisterAssetTypeActions(registeredAssetTypeAction.ToSharedRef());
+		}
+	}
 }
 
 void FMoveGraphEditorModule::ShutdownModule()
 {
-	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
-	// we call this function before unloading the module.
+	if (!UObjectInitialized()) return;
+
+	if (FModuleManager::Get().IsModuleLoaded("PropertyEditor"))
+	{
+		FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
+		PropertyModule.UnregisterCustomPropertyTypeLayout(FJoystickInput::StaticStruct()->GetFName());
+	}
+
+	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
+	for (auto& registeredAssetTypeAction : RegisteredAssetTypeActions)
+	{
+		if (registeredAssetTypeAction.IsValid())
+		{
+			AssetTools.UnregisterAssetTypeActions(registeredAssetTypeAction.ToSharedRef());
+			registeredAssetTypeAction.Reset();
+		}
+	}
 }
 
 #undef LOCTEXT_NAMESPACE
