@@ -13,9 +13,9 @@
 
 FText UndeterminedText = LOCTEXT("UndeterminedText", "???");
 
-FText ReleasedText = LOCTEXT("ReleasedText", "RELEASED");
-FText PressedText = LOCTEXT("PressedText", "PRESSED");
-FText HoldText = LOCTEXT("HoldText", "HOLD");
+FText ReleasedText = LOCTEXT("ReleasedText", "R");
+FText PressedText = LOCTEXT("PressedText", "P");
+FText HoldText = LOCTEXT("HoldText", "H");
 
 TSharedRef<IPropertyTypeCustomization> FPTCustomization_JoystickInput::MakeInstance()
 {
@@ -51,31 +51,34 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			.FillRow(1, 1)
 			.FillRow(2, 1)
 			.FillRow(3, 1)
+			.FillRow(4, 1)
 
 			// LEFT TRIGGERS
 
-			+SGridPanel::Slot(0, 0)[SNew(SButton)
+			+SGridPanel::Slot(0, 0).HAlign(HAlign_Center)[SNew(STextBlock).Text(FText::FromString("Left triggers:"))]
+
+			+ SGridPanel::Slot(0, 1).HAlign(HAlign_Center)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftUpperTrigger)
 			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftUpperTrigger)]
-			
-			+ SGridPanel::Slot(0, 1)[SNew(SButton)
+
+			+ SGridPanel::Slot(0, 2).HAlign(HAlign_Center)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftTrigger)
 			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftTrigger)]
 
 			// LEFT STICK
 
-			+SGridPanel::Slot(1, 0)[SNew(STextBlock).Text(FText::FromString("315"))]
-			+ SGridPanel::Slot(2, 0)[SNew(STextBlock).Text(FText::FromString("0"))]
-			+ SGridPanel::Slot(3, 0)[SNew(STextBlock).Text(FText::FromString("45"))]
+			+SGridPanel::Slot(1, 1)[SNew(STextBlock).Text(FText::FromString("315"))]
+			+ SGridPanel::Slot(2, 1)[SNew(STextBlock).Text(FText::FromString("0"))]
+			+ SGridPanel::Slot(3, 1)[SNew(STextBlock).Text(FText::FromString("45"))]
 
-			+ SGridPanel::Slot(1, 1)[SNew(STextBlock).Text(FText::FromString("270"))]
-			+ SGridPanel::Slot(3, 1)[SNew(STextBlock).Text(FText::FromString("90"))]
+			+ SGridPanel::Slot(1, 2)[SNew(STextBlock).Text(FText::FromString("270"))]
+			+ SGridPanel::Slot(3, 2)[SNew(STextBlock).Text(FText::FromString("90"))]
 
-			+ SGridPanel::Slot(1, 2)[SNew(STextBlock).Text(FText::FromString("225"))]
-			+ SGridPanel::Slot(2, 2)[SNew(STextBlock).Text(FText::FromString("180"))]
-			+ SGridPanel::Slot(3, 2)[SNew(STextBlock).Text(FText::FromString("135"))]
+			+ SGridPanel::Slot(1, 3)[SNew(STextBlock).Text(FText::FromString("225"))]
+			+ SGridPanel::Slot(2, 3)[SNew(STextBlock).Text(FText::FromString("180"))]
+			+ SGridPanel::Slot(3, 3)[SNew(STextBlock).Text(FText::FromString("135"))]
 
-			+ SGridPanel::Slot(1, 3).ColumnSpan(3).HAlign(HAlign_Center)[
+			+ SGridPanel::Slot(1, 4).ColumnSpan(3).HAlign(HAlign_Center)[
 				SNew(SCheckBox)
 					.Visibility_Raw(this, &FPTCustomization_JoystickInput::Visibility_LeftStick)
 					.OnCheckStateChanged(this, &FPTCustomization_JoystickInput::OnCheckStateChanged_LeftStick)
@@ -85,18 +88,18 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			// RIGHT STICK
 
-			+SGridPanel::Slot(4, 0)[SNew(STextBlock).Text(FText::FromString("315"))]
-			+ SGridPanel::Slot(5, 0)[SNew(STextBlock).Text(FText::FromString("0"))]
-			+ SGridPanel::Slot(6, 0)[SNew(STextBlock).Text(FText::FromString("45"))]
+			+SGridPanel::Slot(4, 1)[SNew(STextBlock).Text(FText::FromString("315"))]
+			+ SGridPanel::Slot(5, 1)[SNew(STextBlock).Text(FText::FromString("0"))]
+			+ SGridPanel::Slot(6, 1)[SNew(STextBlock).Text(FText::FromString("45"))]
 
-			+ SGridPanel::Slot(4, 1)[SNew(STextBlock).Text(FText::FromString("270"))]
-			+ SGridPanel::Slot(6, 1)[SNew(STextBlock).Text(FText::FromString("90"))]
+			+ SGridPanel::Slot(4, 2)[SNew(STextBlock).Text(FText::FromString("270"))]
+			+ SGridPanel::Slot(6, 2)[SNew(STextBlock).Text(FText::FromString("90"))]
 
-			+ SGridPanel::Slot(4, 2)[SNew(STextBlock).Text(FText::FromString("225"))]
-			+ SGridPanel::Slot(5, 2)[SNew(STextBlock).Text(FText::FromString("180"))]
-			+ SGridPanel::Slot(6, 2)[SNew(STextBlock).Text(FText::FromString("135"))]
+			+ SGridPanel::Slot(4, 3)[SNew(STextBlock).Text(FText::FromString("225"))]
+			+ SGridPanel::Slot(5, 3)[SNew(STextBlock).Text(FText::FromString("180"))]
+			+ SGridPanel::Slot(6, 3)[SNew(STextBlock).Text(FText::FromString("135"))]
 
-			+ SGridPanel::Slot(4, 3).ColumnSpan(3).HAlign(HAlign_Center)[
+			+ SGridPanel::Slot(4, 4).ColumnSpan(3).HAlign(HAlign_Center)[
 				SNew(SCheckBox)
 					.Visibility_Raw(this, &FPTCustomization_JoystickInput::Visibility_RightStick)
 					.OnCheckStateChanged(this, &FPTCustomization_JoystickInput::OnCheckStateChanged_RightStick)
@@ -106,20 +109,22 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			// RIGHT TRIGGERS
 
-			+SGridPanel::Slot(7, 0)[SNew(SButton)
+			+SGridPanel::Slot(7, 0).HAlign(HAlign_Center)[SNew(STextBlock).Text(FText::FromString("Right triggers:"))]
+
+			+ SGridPanel::Slot(7, 1).HAlign(HAlign_Center)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightUpperTrigger)
 			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightUpperTrigger)]
 
-			+ SGridPanel::Slot(7, 1)[SNew(SButton)
+			+ SGridPanel::Slot(7, 2).HAlign(HAlign_Center)[SNew(SButton)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightTrigger)
 			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightTrigger)]
 
 			// XYAB
 
-			+SGridPanel::Slot(8, 0)[SNew(STextBlock).Text(FText::FromString("X"))]
-			+ SGridPanel::Slot(8, 1)[SNew(STextBlock).Text(FText::FromString("A"))]
-			+ SGridPanel::Slot(9, 0)[SNew(STextBlock).Text(FText::FromString("Y"))]
-			+ SGridPanel::Slot(9, 1)[SNew(STextBlock).Text(FText::FromString("B"))]
+			+SGridPanel::Slot(8, 1)[SNew(STextBlock).Text(FText::FromString("X"))]
+			+ SGridPanel::Slot(8, 2)[SNew(STextBlock).Text(FText::FromString("A"))]
+			+ SGridPanel::Slot(9, 1)[SNew(STextBlock).Text(FText::FromString("Y"))]
+			+ SGridPanel::Slot(9, 2)[SNew(STextBlock).Text(FText::FromString("B"))]
 	];
 }
 
@@ -128,7 +133,7 @@ FText FPTCustomization_JoystickInput::Text_LeftUpperTrigger() const {
 	{
 		if (joystickInput->LeftUpperTrigger_HOLD) return HoldText;
 
-		if (!joystickInput->LeftUpperTrigger) return PressedText;
+		if (joystickInput->LeftUpperTrigger) return PressedText;
 
 		return ReleasedText;
 	}
@@ -140,8 +145,11 @@ FReply FPTCustomization_JoystickInput::OnClicked_LeftUpperTrigger() {
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
 		if (joystickInput->LeftUpperTrigger_HOLD_IN_PARENT) {
-			if (!joystickInput->LeftUpperTrigger) {
-			
+			if (!joystickInput->LeftUpperTrigger_HOLD) {
+				joystickInput->LeftUpperTrigger_HOLD = true;
+			}
+			else {
+				joystickInput->LeftUpperTrigger_HOLD = false;
 			}
 		}
 		else {
@@ -167,7 +175,7 @@ FText FPTCustomization_JoystickInput::Text_LeftTrigger() const {
 	{
 		if (joystickInput->LeftTrigger_HOLD) return HoldText;
 
-		if (!joystickInput->LeftTrigger) return PressedText;
+		if (joystickInput->LeftTrigger) return PressedText;
 
 		return ReleasedText;
 	}
@@ -176,6 +184,36 @@ FText FPTCustomization_JoystickInput::Text_LeftTrigger() const {
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LeftTrigger() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftTrigger_HOLD_IN_PARENT)
+		{
+			if (!joystickInput->LeftTrigger_HOLD)
+			{
+				joystickInput->LeftTrigger_HOLD = true;
+			}
+			else
+			{
+				joystickInput->LeftTrigger_HOLD = false;
+			}
+		}
+		else
+		{
+			if (!joystickInput->LeftTrigger)
+			{
+				joystickInput->LeftTrigger = true;
+			}
+			else if (!joystickInput->LeftTrigger_HOLD)
+			{
+				joystickInput->LeftTrigger_HOLD = true;
+			}
+			else
+			{
+				joystickInput->LeftTrigger = false;
+				joystickInput->LeftTrigger_HOLD = false;
+			}
+		}
+	}
 
 	return FReply::Handled();
 }
@@ -186,7 +224,7 @@ FText FPTCustomization_JoystickInput::Text_RightUpperTrigger() const
 	{
 		if (joystickInput->RightUpperTrigger_HOLD) return HoldText;
 
-		if (!joystickInput->RightUpperTrigger) return PressedText;
+		if (joystickInput->RightUpperTrigger) return PressedText;
 
 		return ReleasedText;
 	}
@@ -196,6 +234,36 @@ FText FPTCustomization_JoystickInput::Text_RightUpperTrigger() const
 
 FReply FPTCustomization_JoystickInput::OnClicked_RightUpperTrigger()
 {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightUpperTrigger_HOLD_IN_PARENT)
+		{
+			if (!joystickInput->RightUpperTrigger_HOLD)
+			{
+				joystickInput->RightUpperTrigger_HOLD = true;
+			}
+			else
+			{
+				joystickInput->RightUpperTrigger_HOLD = false;
+			}
+		}
+		else
+		{
+			if (!joystickInput->RightUpperTrigger)
+			{
+				joystickInput->RightUpperTrigger = true;
+			}
+			else if (!joystickInput->RightUpperTrigger_HOLD)
+			{
+				joystickInput->RightUpperTrigger_HOLD = true;
+			}
+			else
+			{
+				joystickInput->RightUpperTrigger = false;
+				joystickInput->RightUpperTrigger_HOLD = false;
+			}
+		}
+	}
 
 	return FReply::Handled();
 }
@@ -206,7 +274,7 @@ FText FPTCustomization_JoystickInput::Text_RightTrigger() const
 	{
 		if (joystickInput->RightTrigger_HOLD) return HoldText;
 
-		if (!joystickInput->RightTrigger) return PressedText;
+		if (joystickInput->RightTrigger) return PressedText;
 
 		return ReleasedText;
 	}
@@ -216,6 +284,36 @@ FText FPTCustomization_JoystickInput::Text_RightTrigger() const
 
 FReply FPTCustomization_JoystickInput::OnClicked_RightTrigger()
 {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightTrigger_HOLD_IN_PARENT)
+		{
+			if (!joystickInput->RightTrigger_HOLD)
+			{
+				joystickInput->RightTrigger_HOLD = true;
+			}
+			else
+			{
+				joystickInput->RightTrigger_HOLD = false;
+			}
+		}
+		else
+		{
+			if (!joystickInput->RightTrigger)
+			{
+				joystickInput->RightTrigger = true;
+			}
+			else if (!joystickInput->RightTrigger_HOLD)
+			{
+				joystickInput->RightTrigger_HOLD = true;
+			}
+			else
+			{
+				joystickInput->RightTrigger = false;
+				joystickInput->RightTrigger_HOLD = false;
+			}
+		}
+	}
 
 	return FReply::Handled();
 }
