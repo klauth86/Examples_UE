@@ -26,6 +26,14 @@ protected:
 
 	FReply OnClicked_LeftTrigger();
 
+	FText Text_RightUpperTrigger() const;
+
+	FReply OnClicked_RightUpperTrigger();
+
+	FText Text_RightTrigger() const;
+
+	FReply OnClicked_RightTrigger();
+
 	EVisibility Visibility_LeftStick() const;
 
 	void OnCheckStateChanged_LeftStick(ECheckBoxState NewState);

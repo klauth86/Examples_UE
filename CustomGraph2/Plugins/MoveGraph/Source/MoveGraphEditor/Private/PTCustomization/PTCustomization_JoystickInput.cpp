@@ -106,8 +106,13 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			// RIGHT TRIGGERS
 
-			+SGridPanel::Slot(7, 0)[SNew(STextBlock).Text(FText::FromString("RB"))]
-			+ SGridPanel::Slot(7, 1)[SNew(STextBlock).Text(FText::FromString("RT"))]
+			+SGridPanel::Slot(7, 0)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightUpperTrigger)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightUpperTrigger)]
+
+			+ SGridPanel::Slot(7, 1)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightTrigger)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightTrigger)]
 
 			// XYAB
 
@@ -150,6 +155,46 @@ FText FPTCustomization_JoystickInput::Text_LeftTrigger() const {
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LeftTrigger() {
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RightUpperTrigger() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightUpperTrigger_HOLD) return HoldText;
+
+		if (!joystickInput->RightUpperTrigger) return PressedText;
+
+		return ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightUpperTrigger()
+{
+
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_RightTrigger() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightTrigger_HOLD) return HoldText;
+
+		if (!joystickInput->RightTrigger) return PressedText;
+
+		return ReleasedText;
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightTrigger()
+{
 
 	return FReply::Handled();
 }
