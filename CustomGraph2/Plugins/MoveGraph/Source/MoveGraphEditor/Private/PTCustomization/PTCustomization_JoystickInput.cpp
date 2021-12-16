@@ -32,26 +32,26 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
 		SNew(SGridPanel)
-			.FillColumn(0, 1)
+			.FillColumn(0, 0)
 
-			.FillColumn(1, 1)
-			.FillColumn(2, 1)
-			.FillColumn(3, 1)
+			.FillColumn(1, 0)
+			.FillColumn(2, 0)
+			.FillColumn(3, 0)
 
-			.FillColumn(4, 1)
-			.FillColumn(5, 1)
-			.FillColumn(6, 1)
+			.FillColumn(4, 0)
+			.FillColumn(5, 0)
+			.FillColumn(6, 0)
 
-			.FillColumn(7, 1)
+			.FillColumn(7, 0)
 
-			.FillColumn(8, 1)
-			.FillColumn(9, 1)
+			.FillColumn(8, 0)
+			.FillColumn(9, 0)
 
-			.FillRow(0, 1)
-			.FillRow(1, 1)
-			.FillRow(2, 1)
-			.FillRow(3, 1)
-			.FillRow(4, 1)
+			.FillRow(0, 0)
+			.FillRow(1, 0)
+			.FillRow(2, 0)
+			.FillRow(3, 0)
+			.FillRow(4, 0)
 
 			// LEFT TRIGGERS
 
@@ -69,16 +69,32 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 			+SGridPanel::Slot(1, 0).ColumnSpan(3).HAlign(HAlign_Center)[SNew(STextBlock).Text(FText::FromString("Left stick:"))]
 
-			+SGridPanel::Slot(1, 1)[SNew(STextBlock).Text(FText::FromString("315"))]
-			+ SGridPanel::Slot(2, 1)[SNew(STextBlock).Text(FText::FromString("0"))]
-			+ SGridPanel::Slot(3, 1)[SNew(STextBlock).Text(FText::FromString("45"))]
+			+SGridPanel::Slot(1, 1)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LS_315)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LS_315)]
+			+ SGridPanel::Slot(2, 1)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LS_0)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LS_0)]
+			+ SGridPanel::Slot(3, 1)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LS_45)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LS_45)]
 
-			+ SGridPanel::Slot(1, 2)[SNew(STextBlock).Text(FText::FromString("270"))]
-			+ SGridPanel::Slot(3, 2)[SNew(STextBlock).Text(FText::FromString("90"))]
+			+ SGridPanel::Slot(1, 2)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LS_270)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LS_270)]
+			+ SGridPanel::Slot(3, 2)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LS_90)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LS_90)]
 
-			+ SGridPanel::Slot(1, 3)[SNew(STextBlock).Text(FText::FromString("225"))]
-			+ SGridPanel::Slot(2, 3)[SNew(STextBlock).Text(FText::FromString("180"))]
-			+ SGridPanel::Slot(3, 3)[SNew(STextBlock).Text(FText::FromString("135"))]
+			+ SGridPanel::Slot(1, 3)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LS_225)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LS_225)]
+			+ SGridPanel::Slot(2, 3)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LS_180)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LS_180)]
+			+ SGridPanel::Slot(3, 3)[SNew(SButton)
+			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LS_135)
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LS_135)]
 
 			+ SGridPanel::Slot(1, 4).ColumnSpan(3).HAlign(HAlign_Center)[
 				SNew(SCheckBox)
@@ -371,6 +387,70 @@ ECheckBoxState FPTCustomization_JoystickInput::IsChecked_RightStick() const {
 	}
 
 	return ECheckBoxState::Undetermined;
+}
+
+FText FPTCustomization_JoystickInput::Text_LS_315() const {
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LS_315() {
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_LS_0() const {
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LS_0() {
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_LS_45() const {
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LS_45() {
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_LS_270() const {
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LS_270() {
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_LS_90() const {
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LS_90() {
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_LS_225() const {
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LS_225() {
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_LS_180() const {
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LS_180() {
+	return FReply::Handled();
+}
+
+FText FPTCustomization_JoystickInput::Text_LS_135() const {
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LS_135() {
+	return FReply::Handled();
 }
 
 #undef LOCTEXT_NAMESPACE

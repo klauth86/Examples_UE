@@ -19,21 +19,42 @@ public:
 protected:
 
 	FText Text_LeftUpperTrigger() const;
-
 	FReply OnClicked_LeftUpperTrigger();
 
 	FText Text_LeftTrigger() const;
-
 	FReply OnClicked_LeftTrigger();
 
 	FText Text_RightUpperTrigger() const;
-
 	FReply OnClicked_RightUpperTrigger();
 
 	FText Text_RightTrigger() const;
-
 	FReply OnClicked_RightTrigger();
 
+	FText Text_LS_315() const;
+	FReply OnClicked_LS_315();
+
+	FText Text_LS_0() const;
+	FReply OnClicked_LS_0();
+
+	FText Text_LS_45() const;
+	FReply OnClicked_LS_45();
+
+	FText Text_LS_270() const;
+	FReply OnClicked_LS_270();
+
+	FText Text_LS_90() const;
+	FReply OnClicked_LS_90();
+
+	FText Text_LS_225() const;
+	FReply OnClicked_LS_225();
+
+	FText Text_LS_180() const;
+	FReply OnClicked_LS_180();
+
+	FText Text_LS_135() const;
+	FReply OnClicked_LS_135();
+
+	FReply OnClicked_RightTrigger();
 	EVisibility Visibility_LeftStick() const;
 
 	void OnCheckStateChanged_LeftStick(ECheckBoxState NewState);
