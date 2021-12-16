@@ -30,53 +30,53 @@ protected:
 	FText Text_RightTrigger() const;
 	FReply OnClicked_RightTrigger();
 
-	FText Text_LS_315() const;
-	FReply OnClicked_LS_315();
+	FText Text_LeftStick_315() const;
+	FReply OnClicked_LeftStick_315();
 
-	FText Text_LS_0() const;
-	FReply OnClicked_LS_0();
+	FText Text_LeftStick_0() const;
+	FReply OnClicked_LeftStick_0();
 
-	FText Text_LS_45() const;
-	FReply OnClicked_LS_45();
+	FText Text_LeftStick_45() const;
+	FReply OnClicked_LeftStick_45();
 
-	FText Text_LS_270() const;
-	FReply OnClicked_LS_270();
+	FText Text_LeftStick_270() const;
+	FReply OnClicked_LeftStick_270();
 
-	FText Text_LS_90() const;
-	FReply OnClicked_LS_90();
+	FText Text_LeftStick_90() const;
+	FReply OnClicked_LeftStick_90();
 
-	FText Text_LS_225() const;
-	FReply OnClicked_LS_225();
+	FText Text_LeftStick_225() const;
+	FReply OnClicked_LeftStick_225();
 
-	FText Text_LS_180() const;
-	FReply OnClicked_LS_180();
+	FText Text_LeftStick_180() const;
+	FReply OnClicked_LeftStick_180();
 
-	FText Text_LS_135() const;
-	FReply OnClicked_LS_135();
+	FText Text_LeftStick_135() const;
+	FReply OnClicked_LeftStick_135();
 
-	FText Text_RS_315() const;
-	FReply OnClicked_RS_315();
+	FText Text_RightStick_315() const;
+	FReply OnClicked_RightStick_315();
 
-	FText Text_RS_0() const;
-	FReply OnClicked_RS_0();
+	FText Text_RightStick_0() const;
+	FReply OnClicked_RightStick_0();
 
-	FText Text_RS_45() const;
-	FReply OnClicked_RS_45();
+	FText Text_RightStick_45() const;
+	FReply OnClicked_RightStick_45();
 
-	FText Text_RS_270() const;
-	FReply OnClicked_RS_270();
+	FText Text_RightStick_270() const;
+	FReply OnClicked_RightStick_270();
 
-	FText Text_RS_90() const;
-	FReply OnClicked_RS_90();
+	FText Text_RightStick_90() const;
+	FReply OnClicked_RightStick_90();
 
-	FText Text_RS_225() const;
-	FReply OnClicked_RS_225();
+	FText Text_RightStick_225() const;
+	FReply OnClicked_RightStick_225();
 
-	FText Text_RS_180() const;
-	FReply OnClicked_RS_180();
+	FText Text_RightStick_180() const;
+	FReply OnClicked_RightStick_180();
 
-	FText Text_RS_135() const;
-	FReply OnClicked_RS_135();
+	FText Text_RightStick_135() const;
+	FReply OnClicked_RightStick_135();
 
 	EVisibility Visibility_LeftStick() const;
 	void OnCheckStateChanged_LeftStick(ECheckBoxState NewState);
