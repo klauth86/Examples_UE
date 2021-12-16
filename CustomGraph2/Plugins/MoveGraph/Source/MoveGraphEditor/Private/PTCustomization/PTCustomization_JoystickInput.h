@@ -82,6 +82,18 @@ protected:
 	FText Text_RightStick_135() const;
 	FReply OnClicked_RightStick_135();
 
+	FText Text_X() const;
+	FReply OnClicked_X();
+
+	FText Text_A() const;
+	FReply OnClicked_A();
+
+	FText Text_Y() const;
+	FReply OnClicked_Y();
+
+	FText Text_B() const;
+	FReply OnClicked_B();
+
 	EVisibility Visibility_LeftStick() const;
 	void OnCheckStateChanged_LeftStick(ECheckBoxState NewState);
 	ECheckBoxState IsChecked_LeftStick() const;
