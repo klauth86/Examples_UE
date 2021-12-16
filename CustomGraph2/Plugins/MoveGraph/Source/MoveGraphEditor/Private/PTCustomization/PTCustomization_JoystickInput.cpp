@@ -115,11 +115,19 @@ EVisibility FPTCustomization_JoystickInput::Visibility_LeftStick() const {
 }
 
 void FPTCustomization_JoystickInput::OnCheckStateChanged_LeftStick(ECheckBoxState NewState) {
-
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->LeftStick_HOLD = NewState == ECheckBoxState::Checked;
+	}
 }
 
 ECheckBoxState FPTCustomization_JoystickInput::IsChecked_LeftStick() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->LeftStick_HOLD ? ECheckBoxState::Checked : ECheckBoxState::Unchecked;
+	}
 
+	return ECheckBoxState::Undetermined;
 }
 
 EVisibility FPTCustomization_JoystickInput::Visibility_RightStick() const {
@@ -131,10 +139,20 @@ EVisibility FPTCustomization_JoystickInput::Visibility_RightStick() const {
 	return EVisibility::Hidden;
 }
 
-void FPTCustomization_JoystickInput::OnCheckStateChanged_RightStick(ECheckBoxState NewState) {}
+void FPTCustomization_JoystickInput::OnCheckStateChanged_RightStick(ECheckBoxState NewState) {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		joystickInput->RightStick_HOLD = NewState == ECheckBoxState::Checked;
+	}
+}
 
 ECheckBoxState FPTCustomization_JoystickInput::IsChecked_RightStick() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return joystickInput->RightStick_HOLD ? ECheckBoxState::Checked : ECheckBoxState::Unchecked;
+	}
 
+	return ECheckBoxState::Undetermined;
 }
 
 #undef LOCTEXT_NAMESPACE
