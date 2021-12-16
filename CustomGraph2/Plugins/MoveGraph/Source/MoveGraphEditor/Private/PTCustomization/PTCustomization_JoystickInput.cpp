@@ -121,9 +121,11 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 FText FPTCustomization_JoystickInput::Text_LeftUpperTrigger() const {
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
-		if (joystickInput->A_HOLD) return HoldText;
+		if (joystickInput->LeftUpperTrigger_HOLD) return HoldText;
 
+		if (!joystickInput->LeftUpperTrigger) return PressedText;
 
+		return ReleasedText;
 	}
 
 	return UndeterminedText;
@@ -131,14 +133,25 @@ FText FPTCustomization_JoystickInput::Text_LeftUpperTrigger() const {
 
 FReply FPTCustomization_JoystickInput::OnClicked_LeftUpperTrigger() {
 
+	return FReply::Handled();
 }
 
 FText FPTCustomization_JoystickInput::Text_LeftTrigger() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftTrigger_HOLD) return HoldText;
 
+		if (!joystickInput->LeftTrigger) return PressedText;
+
+		return ReleasedText;
+	}
+
+	return UndeterminedText;
 }
 
 FReply FPTCustomization_JoystickInput::OnClicked_LeftTrigger() {
 
+	return FReply::Handled();
 }
 
 EVisibility FPTCustomization_JoystickInput::Visibility_LeftStick() const {
