@@ -424,7 +424,7 @@ ECheckBoxState FPTCustomization_JoystickInput::IsChecked_RightStick() const {
 bool FPTCustomization_JoystickInput::IsEnabled_LeftStick() const {
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
-		return joystickInput->LeftStick_HOLD_IN_PARENT && !joystickInput->LeftStick_HOLD;
+		return !joystickInput->LeftStick_HOLD_IN_PARENT || !joystickInput->LeftStick_HOLD;
 	}
 
 	return false;
@@ -594,7 +594,7 @@ bool FPTCustomization_JoystickInput::IsEnabled_RightStick() const
 {
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
-		return joystickInput->RightStick_HOLD_IN_PARENT && !joystickInput->RightStick_HOLD;
+		return !joystickInput->RightStick_HOLD_IN_PARENT || !joystickInput->RightStick_HOLD;
 	}
 
 	return false;
