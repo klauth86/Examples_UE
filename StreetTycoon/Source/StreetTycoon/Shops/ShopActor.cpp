@@ -4,6 +4,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/WidgetComponent.h"
 #include "ActionRouter.h"
+#include "FloatingTextActor.h"
 #include "UI/InfoWidget.h"
 
 AShopActor::AShopActor() {
@@ -42,7 +43,7 @@ void AShopActor::OnVisit() {
 		Balance += AverageTransaction;
 
 		if (FloatingTextActorClass) {
-			if (AFloatingTextActor* floatingTextActor = GetWorld()->SpawnActor<AFloatingTextActor>(FloatingTextActorClass, GetActorTransform()));
+			GetWorld()->SpawnActor<AFloatingTextActor>(FloatingTextActorClass, GetActorTransform());
 		}
 
 		ActionRouter::OnShopPurchase.Broadcast(this, AverageTransaction);
