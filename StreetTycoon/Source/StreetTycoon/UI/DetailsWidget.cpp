@@ -4,5 +4,5 @@
 #include "ActionRouter.h"
 
 void UDetailsWidget::UpgradeShop(int32 index) {
-	ActionRouter::OnUpgradeShop(OwningShopActor, index);
+	ActionRouter::OnUpgradeShop.Broadcast(OwningShopActor, index);
 }
