@@ -11,7 +11,7 @@ public class StreetTycoon : ModuleRules
 
 		PublicIncludePaths.AddRange(new string[] { Path.Combine(ModuleDirectory, "") });
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
