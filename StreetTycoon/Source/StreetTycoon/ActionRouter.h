@@ -6,9 +6,9 @@
 
 class AShopActor;
 
-DECLARE_MULTICAST_DELEGATE_TwoParams(FShopVisitEvent, AShopActor*, int);
-typedef FShopVisitEvent FUpgradeShopEvent;
+DECLARE_MULTICAST_DELEGATE_TwoParams(FShopVisitEvent, AShopActor*, int32);
 DECLARE_MULTICAST_DELEGATE_TwoParams(FShopPurchaseEvent, AShopActor*, float);
+typedef FShopVisitEvent FUpgradeShopEvent;
 
 namespace ActionRouter
 {

@@ -29,13 +29,13 @@ void AStreetTycoonPlayerController::SetupInputComponent()
 
 void AStreetTycoonPlayerController::SetHighlightedActor(const TWeakObjectPtr<AActor>& actorPtr)
 {
-	if (auto interactable = Cast<IInteractable>(HighlightedActorPtr.Get()))
+	if (IInteractable* interactable = Cast<IInteractable>(HighlightedActorPtr.Get()))
 	{
 		interactable->SetIsHighlighted(false);
 		HighlightedActorPtr.Reset();
 	}
 
-	if (auto interactable = Cast<IInteractable>(actorPtr.Get()))
+	if (IInteractable* interactable = Cast<IInteractable>(actorPtr.Get()))
 	{
 		HighlightedActorPtr = actorPtr;
 		interactable->SetIsHighlighted(true);
@@ -44,13 +44,13 @@ void AStreetTycoonPlayerController::SetHighlightedActor(const TWeakObjectPtr<AAc
 
 void AStreetTycoonPlayerController::SetInteractionActor()
 {
-	if (auto interactable = Cast<IInteractable>(InteractionActorPtr.Get()))
+	if (IInteractable* interactable = Cast<IInteractable>(InteractionActorPtr.Get()))
 	{
 		interactable->EndInteract();
 		InteractionActorPtr.Reset();
 	}
 
-	if (auto interactable = Cast<IInteractable>(HighlightedActorPtr.Get()))
+	if (IInteractable* interactable = Cast<IInteractable>(HighlightedActorPtr.Get()))
 	{
 		InteractionActorPtr = HighlightedActorPtr;
 		interactable->StartInteract();
