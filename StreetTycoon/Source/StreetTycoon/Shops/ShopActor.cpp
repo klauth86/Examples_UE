@@ -26,13 +26,12 @@ void AShopActor::SetIsHighlighted(bool isHighlighted) {
 
 void AShopActor::OnVisit() {
 	Visits++;	
-	ActionRouter::OnShopVisitChanged.Broadcast(this, Visits);
+	ActionRouter::OnShopVisit.Broadcast(this, Visits);
 
 	if (FMath::FRand() < TransactionChance) {
 		Purchases++;
-		ActionRouter::OnShopPurchasesChanged.Broadcast(this, Purchases);
-
 		Balance += AverageTransaction;
-		ActionRouter::OnShopBalanceChanged.Broadcast(this, AverageTransaction);
+
+		ActionRouter::OnShopPurchase.Broadcast(this, AverageTransaction);
 	}
 }

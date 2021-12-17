@@ -38,21 +38,21 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
 		TSubclassOf<UInfoWidget> InfoWidgetClass;
 
-	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ShopActor")
 		TMap<TSubclassOf<AShopActor>, float> Upgrades;
 
-	UPROPERTY(EditDefaultsOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0", ClampMax = "0.8", UIMax = "0.8"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0", ClampMax = "0.8", UIMax = "0.8"))
 		float TransactionChance;
 
-	UPROPERTY(EditDefaultsOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
 		float AverageTransaction;
 
-	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
 		int Visits;
 
-	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
 		int Purchases;
 
-	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
 		float Balance;
 };
