@@ -6,18 +6,16 @@
 void UInfoWidget::NativeConstruct() {
 	Super::NativeConstruct();
 
-	if (AShopActor* shopActor = GetTypedOuter<AShopActor>()) {
-		Refresh(shopActor);
-	}
+	if (AShopActor* shopActor = GetTypedOuter<AShopActor>()) Refresh(shopActor);
 
 	ActionRouter::OnShopUpgraded.AddUObject(this, &UInfoWidget::OnShopUpgraded);
-	ActionRouter::OnShopUpgraded.AddUObject(this, &UInfoWidget::OnShopVisit);
-	ActionRouter::OnShopUpgraded.AddUObject(this, &UInfoWidget::OnShopPurchase);
+	ActionRouter::OnShopVisit.AddUObject(this, &UInfoWidget::OnShopVisit);
+	ActionRouter::OnShopPurchase.AddUObject(this, &UInfoWidget::OnShopPurchase);
 }
 
 void UInfoWidget::NativeDestruct() {
-	ActionRouter::OnShopUpgraded.RemoveAll(this);
-	ActionRouter::OnShopUpgraded.RemoveAll(this);
+	ActionRouter::OnShopPurchase.RemoveAll(this);
+	ActionRouter::OnShopVisit.RemoveAll(this);
 	ActionRouter::OnShopUpgraded.RemoveAll(this);
 
 	Super::NativeDestruct();
