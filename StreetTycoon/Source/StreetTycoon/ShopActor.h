@@ -26,11 +26,7 @@ public:
 
 	virtual void EndInteract() override;
 
-	virtual void AddHighlight(EHighlightMode highlightMode) override;
-
-	virtual void RemoveHighlight(EHighlightMode highlightMode) override;
-
-	void RefreshHighlights();
+	virtual void SetIsHighlighted(bool) override;
 
 protected:
 
@@ -39,6 +35,4 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (AllowPrivateAccess = "true"))
 		UWidgetComponent* WidgetComponent;
-
-	EHighlightMode HighlightMode;
 };

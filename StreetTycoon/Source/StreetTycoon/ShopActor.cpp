@@ -19,24 +19,9 @@ void AShopActor::EndInteract() {
 
 }
 
-void AShopActor::AddHighlight(EHighlightMode highlightMode) {
-	if (HighlightMode > highlightMode) return;
+void AShopActor::SetIsHighlighted(bool isHighlighted) {
 
-	HighlightMode = highlightMode;
-
-	RefreshHighlights();
-}
-
-void AShopActor::RemoveHighlight(EHighlightMode highlightMode) {
-	if (HighlightMode > highlightMode) return;
-
-	HighlightMode = EHighlightMode::UNSET;
-
-	RefreshHighlights();
-}
-
-void AShopActor::RefreshHighlights() {
-	StaticMeshComponent->SetRenderCustomDepth(HighlightMode == EHighlightMode::HOVER);
+	StaticMeshComponent->SetRenderCustomDepth(isHighlighted);
 
 	// TODO SELECTED MODE
 }

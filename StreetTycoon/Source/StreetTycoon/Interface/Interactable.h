@@ -5,13 +5,6 @@
 #include "UObject/Interface.h"
 #include "Interactable.generated.h"
 
-enum class EHighlightMode :uint8
-{
-	UNSET = 0,
-	HOVER,
-	SELECTED
-};
-
 UINTERFACE(MinimalAPI)
 class UInteractable : public UInterface
 {
@@ -28,7 +21,5 @@ public:
 
 	virtual void EndInteract() {}
 
-	virtual void AddHighlight(EHighlightMode highlightMode) {}
-
-	virtual void RemoveHighlight(EHighlightMode highlightMode) {}
+	virtual void SetIsHighlighted(bool) {}
 };
