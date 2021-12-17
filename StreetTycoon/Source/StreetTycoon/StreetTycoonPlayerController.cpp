@@ -46,16 +46,14 @@ void AStreetTycoonPlayerController::SetInteractionActor()
 {
 	if (IInteractable* interactable = Cast<IInteractable>(HighlightedActorPtr.Get()))
 	{
-		interactable->StartInteract();
-
-		if (AShopActor* shopActor = Cast<AShopActor>(HighlightedActorPtr.Get()))
-			if (shopActor && DetailsWidgetClass)
+		AShopActor* shopActor = Cast<AShopActor>(HighlightedActorPtr.Get());
+		if (shopActor && DetailsWidgetClass)
+		{
+			if (UDetailsWidget* detailsWidget = CreateWidget<UDetailsWidget>(this, DetailsWidgetClass))
 			{
-				if (UDetailsWidget* detailsWidget = CreateWidget<UDetailsWidget>(this, DetailsWidgetClass))
-				{
-					detailsWidget->SetOwningShopActor(shopActor);
-					detailsWidget->AddToViewport();
-				}
+				detailsWidget->SetOwningShopActor(shopActor);
+				detailsWidget->AddToViewport();
 			}
+		}
 	}
 }
