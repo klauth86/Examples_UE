@@ -9,6 +9,7 @@
 class UStaticMeshComponent;
 class UWidgetComponent;
 class UInfoWidget;
+class AFloatingTextActor;
 
 UCLASS(ABSTRACT)
 class STREETTYCOON_API AShopActor : public AActor, public IInteractable
@@ -36,6 +37,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (AllowPrivateAccess = "true"))
 		UWidgetComponent* WidgetComponent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
+		TSubclassOf<AFloatingTextActor> FloatingTextActorClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
 		TSubclassOf<UInfoWidget> InfoWidgetClass;
