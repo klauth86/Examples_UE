@@ -9,5 +9,8 @@ UCLASS()
 class STREETTYCOON_API AStreetTycoonGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
 	
+	AStreetTycoonGameModeBase();
 };

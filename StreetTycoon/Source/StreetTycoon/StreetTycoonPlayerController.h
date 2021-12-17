@@ -16,8 +16,13 @@ public:
 
 	virtual void PlayerTick(float DeltaTime) override;
 
+	void SetHighlightedActor(const TWeakObjectPtr<AActor>& actorPtr);
+
+	void SetInteractionActor();
+
 protected:
 
 	TWeakObjectPtr<AActor> HighlightedActorPtr;
+
 	TWeakObjectPtr<AActor> InteractionActorPtr;
 };

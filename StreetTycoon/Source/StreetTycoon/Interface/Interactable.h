@@ -24,7 +24,11 @@ class STREETTYCOON_API IInteractable
 
 public:
 
-	virtual void Interact() {}
+	virtual void StartInteract() {}
 
-	virtual void SetHighlight(EHighlightMode highlightMode) {}
+	virtual void EndInteract() {}
+
+	virtual void AddHighlight(EHighlightMode highlightMode) {}
+
+	virtual void RemoveHighlight(EHighlightMode highlightMode) {}
 };

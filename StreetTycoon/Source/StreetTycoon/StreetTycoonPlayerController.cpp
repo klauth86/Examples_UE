@@ -15,13 +15,35 @@ void AStreetTycoonPlayerController::PlayerTick(float DeltaTime)
 	FHitResult Hit;
 	GetHitResultUnderCursor(ECC_Visibility, false, Hit);
 
-	if (Hit.bBlockingHit)
+	if (Hit.bBlockingHit) SetHighlightedActor(Hit.Actor);
+}
+
+void AStreetTycoonPlayerController::SetHighlightedActor(const TWeakObjectPtr<AActor>& actorPtr)
+{
+	if (auto interactable = Cast<IInteractable>(HighlightedActorPtr.Get()))
 	{
-		if (Hit.Actor != HighlightedActorPtr)
-		{
-			if (auto interactable = Cast<IInteractable>(Hit.Actor.Get())) {
-				interactable = 
-			}
-		}
+		interactable->RemoveHighlight(EHighlightMode::HOVER);
+		HighlightedActorPtr.Reset();
+	}
+
+	if (auto interactable = Cast<IInteractable>(actorPtr.Get()))
+	{
+		HighlightedActorPtr = actorPtr;
+		interactable->AddHighlight(EHighlightMode::HOVER);
+	}
+}
+
+void AStreetTycoonPlayerController::SetInteractionActor()
+{
+	if (auto interactable = Cast<IInteractable>(InteractionActorPtr.Get()))
+	{
+		interactable->EndInteract();
+		InteractionActorPtr.Reset();
+	}
+
+	if (auto interactable = Cast<IInteractable>(HighlightedActorPtr.Get()))
+	{
+		InteractionActorPtr = HighlightedActorPtr;
+		interactable->StartInteract();
 	}
 }
