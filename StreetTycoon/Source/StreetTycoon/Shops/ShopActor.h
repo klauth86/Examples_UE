@@ -11,6 +11,35 @@ class UWidgetComponent;
 class UInfoWidget;
 class AFloatingTextActor;
 
+USTRUCT(BlueprintType)
+struct FShopStat
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+
+	FShopStat() {
+		Visits = 0;
+		Purchases = 0;
+		Balance = 0;
+	}
+
+	void Reset(const FShopStat& shopStat) {
+		Visits = shopStat.Visits;
+		Purchases = shopStat.Purchases;
+		Balance = shopStat.Balance;
+	}
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopStat", meta = (ClampMin = "0.0", UIMin = "0.0"))
+		int Visits;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopStat", meta = (ClampMin = "0.0", UIMin = "0.0"))
+		int Purchases;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopStat", meta = (ClampMin = "0.0", UIMin = "0.0"))
+		float Balance;
+};
+
 UCLASS(ABSTRACT)
 class STREETTYCOON_API AShopActor : public AActor, public IInteractable
 {
@@ -31,6 +60,10 @@ public:
 	void OnVisit();
 
 	const TMap<TSubclassOf<AShopActor>, float>& GetUpgrades() const { return Upgrades; }
+
+	const FShopStat& GetShopStat() const { return ShopStat; }
+
+	void SetShopStat(const FShopStat& shopStat) { ShopStat.Reset(shopStat); }
 
 protected:
 
@@ -58,12 +91,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
 		float AverageTransaction;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
-		int Visits;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
-		int Purchases;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
-		float Balance;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ShopActor")
+		FShopStat ShopStat;
 };

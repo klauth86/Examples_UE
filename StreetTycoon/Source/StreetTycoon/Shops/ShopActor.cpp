@@ -15,9 +15,6 @@ AShopActor::AShopActor() {
 
 	TransactionChance = 0.2f;
 	AverageTransaction = 10;
-	Visits = 0;
-	Purchases = 0;
-	Balance = 0;
 }
 
 void AShopActor::BeginPlay() {
@@ -35,12 +32,12 @@ void AShopActor::SetIsHighlighted(bool isHighlighted) {
 }
 
 void AShopActor::OnVisit() {
-	Visits++;	
-	ActionRouter::OnShopVisit.Broadcast(this, Visits);
+	ShopStat.Visits++;	
+	ActionRouter::OnShopVisit.Broadcast(this, ShopStat.Visits);
 
 	if (FMath::FRand() < TransactionChance) {
-		Purchases++;
-		Balance += AverageTransaction;
+		ShopStat.Purchases++;
+		ShopStat.Balance += AverageTransaction;
 
 		if (FloatingTextActorClass) {
 			GetWorld()->SpawnActor<AFloatingTextActor>(FloatingTextActorClass, GetActorTransform());

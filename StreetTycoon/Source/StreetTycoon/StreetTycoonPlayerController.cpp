@@ -75,16 +75,41 @@ UInfoWidget* AStreetTycoonPlayerController::GetInfoWidget()
 	return InfoWidget;
 }
 
-void AStreetTycoonPlayerController::OnUpgradeShop(AShopActor* shopActor, int32 index) {
-	if (UInfoWidget* infoWidget = GetInfoWidget())
+void AStreetTycoonPlayerController::OnUpgradeShop(AShopActor* shopActor, int32 index)
+{
+	const TMap<TSubclassOf<AShopActor>, float>& upgrades = shopActor->GetUpgrades();
+	TArray<TSubclassOf<AShopActor>> keys;
+	upgrades.GetKeys(keys);
+
+	if (keys.IsValidIndex(index))
 	{
-		infoWidget->SetOwningShopActor(nullptr);
-		infoWidget->SetVisibility(shopActor ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
+		FTransform spawnTransform = shopActor->GetActorTransform();
 
-		//shopActor->GetUpgrades().
+		TSubclassOf<AShopActor> upgradeClass = keys[index];
 
-		//TSubclassOf<AShopActor> upgradeClass = 
+		FShopStat shopStat;
+		shopStat.Reset(shopActor->GetShopStat());
+
+		float upgradeCost = upgrades[upgradeClass];
+		shopStat.Balance -= upgradeCost;
+
+		if (UInfoWidget* infoWidget = GetInfoWidget())
+		{
+			infoWidget->SetOwningShopActor(nullptr);
+			infoWidget->SetVisibility(ESlateVisibility::Hidden);
+		}
 
 		shopActor->Destroy();
+
+		if (AShopActor* upgradedShopActor = GetWorld()->SpawnActor<AShopActor>(upgradeClass, spawnTransform))
+		{
+			upgradedShopActor->SetShopStat(shopStat);
+
+			if (UInfoWidget* infoWidget = GetInfoWidget())
+			{
+				infoWidget->SetOwningShopActor(upgradedShopActor);
+				infoWidget->SetVisibility(ESlateVisibility::Visible);
+			}
+		}
 	}
 }
