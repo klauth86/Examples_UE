@@ -1,12 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "ActionRouter.h"
 
-ActionRouter::ActionRouter()
-{
-}
-
-ActionRouter::~ActionRouter()
-{
-}
+FShopVisitedEvent ActionRouter::OnShopVisited;
+FShopUpgradedEvent ActionRouter::OnShopUpgraded;
+FShopBalanceChanged ActionRouter::OnShopBalanceChanged;
