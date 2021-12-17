@@ -21,6 +21,7 @@ public:
 
 	virtual void NativeDestruct() override;
 
+	UFUNCTION(BlueprintCallable)
 	void SetOwningShopActor(AShopActor* shopActor);
 
 protected:
