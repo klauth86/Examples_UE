@@ -2,6 +2,8 @@
 
 #include "StreetTycoonPlayerController.h"
 #include "Interface/Interactable.h"
+#include "UI/DetailsWidget.h"
+#include "Shops/ShopActor.h"
 
 AStreetTycoonPlayerController::AStreetTycoonPlayerController()
 {
@@ -16,6 +18,13 @@ void AStreetTycoonPlayerController::PlayerTick(float DeltaTime)
 	GetHitResultUnderCursor(ECC_Visibility, false, Hit);
 
 	if (Hit.bBlockingHit && HighlightedActorPtr != Hit.Actor && InteractionActorPtr != Hit.Actor) SetHighlightedActor(Hit.Actor);
+}
+
+void AStreetTycoonPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+
+	InputComponent->BindAction("SetInteraction", IE_Pressed, this, &AStreetTycoonPlayerController::SetInteractionActor);
 }
 
 void AStreetTycoonPlayerController::SetHighlightedActor(const TWeakObjectPtr<AActor>& actorPtr)
@@ -45,5 +54,13 @@ void AStreetTycoonPlayerController::SetInteractionActor()
 	{
 		InteractionActorPtr = HighlightedActorPtr;
 		interactable->StartInteract();
+
+		if (AShopActor* shopActor = Cast<AShopActor>(HighlightedActorPtr.Get()))
+		if (shopActor && DetailsWidgetClass) {
+			if (UDetailsWidget* detailsWidget =  CreateWidget<UDetailsWidget>(this, DetailsWidgetClass)) {
+				detailsWidget->SetOwningShopActor(shopActor);
+				detailsWidget->AddToViewport();
+			}
+		}
 	}
 }

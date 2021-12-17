@@ -5,6 +5,8 @@
 #include "GameFramework/PlayerController.h"
 #include "StreetTycoonPlayerController.generated.h"
 
+class UDetailsWidget;
+
 UCLASS()
 class STREETTYCOON_API AStreetTycoonPlayerController : public APlayerController
 {
@@ -16,6 +18,8 @@ public:
 
 	virtual void PlayerTick(float DeltaTime) override;
 
+	virtual void SetupInputComponent() override;
+
 	void SetHighlightedActor(const TWeakObjectPtr<AActor>& actorPtr);
 
 	void SetInteractionActor();
@@ -25,4 +29,7 @@ protected:
 	TWeakObjectPtr<AActor> HighlightedActorPtr;
 
 	TWeakObjectPtr<AActor> InteractionActorPtr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
+		TSubclassOf<UDetailsWidget> DetailsWidgetClass;
 };

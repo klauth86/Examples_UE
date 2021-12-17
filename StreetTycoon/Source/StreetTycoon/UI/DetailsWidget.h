@@ -9,4 +9,9 @@ UCLASS()
 class STREETTYCOON_API UDetailsWidget : public UInfoWidget
 {
 	GENERATED_BODY()
+
+protected:
+
+	UFUNCTION(BlueprintCallable)
+		void Upgrade(TSubclassOf<AShopActor> upgradeClass, float cost);
 };
