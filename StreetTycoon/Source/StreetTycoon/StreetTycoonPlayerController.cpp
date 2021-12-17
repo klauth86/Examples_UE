@@ -51,9 +51,8 @@ void AStreetTycoonPlayerController::SetInteractionActor()
 
 UDetailsWidget* AStreetTycoonPlayerController::GetDetailsWidget() {
 	if (!DetailsWidget && DetailsWidgetClass) {
-		if (DetailsWidget = CreateWidget<UDetailsWidget>(this, DetailsWidgetClass)) {
-			DetailsWidget->AddToViewport();
-		}
+		DetailsWidget = CreateWidget<UDetailsWidget>(this, DetailsWidgetClass);
+		if (DetailsWidget) DetailsWidget->AddToViewport();
 	}
 
 	return DetailsWidget;
