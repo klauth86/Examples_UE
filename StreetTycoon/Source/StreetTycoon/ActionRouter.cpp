@@ -2,6 +2,6 @@
 
 #include "ActionRouter.h"
 
-FShopUpgradedEvent ActionRouter::OnShopUpgraded;
 FShopVisitEvent ActionRouter::OnShopVisit;
 FShopPurchaseEvent ActionRouter::OnShopPurchase;
+FUpgradeShopEvent ActionRouter::OnUpgradeShop;

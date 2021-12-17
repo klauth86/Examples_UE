@@ -7,7 +7,6 @@
 void UInfoWidget::NativeDestruct() {
 	ActionRouter::OnShopPurchase.RemoveAll(this);
 	ActionRouter::OnShopVisit.RemoveAll(this);
-	ActionRouter::OnShopUpgraded.RemoveAll(this);
 
 	Super::NativeDestruct();
 }
@@ -17,13 +16,8 @@ void UInfoWidget::SetOwningShopActor(AShopActor* shopActor) {
 
 	Refresh();
 
-	ActionRouter::OnShopUpgraded.AddUObject(this, &UInfoWidget::OnShopUpgraded);
 	ActionRouter::OnShopVisit.AddUObject(this, &UInfoWidget::OnShopVisit);
 	ActionRouter::OnShopPurchase.AddUObject(this, &UInfoWidget::OnShopPurchase);
-}
-
-void UInfoWidget::OnShopUpgraded(AShopActor* shopActor) {
-	if (shopActor == OwningShopActor) Refresh();
 }
 
 void UInfoWidget::OnShopVisit(AShopActor* shopActor, int visits) {

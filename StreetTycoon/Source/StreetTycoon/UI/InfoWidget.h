@@ -23,8 +23,6 @@ public:
 
 protected:
 
-	void OnShopUpgraded(AShopActor* shopActor);
-
 	void OnShopVisit(AShopActor* shopActor, int visits);
 
 	void OnShopPurchase(AShopActor* shopActor, float balance);
