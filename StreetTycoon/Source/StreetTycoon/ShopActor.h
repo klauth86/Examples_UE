@@ -41,4 +41,10 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0", ClampMax = "0.8", UIMax = "0.8"))
 		float TransactionChance;
+
+	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
+		float AverageTransaction;
+
+	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
+		float Balance;
 };

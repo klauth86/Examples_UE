@@ -11,6 +11,8 @@ AShopActor::AShopActor() {
 	WidgetComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
 	TransactionChance = 0.2f;
+	AverageTransaction = 10;
+	Balance = 0;
 }
 
 void AShopActor::StartInteract() {
