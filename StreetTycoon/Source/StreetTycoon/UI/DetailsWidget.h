@@ -13,5 +13,5 @@ class STREETTYCOON_API UDetailsWidget : public UInfoWidget
 protected:
 
 	UFUNCTION(BlueprintCallable)
-		void UpgradeShop(int32 index) {}
+		void UpgradeShop(int32 index);
 };
