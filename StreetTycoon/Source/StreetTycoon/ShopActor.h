@@ -30,6 +30,8 @@ public:
 
 	virtual void RemoveHighlight(EHighlightMode highlightMode) override;
 
+	void RefreshHighlights();
+
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (AllowPrivateAccess = "true"))
