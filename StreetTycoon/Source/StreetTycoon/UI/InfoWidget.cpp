@@ -20,12 +20,16 @@ void UInfoWidget::NativeDestruct() {
 void UInfoWidget::SetOwningShopActor(AShopActor* shopActor) {
 	OwningShopActor = shopActor;
 
-	Refresh();
+	if (shopActor) {
+		Refresh();
 
-	SetVisibility(ESlateVisibility::Visible);
-
-	ActionRouter::OnShopVisit.AddUObject(this, &UInfoWidget::OnShopVisit);
-	ActionRouter::OnShopPurchase.AddUObject(this, &UInfoWidget::OnShopPurchase);
+		ActionRouter::OnShopVisit.AddUObject(this, &UInfoWidget::OnShopVisit);
+		ActionRouter::OnShopPurchase.AddUObject(this, &UInfoWidget::OnShopPurchase);
+	}
+	else {
+		ActionRouter::OnShopPurchase.RemoveAll(this);
+		ActionRouter::OnShopVisit.RemoveAll(this);
+	}
 }
 
 void UInfoWidget::OnShopVisit(AShopActor* shopActor, int visits) {
@@ -34,4 +38,9 @@ void UInfoWidget::OnShopVisit(AShopActor* shopActor, int visits) {
 
 void UInfoWidget::OnShopPurchase(AShopActor* shopActor, float balance) {
 	if (shopActor == OwningShopActor) Refresh();
+}
+
+void UInfoWidget::UpgradeShop(int32 index)
+{
+	ActionRouter::OnUpgradeShop.Broadcast(OwningShopActor, index);
 }

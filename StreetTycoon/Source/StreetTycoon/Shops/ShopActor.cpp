@@ -19,13 +19,18 @@ AShopActor::AShopActor() {
 	Balance = 0;
 }
 
-void AShopActor::SetIsHighlighted(bool isHighlighted) { 
+void AShopActor::BeginPlay() {
+	Super::BeginPlay();
+
+	WidgetComponent->SetWidgetClass(InfoWidgetClass);	
+	if (UInfoWidget* infoWidget = Cast<UInfoWidget>(WidgetComponent->GetWidget())) infoWidget->SetOwningShopActor(this);
+}
+
+void AShopActor::SetIsHighlighted(bool isHighlighted) { 	
 	StaticMeshComponent->SetRenderCustomDepth(isHighlighted);	// Visualize with Post Process
-	WidgetComponent->SetWidgetClass(isHighlighted ? InfoWidgetClass : nullptr);
-	if (UInfoWidget* infoWidget = Cast<UInfoWidget>(WidgetComponent->GetWidget()))
-	{
-		infoWidget->SetOwningShopActor(this);
-	}
+
+	UUserWidget* infoWidget = WidgetComponent->GetWidget();
+	if (infoWidget) infoWidget->SetVisibility(isHighlighted ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
 }
 
 void AShopActor::OnVisit() {

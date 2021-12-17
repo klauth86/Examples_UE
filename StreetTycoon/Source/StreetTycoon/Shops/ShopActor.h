@@ -23,6 +23,8 @@ public:
 
 	UWidgetComponent* GetWidgetComponent() const { return WidgetComponent; }
 
+	virtual void BeginPlay() override;
+
 	virtual void SetIsHighlighted(bool) override;
 
 	void OnVisit();

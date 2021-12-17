@@ -5,7 +5,7 @@
 #include "GameFramework/PlayerController.h"
 #include "StreetTycoonPlayerController.generated.h"
 
-class UDetailsWidget;
+class UInfoWidget;
 
 UCLASS()
 class STREETTYCOON_API AStreetTycoonPlayerController : public APlayerController
@@ -26,15 +26,15 @@ protected:
 
 	void SetInteractionActor();
 
-	UDetailsWidget* GetDetailsWidget();
+	UInfoWidget* GetInfoWidget();
 
 protected:
 
 	TWeakObjectPtr<AActor> HighlightedActorPtr;
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
-		TSubclassOf<UDetailsWidget> DetailsWidgetClass;
+		TSubclassOf<UInfoWidget> InfoWidgetClass;
 
 	UPROPERTY()
-		UDetailsWidget* DetailsWidget;
+		UInfoWidget* InfoWidget;
 };

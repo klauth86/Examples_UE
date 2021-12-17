@@ -2,7 +2,7 @@
 
 #include "StreetTycoonPlayerController.h"
 #include "Interface/Interactable.h"
-#include "UI/DetailsWidget.h"
+#include "UI/InfoWidget.h"
 #include "Shops/ShopActor.h"
 
 AStreetTycoonPlayerController::AStreetTycoonPlayerController()
@@ -44,16 +44,20 @@ void AStreetTycoonPlayerController::SetHighlightedActor(const TWeakObjectPtr<AAc
 
 void AStreetTycoonPlayerController::SetInteractionActor()
 {
-	if (UDetailsWidget* detailsWidget = GetDetailsWidget()) {
-		detailsWidget->SetOwningShopActor(Cast<AShopActor>(HighlightedActorPtr.Get()));
+	if (UInfoWidget* infoWidget = GetInfoWidget()) {		
+		AShopActor* shopActor = Cast<AShopActor>(HighlightedActorPtr.Get());
+		infoWidget->SetOwningShopActor(shopActor);
+		infoWidget->SetVisibility(shopActor ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
 	}
 }
 
-UDetailsWidget* AStreetTycoonPlayerController::GetDetailsWidget() {
-	if (!DetailsWidget && DetailsWidgetClass) {
-		DetailsWidget = CreateWidget<UDetailsWidget>(this, DetailsWidgetClass);
-		if (DetailsWidget) DetailsWidget->AddToViewport();
+UInfoWidget* AStreetTycoonPlayerController::GetInfoWidget()
+{
+	if (!InfoWidget && InfoWidgetClass)
+	{
+		InfoWidget = CreateWidget<UInfoWidget>(this, InfoWidgetClass);
+		if (InfoWidget) InfoWidget->AddToViewport();
 	}
 
-	return DetailsWidget;
+	return InfoWidget;
 }

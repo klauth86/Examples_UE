@@ -29,6 +29,9 @@ protected:
 
 	void OnShopPurchase(AShopActor* shopActor, float balance);
 
+	UFUNCTION(BlueprintCallable)
+		void UpgradeShop(int32 index);
+
 protected:
 
 	UPROPERTY(BlueprintReadOnly)
