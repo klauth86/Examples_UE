@@ -2,13 +2,9 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "StreetTycoonPlayerController.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class STREETTYCOON_API AStreetTycoonPlayerController : public APlayerController
 {
