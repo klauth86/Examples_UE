@@ -7,8 +7,9 @@
 class AShopActor;
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FShopVisitedEvent, AShopActor*);
-DECLARE_MULTICAST_DELEGATE_OneParam(FShopUpgradedEvent, AShopActor*);
+typedef FShopVisitedEvent FShopUpgradedEvent;
 DECLARE_MULTICAST_DELEGATE_TwoParams(FShopVisitChangedEvent, AShopActor*, int);
+typedef FShopVisitChangedEvent FShopPurchasesChangedEvent;
 DECLARE_MULTICAST_DELEGATE_TwoParams(FShopBalanceChangedEvent, AShopActor*, float);
 
 namespace ActionRouter
@@ -16,5 +17,6 @@ namespace ActionRouter
 	extern FShopVisitedEvent OnShopVisited;
 	extern FShopUpgradedEvent OnShopUpgraded;
 	extern FShopVisitChangedEvent OnShopVisitChanged;
+	extern FShopPurchasesChangedEvent OnShopPurchasesChanged;
 	extern FShopBalanceChangedEvent OnShopBalanceChanged;
 };

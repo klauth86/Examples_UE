@@ -22,10 +22,10 @@ protected:
 
 protected:
 
-	UPROPERTY(EditDefaultsOnly, Category = "VisitorSimulator", meta = (ClampMin = "0.0", UIMin = "0.0", ClampMax = "0.8", UIMax = "0.8"))
+	UPROPERTY(EditAnywhere, Category = "VisitorSimulator", meta = (ClampMin = "0.0", UIMin = "0.0", ClampMax = "0.8", UIMax = "0.8"))
 		float VisitorChance;
 
-	UPROPERTY(EditDefaultsOnly, Category = "VisitorSimulator", meta = (ClampMin = "0.1", UIMin = "0.1", ClampMax = "3600", UIMax = "3600"))
+	UPROPERTY(EditAnywhere, Category = "VisitorSimulator", meta = (ClampMin = "0.1", UIMin = "0.1", ClampMax = "3600", UIMax = "3600"))
 		float SpawnDelay;
 
 	float TimeLeftBeforeNextPossibleVisitor;

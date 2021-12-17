@@ -51,5 +51,8 @@ protected:
 		int Visits;
 
 	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
+		int Purchases;
+
+	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0"))
 		float Balance;
 };

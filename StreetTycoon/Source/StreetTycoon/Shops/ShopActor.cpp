@@ -15,6 +15,7 @@ AShopActor::AShopActor() {
 	TransactionChance = 0.2f;
 	AverageTransaction = 10;
 	Visits = 0;
+	Purchases = 0;
 	Balance = 0;
 }
 
@@ -28,6 +29,9 @@ void AShopActor::OnVisit() {
 	ActionRouter::OnShopVisitChanged.Broadcast(this, Visits);
 
 	if (FMath::FRand() < TransactionChance) {
+		Purchases++;
+		ActionRouter::OnShopPurchasesChanged.Broadcast(this, Purchases);
+
 		Balance += AverageTransaction;
 		ActionRouter::OnShopBalanceChanged.Broadcast(this, AverageTransaction);
 	}

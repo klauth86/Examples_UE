@@ -5,4 +5,5 @@
 FShopVisitedEvent ActionRouter::OnShopVisited;
 FShopUpgradedEvent ActionRouter::OnShopUpgraded;
 FShopVisitChangedEvent ActionRouter::OnShopVisitChanged;
+FShopPurchasesChangedEvent ActionRouter::OnShopPurchasesChanged;
 FShopBalanceChangedEvent ActionRouter::OnShopBalanceChanged;
