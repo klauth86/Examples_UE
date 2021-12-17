@@ -2,6 +2,7 @@
 
 #include "Visitors/VisitorSimulator.h"
 #include "Engine/World.h"
+#include "EngineUtils.h"
 #include "Shops/ShopActor.h"
 
 AVisitorSimulator::AVisitorSimulator()
