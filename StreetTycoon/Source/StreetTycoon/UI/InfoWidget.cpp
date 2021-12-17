@@ -4,6 +4,12 @@
 #include "Shops/ShopActor.h"
 #include "ActionRouter.h"
 
+void UInfoWidget::NativeConstruct() {
+	Super::NativeConstruct();
+
+	SetVisibility(ESlateVisibility::Hidden);
+}
+
 void UInfoWidget::NativeDestruct() {
 	ActionRouter::OnShopPurchase.RemoveAll(this);
 	ActionRouter::OnShopVisit.RemoveAll(this);
@@ -15,6 +21,8 @@ void UInfoWidget::SetOwningShopActor(AShopActor* shopActor) {
 	OwningShopActor = shopActor;
 
 	Refresh();
+
+	SetVisibility(ESlateVisibility::Visible);
 
 	ActionRouter::OnShopVisit.AddUObject(this, &UInfoWidget::OnShopVisit);
 	ActionRouter::OnShopPurchase.AddUObject(this, &UInfoWidget::OnShopPurchase);

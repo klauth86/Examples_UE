@@ -17,6 +17,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void Refresh();
 
+	virtual void NativeConstruct() override;
+
 	virtual void NativeDestruct() override;
 
 	void SetOwningShopActor(AShopActor* shopActor);
