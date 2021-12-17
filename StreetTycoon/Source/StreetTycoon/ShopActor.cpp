@@ -20,5 +20,6 @@ void AShopActor::StartInteract() {}
 void AShopActor::EndInteract() {}
 
 void AShopActor::SetIsHighlighted(bool isHighlighted) { 
-	StaticMeshComponent->SetRenderCustomDepth(isHighlighted);
-} // Visualize with Post Process
+	StaticMeshComponent->SetRenderCustomDepth(isHighlighted);	// Visualize with Post Process
+	WidgetComponent->SetWidgetClass(isHighlighted ? InfoWidgetClass : nullptr);
+}

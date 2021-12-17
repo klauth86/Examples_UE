@@ -37,7 +37,7 @@ protected:
 		UWidgetComponent* WidgetComponent;
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
-		TSubclassOf<UUserWidget> InfoWidgetClass;
+		TSubclassOf<UInfoWidget> InfoWidgetClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
 		TMap<TSubclassOf<AShopActor>, float> Upgrades;
