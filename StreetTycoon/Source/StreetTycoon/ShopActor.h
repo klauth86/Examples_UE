@@ -8,6 +8,7 @@
 
 class UStaticMeshComponent;
 class UWidgetComponent;
+class UInfoWidget;
 
 UCLASS(ABSTRACT)
 class STREETTYCOON_API AShopActor : public AActor, public IInteractable

@@ -3,6 +3,7 @@
 #include "ShopActor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/WidgetComponent.h"
+#include "UI/InfoWidget.h"
 
 AShopActor::AShopActor() {
 	RootComponent = StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
