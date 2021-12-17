@@ -37,6 +37,9 @@ protected:
 		UWidgetComponent* WidgetComponent;
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
+		TSubclassOf<UUserWidget> InfoWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
 		TMap<TSubclassOf<AShopActor>, float> Upgrades;
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0", ClampMax = "0.8", UIMax = "0.8"))
