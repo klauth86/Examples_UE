@@ -41,6 +41,12 @@ void AShopActor::OnVisit() {
 		Purchases++;
 		Balance += AverageTransaction;
 
+		if (FloatingTextActorClass) {
+			if (AFloatingTextActor* floatingTextActor = GetWorld()->SpawnActor<AFloatingTextActor>(FloatingTextActorClass, GetActorTransform())) {
+
+			}
+		}
+
 		ActionRouter::OnShopPurchase.Broadcast(this, AverageTransaction);
 	}
 }
