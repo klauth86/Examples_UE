@@ -6,6 +6,10 @@
 void UInfoWidget::NativeConstruct() {
 	Super::NativeConstruct();
 
+	auto outer = GetOuter();
+
+	auto zz = GetTypedOuter<AShopActor>();
+
 	if (AShopActor* shopActor = GetTypedOuter<AShopActor>()) Refresh(shopActor);
 
 	ActionRouter::OnShopUpgraded.AddUObject(this, &UInfoWidget::OnShopUpgraded);
