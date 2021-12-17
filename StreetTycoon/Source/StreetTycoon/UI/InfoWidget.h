@@ -15,11 +15,11 @@ class STREETTYCOON_API UInfoWidget : public UUserWidget
 public:
 
 	UFUNCTION(BlueprintImplementableEvent)
-		void Refresh(AShopActor* shopActor);
-
-	virtual void NativeConstruct() override;
+		void Refresh();
 
 	virtual void NativeDestruct() override;
+
+	void SetOwningShopActor(AShopActor* shopActor);
 
 protected:
 
@@ -28,4 +28,9 @@ protected:
 	void OnShopVisit(AShopActor* shopActor, int visits);
 
 	void OnShopPurchase(AShopActor* shopActor, float balance);
+
+protected:
+
+	UPROPERTY(BlueprintReadOnly)
+		AShopActor* OwningShopActor;
 };

@@ -22,6 +22,10 @@ AShopActor::AShopActor() {
 void AShopActor::SetIsHighlighted(bool isHighlighted) { 
 	StaticMeshComponent->SetRenderCustomDepth(isHighlighted);	// Visualize with Post Process
 	WidgetComponent->SetWidgetClass(isHighlighted ? InfoWidgetClass : nullptr);
+	if (UInfoWidget* infoWidget = Cast<UInfoWidget>(WidgetComponent->GetWidget()))
+	{
+		infoWidget->SetOwningShopActor(this);
+	}
 }
 
 void AShopActor::OnVisit() {

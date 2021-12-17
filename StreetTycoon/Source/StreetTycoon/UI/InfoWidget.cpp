@@ -3,19 +3,6 @@
 #include "UI/InfoWidget.h"
 #include "Shops/ShopActor.h"
 #include "ActionRouter.h"
-void UInfoWidget::NativeConstruct() {
-	Super::NativeConstruct();
-
-	auto outer = GetOuter();
-
-	auto zz = GetTypedOuter<AShopActor>();
-
-	if (AShopActor* shopActor = GetTypedOuter<AShopActor>()) Refresh(shopActor);
-
-	ActionRouter::OnShopUpgraded.AddUObject(this, &UInfoWidget::OnShopUpgraded);
-	ActionRouter::OnShopVisit.AddUObject(this, &UInfoWidget::OnShopVisit);
-	ActionRouter::OnShopPurchase.AddUObject(this, &UInfoWidget::OnShopPurchase);
-}
 
 void UInfoWidget::NativeDestruct() {
 	ActionRouter::OnShopPurchase.RemoveAll(this);
@@ -25,14 +12,24 @@ void UInfoWidget::NativeDestruct() {
 	Super::NativeDestruct();
 }
 
+void UInfoWidget::SetOwningShopActor(AShopActor* shopActor) {
+	OwningShopActor = shopActor;
+
+	Refresh();
+
+	ActionRouter::OnShopUpgraded.AddUObject(this, &UInfoWidget::OnShopUpgraded);
+	ActionRouter::OnShopVisit.AddUObject(this, &UInfoWidget::OnShopVisit);
+	ActionRouter::OnShopPurchase.AddUObject(this, &UInfoWidget::OnShopPurchase);
+}
+
 void UInfoWidget::OnShopUpgraded(AShopActor* shopActor) {
-	if (shopActor == GetTypedOuter<AShopActor>()) Refresh(shopActor);
+	if (shopActor == OwningShopActor) Refresh();
 }
 
 void UInfoWidget::OnShopVisit(AShopActor* shopActor, int visits) {
-	if (shopActor == GetTypedOuter<AShopActor>()) Refresh(shopActor);
+	if (shopActor == OwningShopActor) Refresh();
 }
 
 void UInfoWidget::OnShopPurchase(AShopActor* shopActor, float balance) {
-	if (shopActor == GetTypedOuter<AShopActor>()) Refresh(shopActor);
+	if (shopActor == OwningShopActor) Refresh();
 }
