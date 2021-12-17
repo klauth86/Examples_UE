@@ -28,8 +28,6 @@ protected:
 
 	TWeakObjectPtr<AActor> HighlightedActorPtr;
 
-	TWeakObjectPtr<AActor> InteractionActorPtr;
-
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
 		TSubclassOf<UDetailsWidget> DetailsWidgetClass;
 };
