@@ -5,6 +5,13 @@
 #include "UObject/Interface.h"
 #include "Interactable.generated.h"
 
+enum class EHighlightMode :uint8
+{
+	UNSET = 0,
+	HOVER,
+	SELECTED
+};
+
 UINTERFACE(MinimalAPI)
 class UInteractable : public UInterface
 {
@@ -18,4 +25,6 @@ class STREETTYCOON_API IInteractable
 public:
 
 	virtual void Interact() {}
+
+	virtual void SetHighlight(EHighlightMode highlightMode) {}
 };
