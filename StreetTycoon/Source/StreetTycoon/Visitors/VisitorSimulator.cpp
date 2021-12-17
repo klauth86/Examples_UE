@@ -20,9 +20,8 @@ void AVisitorSimulator::Tick(float DeltaTime)
 
 	TimeLeftBeforeNextPossibleVisitor -= DeltaTime;
 	if (TimeLeftBeforeNextPossibleVisitor < 0) {
-		TimeLeftBeforeNextPossibleVisitor = SpawnDelay;
-
 		if (FMath::FRand() < VisitorChance) SimulateVisitor();
+		TimeLeftBeforeNextPossibleVisitor = SpawnDelay;
 	}
 }
 
