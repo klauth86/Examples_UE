@@ -4,10 +4,23 @@
 #include "Interface/Interactable.h"
 #include "UI/InfoWidget.h"
 #include "Shops/ShopActor.h"
+#include "ActionRouter.h"
 
 AStreetTycoonPlayerController::AStreetTycoonPlayerController()
 {
 	bShowMouseCursor = true;
+}
+
+void AStreetTycoonPlayerController::BeginPlay() {
+	Super::BeginPlay();
+
+	ActionRouter::OnUpgradeShop.AddUObject(this, &AStreetTycoonPlayerController::OnUpgradeShop);
+}
+
+void AStreetTycoonPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason) {
+	ActionRouter::OnUpgradeShop.RemoveAll(this);
+
+	Super::EndPlay(EndPlayReason);
 }
 
 void AStreetTycoonPlayerController::PlayerTick(float DeltaTime)
@@ -60,4 +73,18 @@ UInfoWidget* AStreetTycoonPlayerController::GetInfoWidget()
 	}
 
 	return InfoWidget;
+}
+
+void AStreetTycoonPlayerController::OnUpgradeShop(AShopActor* shopActor, int32 index) {
+	if (UInfoWidget* infoWidget = GetInfoWidget())
+	{
+		infoWidget->SetOwningShopActor(nullptr);
+		infoWidget->SetVisibility(shopActor ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
+
+		//shopActor->GetUpgrades().
+
+		//TSubclassOf<AShopActor> upgradeClass = 
+
+		shopActor->Destroy();
+	}
 }

@@ -30,6 +30,8 @@ public:
 
 	void OnVisit();
 
+	const TMap<TSubclassOf<AShopActor>, float>& GetUpgrades() const { return Upgrades; }
+
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (AllowPrivateAccess = "true"))

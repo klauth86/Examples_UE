@@ -6,6 +6,7 @@
 #include "StreetTycoonPlayerController.generated.h"
 
 class UInfoWidget;
+class AShopActor;
 
 UCLASS()
 class STREETTYCOON_API AStreetTycoonPlayerController : public APlayerController
@@ -15,6 +16,10 @@ class STREETTYCOON_API AStreetTycoonPlayerController : public APlayerController
 public:
 
 	AStreetTycoonPlayerController();
+
+	virtual void BeginPlay();
+
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason);
 
 	virtual void PlayerTick(float DeltaTime) override;
 
@@ -27,6 +32,8 @@ protected:
 	void SetInteractionActor();
 
 	UInfoWidget* GetInfoWidget();
+
+	void OnUpgradeShop(AShopActor* shopActor, int32 index);
 
 protected:
 
