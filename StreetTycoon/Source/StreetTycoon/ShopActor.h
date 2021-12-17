@@ -9,7 +9,7 @@
 class UStaticMeshComponent;
 class UWidgetComponent;
 
-UCLASS()
+UCLASS(ABSTRACT)
 class STREETTYCOON_API AShopActor : public AActor, public IInteractable
 {
 	GENERATED_BODY()
@@ -35,4 +35,10 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (AllowPrivateAccess = "true"))
 		UWidgetComponent* WidgetComponent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
+		TMap<TSubclassOf<AShopActor>, float> Upgrades;
+
+	UPROPERTY(EditDefaultsOnly, Category = "ShopActor", meta = (ClampMin = "0.0", UIMin = "0.0", ClampMax = "0.8", UIMax = "0.8"))
+		float TransactionChance;
 };
