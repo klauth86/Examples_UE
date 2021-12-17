@@ -10,6 +10,7 @@ class UStaticMeshComponent;
 class UWidgetComponent;
 class UInfoWidget;
 class AFloatingTextActor;
+class AIndicatorActor;
 
 USTRUCT(BlueprintType)
 struct FShopStat
@@ -65,6 +66,8 @@ public:
 
 	void SetShopStat(const FShopStat& shopStat) { ShopStat.Reset(shopStat); }
 
+	void MarkAsLeader(UWorld* world);
+
 protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "ShopActor", meta = (AllowPrivateAccess = "true"))
@@ -75,6 +78,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
 		TSubclassOf<AFloatingTextActor> FloatingTextActorClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
+		TSubclassOf<AIndicatorActor> IndicatorActorClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
 		TSubclassOf<UInfoWidget> InfoWidgetClass;

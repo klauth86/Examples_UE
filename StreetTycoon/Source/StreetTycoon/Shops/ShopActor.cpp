@@ -5,7 +5,11 @@
 #include "Components/WidgetComponent.h"
 #include "ActionRouter.h"
 #include "FloatingTextActor.h"
+#include "IndicatorActor.h"
 #include "UI/InfoWidget.h"
+#include "EngineUtils.h"
+
+float MaxBalance = 0;
 
 AShopActor::AShopActor() {
 	RootComponent = StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
@@ -35,14 +39,49 @@ void AShopActor::OnVisit() {
 	ShopStat.Visits++;	
 	ActionRouter::OnShopVisit.Broadcast(this, ShopStat.Visits);
 
+	UWorld* world = GetWorld();
+
 	if (FMath::FRand() < TransactionChance) {
 		ShopStat.Purchases++;
 		ShopStat.Balance += AverageTransaction;
 
+		if (ShopStat.Balance > MaxBalance) {
+			MaxBalance = ShopStat.Balance;
+
+			MarkAsLeader(world);
+		}
+
 		if (FloatingTextActorClass) {
-			GetWorld()->SpawnActor<AFloatingTextActor>(FloatingTextActorClass, GetActorTransform());
+			world->SpawnActor<AFloatingTextActor>(FloatingTextActorClass, GetActorTransform());
 		}
 
 		ActionRouter::OnShopPurchase.Broadcast(this, AverageTransaction);
+	}
+}
+
+void AShopActor::MarkAsLeader(UWorld* world) {
+
+	TArray<AIndicatorActor*> indicators;
+	for (TActorIterator<AIndicatorActor> It(world); It; ++It) indicators.Add(*It);
+	
+	AIndicatorActor* indicator = nullptr;
+
+	if (indicators.Num() > 0)
+	{
+		indicator = indicators[0];
+	}
+
+	if (indicator && (!IndicatorActorClass || IndicatorActorClass != indicator->GetClass()))
+	{
+		indicator->Destroy();
+		indicator = nullptr;
+	}
+
+	if (indicator) {
+		indicator->SetActorTransform(GetActorTransform());
+	}
+	else if (IndicatorActorClass)
+	{
+		world->SpawnActor<AIndicatorActor>(IndicatorActorClass, GetActorTransform());
 	}
 }
