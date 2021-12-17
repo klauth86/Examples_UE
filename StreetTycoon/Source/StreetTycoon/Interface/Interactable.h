@@ -11,7 +11,7 @@ class UInteractable : public UInterface
 	GENERATED_BODY()
 };
 
-DECLARE_MULTICAST_DELEGATE_OneParam(FInteractionEvent, IInteractable*);
+DECLARE_MULTICAST_DELEGATE_OneParam(FInteractionEvent, class IInteractable*);
 
 class STREETTYCOON_API IInteractable
 {
