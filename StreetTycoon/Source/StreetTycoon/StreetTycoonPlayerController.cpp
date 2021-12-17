@@ -44,16 +44,17 @@ void AStreetTycoonPlayerController::SetHighlightedActor(const TWeakObjectPtr<AAc
 
 void AStreetTycoonPlayerController::SetInteractionActor()
 {
-	if (IInteractable* interactable = Cast<IInteractable>(HighlightedActorPtr.Get()))
-	{
-		AShopActor* shopActor = Cast<AShopActor>(HighlightedActorPtr.Get());
-		if (shopActor && DetailsWidgetClass)
-		{
-			if (UDetailsWidget* detailsWidget = CreateWidget<UDetailsWidget>(this, DetailsWidgetClass))
-			{
-				detailsWidget->SetOwningShopActor(shopActor);
-				detailsWidget->AddToViewport();
-			}
+	if (UDetailsWidget* detailsWidget = GetDetailsWidget()) {
+		detailsWidget->SetOwningShopActor(Cast<AShopActor>(HighlightedActorPtr.Get()));
+	}
+}
+
+UDetailsWidget* AStreetTycoonPlayerController::GetDetailsWidget() {
+	if (!DetailsWidget && DetailsWidgetClass) {
+		if (DetailsWidget = CreateWidget<UDetailsWidget>(this, DetailsWidgetClass)) {
+			DetailsWidget->AddToViewport();
 		}
 	}
+
+	return DetailsWidget;
 }

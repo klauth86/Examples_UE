@@ -17,9 +17,5 @@ class STREETTYCOON_API IInteractable
 
 public:
 
-	static FInteractionEvent OnStartInteraction;
-
-	static FInteractionEvent OnEndInteraction;
-
 	virtual void SetIsHighlighted(bool) {}
 };

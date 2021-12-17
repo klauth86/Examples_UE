@@ -20,9 +20,13 @@ public:
 
 	virtual void SetupInputComponent() override;
 
+protected:
+
 	void SetHighlightedActor(const TWeakObjectPtr<AActor>& actorPtr);
 
 	void SetInteractionActor();
+
+	UDetailsWidget* GetDetailsWidget();
 
 protected:
 
@@ -30,4 +34,7 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "ShopActor")
 		TSubclassOf<UDetailsWidget> DetailsWidgetClass;
+
+	UPROPERTY()
+		UDetailsWidget* DetailsWidget;
 };
