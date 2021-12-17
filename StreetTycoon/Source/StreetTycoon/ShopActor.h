@@ -23,10 +23,6 @@ public:
 
 	UWidgetComponent* GetWidgetComponent() const { return WidgetComponent; }
 
-	virtual void StartInteract() override;
-
-	virtual void EndInteract() override;
-
 	virtual void SetIsHighlighted(bool) override;
 
 	void OnVisit();

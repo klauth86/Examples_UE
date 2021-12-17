@@ -11,15 +11,21 @@ class UInteractable : public UInterface
 	GENERATED_BODY()
 };
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FInteractionEvent, IInteractable*);
+
 class STREETTYCOON_API IInteractable
 {
 	GENERATED_BODY()
 
 public:
 
-	virtual void StartInteract() {}
+	static FInteractionEvent OnStartInteraction;
 
-	virtual void EndInteract() {}
+	static FInteractionEvent OnEndInteraction;
+
+	virtual void StartInteract() { OnStartInteraction.Broadcast(this); }
+
+	virtual void EndInteract() { OnEndInteraction.Broadcast(this); }
 
 	virtual void SetIsHighlighted(bool) {}
 };
