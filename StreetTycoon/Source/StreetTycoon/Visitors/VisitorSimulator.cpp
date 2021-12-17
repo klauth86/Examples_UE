@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "VisitorSimulator.h"
+#include "Visitors/VisitorSimulator.h"
+#include "Engine/World.h"
+#include "Shops/ShopActor.h"
 
 AVisitorSimulator::AVisitorSimulator()
 {
@@ -25,5 +27,14 @@ void AVisitorSimulator::Tick(float DeltaTime)
 }
 
 void AVisitorSimulator::SimulateVisitor() {
+	UWorld* world = GetWorld();
+	
+	TArray<AShopActor*> shops;
+	for (TActorIterator<AShopActor> It(world); It; ++It) shops.Add(*It);
 
+	int32 num = shops.Num();
+	if (num > 0) {
+		int32 randomIndex = num > 1 ? (FMath::Rand() % num) : 0;
+		shops[randomIndex]->OnVisit();
+	}
 }
