@@ -51,17 +51,20 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			.FillRow(0, 0)
 			.FillRow(1, 0)
 			.FillRow(2, 0)
-			.FillRow(3, 0)
 
 			// LEFT TRIGGERS
 
 			+ SGridPanel::Slot(0, 0).HAlign(HAlign_Center).Padding(0,0,8,0)[SNew(SButton)
+			.ButtonColorAndOpacity_Raw(this, &FPTCustomization_JoystickInput::ColorAndOpacity_LeftUpperTrigger)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftUpperTrigger)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftUpperTrigger)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftUpperTrigger)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftUpperTrigger)]
 
 			+ SGridPanel::Slot(0, 1).HAlign(HAlign_Center).Padding(0, 0, 8, 0)[SNew(SButton)
+			.ButtonColorAndOpacity_Raw(this, &FPTCustomization_JoystickInput::ColorAndOpacity_LeftTrigger)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_LeftTrigger)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftTrigger)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftTrigger)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftTrigger)]
 
 			// LEFT STICK
 
@@ -116,14 +119,6 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_LeftStick_135)
 			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_LeftStick)]
 
-			+ SGridPanel::Slot(1, 3).ColumnSpan(3).HAlign(HAlign_Center)[
-				SNew(SCheckBox)
-					.Visibility_Raw(this, &FPTCustomization_JoystickInput::Visibility_LeftStick)
-					.OnCheckStateChanged(this, &FPTCustomization_JoystickInput::OnCheckStateChanged_LeftStick)
-					.IsChecked_Raw(this, &FPTCustomization_JoystickInput::IsChecked_LeftStick)
-					.Content()[SNew(STextBlock).Text(FText::FromString("HOLD"))]
-			]
-
 			// RIGHT STICK
 
 			+ SGridPanel::Slot(4, 0)[SNew(SButton)
@@ -177,23 +172,19 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightStick_135)
 			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightStick)]
 
-			+ SGridPanel::Slot(4, 3).ColumnSpan(3).HAlign(HAlign_Center)[
-				SNew(SCheckBox)
-					.Visibility_Raw(this, &FPTCustomization_JoystickInput::Visibility_RightStick)
-					.OnCheckStateChanged(this, &FPTCustomization_JoystickInput::OnCheckStateChanged_RightStick)
-					.IsChecked_Raw(this, &FPTCustomization_JoystickInput::IsChecked_RightStick)
-					.Content()[SNew(STextBlock).Text(FText::FromString("HOLD"))]
-			]
-
 			// RIGHT TRIGGERS
 
 			+ SGridPanel::Slot(7, 0).HAlign(HAlign_Center).Padding(8, 0, 0, 0)[SNew(SButton)
+			.ButtonColorAndOpacity_Raw(this, &FPTCustomization_JoystickInput::ColorAndOpacity_RightUpperTrigger)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightUpperTrigger)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightUpperTrigger)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightUpperTrigger)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightUpperTrigger)]
 
 			+ SGridPanel::Slot(7, 1).HAlign(HAlign_Center).Padding(8, 0, 0, 0)[SNew(SButton)
+			.ButtonColorAndOpacity_Raw(this, &FPTCustomization_JoystickInput::ColorAndOpacity_RightTrigger)
 			.Text_Raw(this, &FPTCustomization_JoystickInput::Text_RightTrigger)
-			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightTrigger)]
+			.OnClicked_Raw(this, &FPTCustomization_JoystickInput::OnClicked_RightTrigger)
+			.IsEnabled_Raw(this, &FPTCustomization_JoystickInput::IsEnabled_RightTrigger)]
 
 			// XYAB
 
@@ -212,14 +203,24 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 	];
 }
 
+FText FPTCustomization_JoystickInput::GetStickButtonText(FString label, bool isHold) const {
+	return FText::FromString(label + (isHold ? "(H)" : ""));
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftUpperTrigger() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftUpperTrigger) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
 FText FPTCustomization_JoystickInput::Text_LeftUpperTrigger() const {
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
-		if (joystickInput->LeftUpperTrigger_HOLD) return HoldText;
-
-		if (joystickInput->LeftUpperTrigger) return PressedText;
-
-		return FText::FromString("LB");
+		return GetStickButtonText("LB", joystickInput->LeftUpperTrigger_HOLD);
 	}
 
 	return UndeterminedText;
@@ -254,14 +255,30 @@ FReply FPTCustomization_JoystickInput::OnClicked_LeftUpperTrigger() {
 	return FReply::Handled();
 }
 
+bool FPTCustomization_JoystickInput::IsEnabled_LeftUpperTrigger() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return !joystickInput->LeftUpperTrigger_HOLD_IN_PARENT;
+	}
+
+	return false;
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftUpperTrigger() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftTrigger) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
 FText FPTCustomization_JoystickInput::Text_LeftTrigger() const {
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
-		if (joystickInput->LeftTrigger_HOLD) return HoldText;
-
-		if (joystickInput->LeftTrigger) return PressedText;
-
-		return FText::FromString("LT");
+		return GetStickButtonText("LT", joystickInput->LeftTrigger_HOLD);
 	}
 
 	return UndeterminedText;
@@ -302,15 +319,688 @@ FReply FPTCustomization_JoystickInput::OnClicked_LeftTrigger() {
 	return FReply::Handled();
 }
 
+bool FPTCustomization_JoystickInput::IsEnabled_LeftTrigger() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return !joystickInput->LeftTrigger_HOLD_IN_PARENT;
+	}
+
+	return false;
+}
+
+bool FPTCustomization_JoystickInput::IsEnabled_LeftStick() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return !joystickInput->LeftStick_HOLD_IN_PARENT;
+	}
+
+	return false;
+}
+
+void FPTCustomization_JoystickInput::SwitchHold_LeftStick()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftStick_HOLD)
+		{
+			joystickInput->ResetLeftStick();
+			joystickInput->LeftStick_HOLD = false;
+		}
+		else
+		{
+			joystickInput->LeftStick_HOLD = true;
+		}
+	}
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_315() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftStick_315) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftStick_315() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("315", joystickInput->LeftStick_315 && joystickInput->LeftStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_315() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->LeftStick_315;
+		if (prevState)
+		{
+			SwitchHold_LeftStick();
+		}
+		else
+		{
+			joystickInput->ResetLeftStick();
+			joystickInput->LeftStick_315 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_0() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftStick_0) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftStick_0() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("0", joystickInput->LeftStick_0 && joystickInput->LeftStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_0() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->LeftStick_0;
+		if (prevState)
+		{
+			SwitchHold_LeftStick();
+		}
+		else
+		{
+			joystickInput->ResetLeftStick();
+			joystickInput->LeftStick_0 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_45() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftStick_45) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftStick_45() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("45", joystickInput->LeftStick_45 && joystickInput->LeftStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_45() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->LeftStick_45;
+		if (prevState)
+		{
+			SwitchHold_LeftStick();
+		}
+		else
+		{
+			joystickInput->ResetLeftStick();
+			joystickInput->LeftStick_45 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_270() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftStick_270) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftStick_270() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("270", joystickInput->LeftStick_270 && joystickInput->LeftStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_270() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->LeftStick_270;
+		if (prevState)
+		{
+			SwitchHold_LeftStick();
+		}
+		else
+		{
+			joystickInput->ResetLeftStick();
+			joystickInput->LeftStick_270 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_90() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftStick_90) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftStick_90() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("90", joystickInput->LeftStick_90 && joystickInput->LeftStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_90() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->LeftStick_90;
+		if (prevState)
+		{
+			SwitchHold_LeftStick();
+		}
+		else
+		{
+			joystickInput->ResetLeftStick();
+			joystickInput->LeftStick_90 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_225() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftStick_225) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftStick_225() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("225", joystickInput->LeftStick_225 && joystickInput->LeftStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_225() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->LeftStick_225;
+		if (prevState)
+		{
+			SwitchHold_LeftStick();
+		}
+		else
+		{
+			joystickInput->ResetLeftStick();
+			joystickInput->LeftStick_225 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_180() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftStick_180) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftStick_180() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("180", joystickInput->LeftStick_180 && joystickInput->LeftStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_180() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->LeftStick_180;
+		if (prevState)
+		{
+			SwitchHold_LeftStick();
+		}
+		else
+		{
+			joystickInput->ResetLeftStick();
+			joystickInput->LeftStick_180 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_135() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->LeftStick_135) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_LeftStick_135() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("135", joystickInput->LeftStick_135 && joystickInput->LeftStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_135() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->LeftStick_135;
+		if (prevState)
+		{
+			SwitchHold_LeftStick();
+		}
+		else
+		{
+			joystickInput->ResetLeftStick();
+			joystickInput->LeftStick_135 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+bool FPTCustomization_JoystickInput::IsEnabled_RightStick() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return !joystickInput->RightStick_HOLD_IN_PARENT;
+	}
+
+	return false;
+}
+
+void FPTCustomization_JoystickInput::SwitchHold_RightStick() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightStick_HOLD)
+		{
+			joystickInput->ResetRightStick();
+			joystickInput->RightStick_HOLD = false;
+		}
+		else
+		{
+			joystickInput->RightStick_HOLD = true;
+		}
+	}
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_315() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightStick_315) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_RightStick_315() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("315", joystickInput->RightStick_315 && joystickInput->RightStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightStick_315()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->RightStick_315;
+		if (prevState)
+		{
+			SwitchHold_RightStick();
+		}
+		else
+		{
+			joystickInput->ResetRightStick();
+			joystickInput->RightStick_315 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_0() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightStick_0) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_RightStick_0() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("0", joystickInput->RightStick_0 && joystickInput->RightStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightStick_0()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->RightStick_0;
+		if (prevState)
+		{
+			SwitchHold_RightStick();
+		}
+		else
+		{
+			joystickInput->ResetRightStick();
+			joystickInput->RightStick_0 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_45() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightStick_45) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_RightStick_45() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("45", joystickInput->RightStick_45 && joystickInput->RightStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightStick_45()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->RightStick_45;
+		if (prevState)
+		{
+			SwitchHold_RightStick();
+		}
+		else
+		{
+			joystickInput->ResetRightStick();
+			joystickInput->RightStick_45 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_270() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightStick_270) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_RightStick_270() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("270", joystickInput->RightStick_270 && joystickInput->RightStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightStick_270()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->RightStick_270;
+		if (prevState)
+		{
+			SwitchHold_RightStick();
+		}
+		else
+		{
+			joystickInput->ResetRightStick();
+			joystickInput->RightStick_270 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_90() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightStick_90) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_RightStick_90() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("90", joystickInput->RightStick_90 && joystickInput->RightStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightStick_90()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->RightStick_90;
+		if (prevState)
+		{
+			SwitchHold_RightStick();
+		}
+		else
+		{
+			joystickInput->ResetRightStick();
+			joystickInput->RightStick_90 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_225() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightStick_225) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_RightStick_225() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("225", joystickInput->RightStick_225 && joystickInput->RightStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightStick_225()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->RightStick_225;
+		if (prevState)
+		{
+			SwitchHold_RightStick();
+		}
+		else
+		{
+			joystickInput->ResetRightStick();
+			joystickInput->RightStick_225 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_180() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightStick_180) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_RightStick_180() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("180", joystickInput->RightStick_180 && joystickInput->RightStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightStick_180()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->RightStick_180;
+		if (prevState)
+		{
+			SwitchHold_RightStick();
+		}
+		else
+		{
+			joystickInput->ResetRightStick();
+			joystickInput->RightStick_180 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_135() const {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightStick_135) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
+FText FPTCustomization_JoystickInput::Text_RightStick_135() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return GetStickButtonText("135", joystickInput->RightStick_135 && joystickInput->RightStick_HOLD);
+	}
+
+	return UndeterminedText;
+}
+
+FReply FPTCustomization_JoystickInput::OnClicked_RightStick_135()
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		const bool prevState = joystickInput->RightStick_135;
+		if (prevState)
+		{
+			SwitchHold_RightStick();
+		}
+		else
+		{
+			joystickInput->ResetRightStick();
+			joystickInput->RightStick_135 = true;
+		}
+	}
+
+	return FReply::Handled();
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightUpperTrigger() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightUpperTrigger) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
 FText FPTCustomization_JoystickInput::Text_RightUpperTrigger() const
 {
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
-		if (joystickInput->RightUpperTrigger_HOLD) return HoldText;
-
-		if (joystickInput->RightUpperTrigger) return PressedText;
-
-		return FText::FromString("RB");
+		return GetStickButtonText("LB", joystickInput->RightUpperTrigger_HOLD);
 	}
 
 	return UndeterminedText;
@@ -352,15 +1042,31 @@ FReply FPTCustomization_JoystickInput::OnClicked_RightUpperTrigger()
 	return FReply::Handled();
 }
 
+bool FPTCustomization_JoystickInput::IsEnabled_RightUpperTrigger() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		return !joystickInput->RightUpperTrigger_HOLD_IN_PARENT;
+	}
+
+	return false;
+}
+
+FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightTrigger() const
+{
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		if (joystickInput->RightTrigger) return FSlateColor(FLinearColor(1, 1, 1, 1));
+	}
+
+	return FSlateColor(InactiveColor);
+}
+
 FText FPTCustomization_JoystickInput::Text_RightTrigger() const
 {
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
-		if (joystickInput->RightTrigger_HOLD) return HoldText;
-
-		if (joystickInput->RightTrigger) return PressedText;
-
-		return FText::FromString("RT");
+		return GetStickButtonText("LT", joystickInput->RightTrigger_HOLD);
 	}
 
 	return UndeterminedText;
@@ -402,567 +1108,14 @@ FReply FPTCustomization_JoystickInput::OnClicked_RightTrigger()
 	return FReply::Handled();
 }
 
-EVisibility FPTCustomization_JoystickInput::Visibility_LeftStick() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>()) {
-		return joystickInput->HasLeftStick() || joystickInput->LeftStick_HOLD_IN_PARENT ? EVisibility::Visible : EVisibility::Hidden;
-	}
-
-	return EVisibility::Hidden;
-}
-
-void FPTCustomization_JoystickInput::OnCheckStateChanged_LeftStick(ECheckBoxState NewState) {
+bool FPTCustomization_JoystickInput::IsEnabled_RightTrigger() const
+{
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
-		joystickInput->LeftStick_HOLD = NewState == ECheckBoxState::Checked;
-	}
-}
-
-ECheckBoxState FPTCustomization_JoystickInput::IsChecked_LeftStick() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->LeftStick_HOLD ? ECheckBoxState::Checked : ECheckBoxState::Unchecked;
-	}
-
-	return ECheckBoxState::Undetermined;
-}
-
-EVisibility FPTCustomization_JoystickInput::Visibility_RightStick() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->HasRightStick() || joystickInput->RightStick_HOLD_IN_PARENT ? EVisibility::Visible : EVisibility::Hidden;
-	}
-
-	return EVisibility::Hidden;
-}
-
-void FPTCustomization_JoystickInput::OnCheckStateChanged_RightStick(ECheckBoxState NewState) {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		joystickInput->RightStick_HOLD = NewState == ECheckBoxState::Checked;
-	}
-}
-
-ECheckBoxState FPTCustomization_JoystickInput::IsChecked_RightStick() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->RightStick_HOLD ? ECheckBoxState::Checked : ECheckBoxState::Unchecked;
-	}
-
-	return ECheckBoxState::Undetermined;
-}
-
-bool FPTCustomization_JoystickInput::IsEnabled_LeftStick() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return !joystickInput->LeftStick_HOLD_IN_PARENT || !joystickInput->LeftStick_HOLD;
+		return !joystickInput->RightTrigger_HOLD_IN_PARENT;
 	}
 
 	return false;
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_315() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->LeftStick_315) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_LeftStick_315() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->LeftStick_315 ? PressedText : FText::FromString("315");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_315() {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->LeftStick_315;
-		joystickInput->ResetLeftStick();
-		joystickInput->LeftStick_315 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_0() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->LeftStick_0) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_LeftStick_0() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->LeftStick_0 ? PressedText : FText::FromString("0");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_0() {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->LeftStick_0;
-		joystickInput->ResetLeftStick();
-		joystickInput->LeftStick_0 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_45() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->LeftStick_45) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_LeftStick_45() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->LeftStick_45 ? PressedText : FText::FromString("45");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_45() {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->LeftStick_45;
-		joystickInput->ResetLeftStick();
-		joystickInput->LeftStick_45 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_270() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->LeftStick_270) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_LeftStick_270() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->LeftStick_270 ? PressedText : FText::FromString("270");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_270() {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->LeftStick_270;
-		joystickInput->ResetLeftStick();
-		joystickInput->LeftStick_270 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_90() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->LeftStick_90) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_LeftStick_90() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->LeftStick_90 ? PressedText : FText::FromString("90");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_90() {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->LeftStick_90;
-		joystickInput->ResetLeftStick();
-		joystickInput->LeftStick_90 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_225() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->LeftStick_225) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_LeftStick_225() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->LeftStick_225 ? PressedText : FText::FromString("225");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_225() {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->LeftStick_225;
-		joystickInput->ResetLeftStick();
-		joystickInput->LeftStick_225 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_180() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->LeftStick_180) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_LeftStick_180() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->LeftStick_180 ? PressedText : FText::FromString("180");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_180() {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->LeftStick_180;
-		joystickInput->ResetLeftStick();
-		joystickInput->LeftStick_180 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_LeftStick_135() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->LeftStick_135) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_LeftStick_135() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->LeftStick_135 ? PressedText : FText::FromString("135");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_LeftStick_135() {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->LeftStick_135;
-		joystickInput->ResetLeftStick();
-		joystickInput->LeftStick_135 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-bool FPTCustomization_JoystickInput::IsEnabled_RightStick() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return !joystickInput->RightStick_HOLD_IN_PARENT || !joystickInput->RightStick_HOLD;
-	}
-
-	return false;
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_315() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->RightStick_315) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_RightStick_315() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->RightStick_315 ? PressedText : FText::FromString("315");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_RightStick_315()
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->RightStick_315;
-		joystickInput->ResetRightStick();
-		joystickInput->RightStick_315 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_0() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->RightStick_0) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_RightStick_0() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->RightStick_0 ? PressedText : FText::FromString("0");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_RightStick_0()
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->RightStick_0;
-		joystickInput->ResetRightStick();
-		joystickInput->RightStick_0 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_45() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->RightStick_45) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_RightStick_45() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->RightStick_45 ? PressedText : FText::FromString("45");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_RightStick_45()
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->RightStick_45;
-		joystickInput->ResetRightStick();
-		joystickInput->RightStick_45 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_270() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->RightStick_270) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_RightStick_270() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->RightStick_270 ? PressedText : FText::FromString("270");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_RightStick_270()
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->RightStick_270;
-		joystickInput->ResetRightStick();
-		joystickInput->RightStick_270 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_90() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->RightStick_90) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_RightStick_90() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->RightStick_90 ? PressedText : FText::FromString("90");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_RightStick_90()
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->RightStick_90;
-		joystickInput->ResetRightStick();
-		joystickInput->RightStick_90 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_225() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->RightStick_225) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_RightStick_225() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->RightStick_225 ? PressedText : FText::FromString("225");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_RightStick_225()
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->RightStick_225;
-		joystickInput->ResetRightStick();
-		joystickInput->RightStick_225 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_180() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->RightStick_180) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_RightStick_180() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->RightStick_180 ? PressedText : FText::FromString("180");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_RightStick_180()
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->RightStick_180;
-		joystickInput->ResetRightStick();
-		joystickInput->RightStick_180 = !prevState;
-	}
-
-	return FReply::Handled();
-}
-
-FSlateColor FPTCustomization_JoystickInput::ColorAndOpacity_RightStick_135() const {
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		if (joystickInput->RightStick_135) return FSlateColor(FLinearColor(1, 1, 1, 1));
-	}
-
-	return FSlateColor(InactiveColor);
-}
-
-FText FPTCustomization_JoystickInput::Text_RightStick_135() const
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		return joystickInput->RightStick_135 ? PressedText : FText::FromString("135");
-	}
-
-	return UndeterminedText;
-}
-
-FReply FPTCustomization_JoystickInput::OnClicked_RightStick_135()
-{
-	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	{
-		bool prevState = joystickInput->RightStick_135;
-		joystickInput->ResetRightStick();
-		joystickInput->RightStick_135 = !prevState;
-	}
-
-	return FReply::Handled();
 }
 
 FText FPTCustomization_JoystickInput::Text_X() const {

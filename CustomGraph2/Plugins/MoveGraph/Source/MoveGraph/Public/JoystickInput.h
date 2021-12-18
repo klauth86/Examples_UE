@@ -19,11 +19,11 @@ public:
 
 	bool HasLeftStick() const { return LeftStick_0 | LeftStick_45 | LeftStick_90 | LeftStick_135 | LeftStick_180 | LeftStick_225 | LeftStick_270 | LeftStick_315; }
 
-	void ResetLeftStick() { LeftStick_0 = false; LeftStick_45 = false; LeftStick_90 = false; LeftStick_135 = false; LeftStick_180 = false; LeftStick_225 = false; LeftStick_270 = false; LeftStick_315 = false;}
+	void ResetLeftStick() { LeftStick_0 = false; LeftStick_45 = false; LeftStick_90 = false; LeftStick_135 = false; LeftStick_180 = false; LeftStick_225 = false; LeftStick_270 = false; LeftStick_315 = false; LeftStick_HOLD = false; }
 
 	bool HasRightStick() const { return RightStick_0 | RightStick_45 | RightStick_90 | RightStick_135 | RightStick_180 | RightStick_225 | RightStick_270 | RightStick_315; }
 
-	void ResetRightStick() { RightStick_0 = false; RightStick_45 = false; RightStick_90 = false; RightStick_135 = false; RightStick_180 = false; RightStick_225 = false; RightStick_270 = false; RightStick_315 = false; }
+	void ResetRightStick() { RightStick_0 = false; RightStick_45 = false; RightStick_90 = false; RightStick_135 = false; RightStick_180 = false; RightStick_225 = false; RightStick_270 = false; RightStick_315 = false; RightStick_HOLD = false; }
 
 	union
 	{

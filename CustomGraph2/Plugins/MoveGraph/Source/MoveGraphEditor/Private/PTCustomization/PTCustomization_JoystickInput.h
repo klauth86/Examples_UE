@@ -18,19 +18,20 @@ public:
 
 protected:
 
+	FText GetStickButtonText(FString label, bool isHold) const;
+
+	FSlateColor ColorAndOpacity_LeftUpperTrigger() const;
 	FText Text_LeftUpperTrigger() const;
 	FReply OnClicked_LeftUpperTrigger();
+	bool IsEnabled_LeftUpperTrigger() const;
 
+	FSlateColor ColorAndOpacity_LeftTrigger() const;
 	FText Text_LeftTrigger() const;
 	FReply OnClicked_LeftTrigger();
-
-	FText Text_RightUpperTrigger() const;
-	FReply OnClicked_RightUpperTrigger();
-
-	FText Text_RightTrigger() const;
-	FReply OnClicked_RightTrigger();
+	bool IsEnabled_LeftTrigger() const;
 
 	bool IsEnabled_LeftStick() const;
+	void SwitchHold_LeftStick();
 
 	FSlateColor ColorAndOpacity_LeftStick_315() const;
 	FText Text_LeftStick_315() const;
@@ -65,6 +66,7 @@ protected:
 	FReply OnClicked_LeftStick_135();
 
 	bool IsEnabled_RightStick() const;
+	void SwitchHold_RightStick();
 
 	FSlateColor ColorAndOpacity_RightStick_315() const;
 	FText Text_RightStick_315() const;
@@ -98,6 +100,16 @@ protected:
 	FText Text_RightStick_135() const;
 	FReply OnClicked_RightStick_135();
 
+	FSlateColor ColorAndOpacity_RightUpperTrigger() const;
+	FText Text_RightUpperTrigger() const;
+	FReply OnClicked_RightUpperTrigger();
+	bool IsEnabled_RightUpperTrigger() const;
+
+	FSlateColor ColorAndOpacity_RightTrigger() const;
+	FText Text_RightTrigger() const;
+	FReply OnClicked_RightTrigger();
+	bool IsEnabled_RightTrigger() const;
+
 	FText Text_X() const;
 	FReply OnClicked_X();
 
@@ -109,12 +121,4 @@ protected:
 
 	FText Text_B() const;
 	FReply OnClicked_B();
-
-	EVisibility Visibility_LeftStick() const;
-	void OnCheckStateChanged_LeftStick(ECheckBoxState NewState);
-	ECheckBoxState IsChecked_LeftStick() const;
-
-	EVisibility Visibility_RightStick() const;
-	void OnCheckStateChanged_RightStick(ECheckBoxState NewState);
-	ECheckBoxState IsChecked_RightStick() const;
 };
