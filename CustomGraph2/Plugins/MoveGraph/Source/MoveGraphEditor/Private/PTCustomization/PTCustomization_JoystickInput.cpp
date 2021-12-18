@@ -1155,11 +1155,7 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.X_HOLD) return HoldText;
-
-			if (InputElement->Flags.X) return PressedText;
-
-			return FText::FromString("X");
+			return GetStickButtonText("X", InputElement->Flags.X_HOLD);
 		}
 
 		return UndeterminedText;
@@ -1225,11 +1221,7 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.A_HOLD) return HoldText;
-
-			if (InputElement->Flags.A) return PressedText;
-
-			return FText::FromString("A");
+			return GetStickButtonText("A", InputElement->Flags.A_HOLD);
 		}
 
 		return UndeterminedText;
@@ -1295,11 +1287,7 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.Y_HOLD) return HoldText;
-
-			if (InputElement->Flags.Y) return PressedText;
-
-			return FText::FromString("Y");
+			return GetStickButtonText("Y", InputElement->Flags.Y_HOLD);
 		}
 
 		return UndeterminedText;
@@ -1365,11 +1353,7 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.B_HOLD) return HoldText;
-
-			if (InputElement->Flags.B) return PressedText;
-
-			return FText::FromString("B");
+			return GetStickButtonText("B", InputElement->Flags.B_HOLD);
 		}
 
 		return UndeterminedText;
@@ -1437,8 +1421,10 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 
 	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
 		SNew(SVerticalBox)
-			+ SVerticalBox::Slot()[SAssignNew(grid, SGridPanel).FillColumn(0, 1).FillColumn(1, 0)]
-			+ SVerticalBox::Slot()[SNew(SButton).OnClicked(this, &FPTCustomization_JoystickInput::Add)]
+			+ SVerticalBox::Slot().FillHeight(1)[SAssignNew(grid, SGridPanel).FillColumn(0, 1).FillColumn(1, 0)]
+			+ SVerticalBox::Slot().AutoHeight().Padding(8)[SNew(SButton).OnClicked(this, &FPTCustomization_JoystickInput::Add).HAlign(HAlign_Center)[
+				SNew(STextBlock).Text(LOCTEXT("Add", "ADD"))
+			]]
 	];
 
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
@@ -1474,12 +1460,13 @@ FReply FPTCustomization_JoystickInput::Remove(TSharedPtr<SJoytsickInputElement> 
 
 void FPTCustomization_JoystickInput::AddWidget(FJoystickInput* joystickInput, int32 index) {
 	TSharedPtr<SJoytsickInputElement> element = SNew(SJoytsickInputElement, joystickInput, index);
-	TSharedPtr<SButton> button = SNew(SButton);
+	
+	TSharedPtr<SButton> button;
+	
+	grid->AddSlot(0, index).Padding(0, 8)[element.ToSharedRef()];
+	grid->AddSlot(1, index).Padding(8, 8).VAlign(VAlign_Center)[SAssignNew(button, SButton).VAlign(VAlign_Center)[SNew(STextBlock).Text(LOCTEXT("Remove", "REMOVE"))]];
 
 	button->SetOnClicked(FOnClicked::CreateRaw(this, &FPTCustomization_JoystickInput::Remove, element, button));
-
-	grid->AddSlot(0, index)[element.ToSharedRef()];
-	grid->AddSlot(1, index)[button.ToSharedRef()];
 }
 
 #undef LOCTEXT_NAMESPACE
