@@ -8,6 +8,8 @@ class SJoytsickInputElement;
 class SButton;
 class SGridPanel;
 
+struct FJoystickInput;
+
 class FPTCustomization_JoystickInput : public FPTCustomization_Base
 {
 public:
@@ -24,7 +26,11 @@ public:
 
 protected:
 
+	FReply Add();
+
 	FReply Remove(TSharedPtr<SJoytsickInputElement> element, TSharedPtr<SButton> button);
+
+	void AddWidget(FJoystickInput* joystickInput, int32 index);
 
 protected:
 

@@ -1438,23 +1438,31 @@ void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandl
 	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
 		SNew(SVerticalBox)
 			+ SVerticalBox::Slot()[SAssignNew(grid, SGridPanel).FillColumn(0, 1).FillColumn(1, 0)]
-			+ SVerticalBox::Slot()[SNew(SButton).Text("Add")]
+			+ SVerticalBox::Slot()[SNew(SButton).OnClicked(this, &FPTCustomization_JoystickInput::Add)]
 	];
 
 	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
 	{
 		for (int32 i = 0; i < joystickInput->InputElements.Num(); i++)
 		{
-			TSharedPtr<SJoytsickInputElement> element = SNew(SJoytsickInputElement, joystickInput, i);
-			TSharedPtr<SButton> button = SNew(SButton);
-
-			//button->SetText("Remove");
-			button.Get()->SetOnClicked(FOnClicked::CreateRaw(this, &FPTCustomization_JoystickInput::Remove, element, button));
-
-			grid->AddSlot(0, i)[element.ToSharedRef()];
-			grid->AddSlot(1, i)[button.ToSharedRef()];
+			AddWidget(joystickInput, i);
 		}
 	}
+}
+
+FReply FPTCustomization_JoystickInput::Add() {
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>()) {
+		int32 emplacedIndex = joystickInput->InputElements.Emplace();
+
+		if (emplacedIndex > 0) {
+			FJoystickInputElement& parentElement = joystickInput->InputElements[emplacedIndex - 1];
+			FJoystickInputElement& emplacedElement = joystickInput->InputElements[emplacedIndex];
+			emplacedElement.SetFromParent(parentElement);
+		}
+		AddWidget(joystickInput, emplacedIndex);
+	}
+
+	return FReply::Handled();
 }
 
 FReply FPTCustomization_JoystickInput::Remove(TSharedPtr<SJoytsickInputElement> element, TSharedPtr<SButton> button) {
@@ -1462,6 +1470,16 @@ FReply FPTCustomization_JoystickInput::Remove(TSharedPtr<SJoytsickInputElement> 
 	grid->RemoveSlot(button.ToSharedRef());
 
 	return FReply::Handled();
+}
+
+void FPTCustomization_JoystickInput::AddWidget(FJoystickInput* joystickInput, int32 index) {
+	TSharedPtr<SJoytsickInputElement> element = SNew(SJoytsickInputElement, joystickInput, index);
+	TSharedPtr<SButton> button = SNew(SButton);
+
+	button->SetOnClicked(FOnClicked::CreateRaw(this, &FPTCustomization_JoystickInput::Remove, element, button));
+
+	grid->AddSlot(0, index)[element.ToSharedRef()];
+	grid->AddSlot(1, index)[button.ToSharedRef()];
 }
 
 #undef LOCTEXT_NAMESPACE

@@ -5,9 +5,13 @@
 #include "UObject/NoExportTypes.h"
 #include "JoystickInput.generated.h"
 
-union FJoystickInputElement
+union MOVEGRAPH_API FJoystickInputElement
 {
 	FJoystickInputElement() { PackedBits = 0; }
+
+	void SetFromParent(const FJoystickInputElement& parentElement) {
+	
+	}
 
 struct
 {
