@@ -110,15 +110,23 @@ protected:
 	FReply OnClicked_RightTrigger();
 	bool IsEnabled_RightTrigger() const;
 
+	FSlateColor ColorAndOpacity_X() const;
 	FText Text_X() const;
 	FReply OnClicked_X();
+	bool IsEnabled_X() const;
 
+	FSlateColor ColorAndOpacity_A() const;
 	FText Text_A() const;
 	FReply OnClicked_A();
+	bool IsEnabled_A() const;
 
+	FSlateColor ColorAndOpacity_Y() const;
 	FText Text_Y() const;
 	FReply OnClicked_Y();
+	bool IsEnabled_Y() const;
 
+	FSlateColor ColorAndOpacity_B() const;
 	FText Text_B() const;
 	FReply OnClicked_B();
+	bool IsEnabled_B() const;
 };
