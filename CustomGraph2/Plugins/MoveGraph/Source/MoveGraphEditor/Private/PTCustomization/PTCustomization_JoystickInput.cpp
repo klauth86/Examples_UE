@@ -23,11 +23,16 @@ class SJoytsickInputElement : public SGridPanel
 {
 public:
 
-	FJoystickInputElement* InputElement;
+	FJoystickInput* JoystickInput;
 
-	void Construct(FArguments args, FJoystickInputElement* inputElement)
+	int32 ElementIndex;
+
+	FJoystickInputElement* GetInputElement() const { return JoystickInput->InputElements.IsValidIndex(ElementIndex) ? &JoystickInput->InputElements[ElementIndex] : nullptr; }
+
+	void Construct(FArguments args, FJoystickInput* joystickInput, int32 elementIndex)
 	{
-		InputElement = inputElement;
+		JoystickInput = joystickInput;
+		ElementIndex = elementIndex;
 
 		SetColumnFill(0, 0);
 		SetColumnFill(1, 1);
@@ -198,7 +203,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftUpperTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftUpperTrigger) return FSlateColor(ActiveColor);
 		}
@@ -208,7 +213,7 @@ public:
 
 	FText Text_LeftUpperTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("LB", InputElement->Flags.LeftUpperTrigger_HOLD);
 		}
@@ -218,7 +223,7 @@ public:
 
 	FReply OnClicked_LeftUpperTrigger()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftUpperTrigger_HOLD_IN_PARENT)
 			{
@@ -254,7 +259,7 @@ public:
 
 	bool IsEnabled_LeftUpperTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.LeftUpperTrigger_HOLD_IN_PARENT;
 		}
@@ -264,7 +269,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftTrigger) return FSlateColor(ActiveColor);
 		}
@@ -274,7 +279,7 @@ public:
 
 	FText Text_LeftTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("LT", InputElement->Flags.LeftTrigger_HOLD);
 		}
@@ -284,7 +289,7 @@ public:
 
 	FReply OnClicked_LeftTrigger()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftTrigger_HOLD_IN_PARENT)
 			{
@@ -320,7 +325,7 @@ public:
 
 	bool IsEnabled_LeftTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.LeftTrigger_HOLD_IN_PARENT;
 		}
@@ -330,7 +335,7 @@ public:
 
 	bool IsEnabled_LeftStick() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.LeftStick_HOLD_IN_PARENT;
 		}
@@ -340,7 +345,7 @@ public:
 
 	void SwitchHold_LeftStick()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftStick_HOLD)
 			{
@@ -356,7 +361,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftStick_315() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftStick_315) return FSlateColor(ActiveColor);
 		}
@@ -366,7 +371,7 @@ public:
 
 	FText Text_LeftStick_315() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("315", InputElement->Flags.LeftStick_315 && InputElement->Flags.LeftStick_HOLD);
 		}
@@ -376,7 +381,7 @@ public:
 
 	FReply OnClicked_LeftStick_315()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.LeftStick_315;
 			if (prevState)
@@ -395,7 +400,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftStick_0() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftStick_0) return FSlateColor(ActiveColor);
 		}
@@ -405,7 +410,7 @@ public:
 
 	FText Text_LeftStick_0() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("0", InputElement->Flags.LeftStick_0 && InputElement->Flags.LeftStick_HOLD);
 		}
@@ -415,7 +420,7 @@ public:
 
 	FReply OnClicked_LeftStick_0()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.LeftStick_0;
 			if (prevState)
@@ -434,7 +439,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftStick_45() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftStick_45) return FSlateColor(ActiveColor);
 		}
@@ -444,7 +449,7 @@ public:
 
 	FText Text_LeftStick_45() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("45", InputElement->Flags.LeftStick_45 && InputElement->Flags.LeftStick_HOLD);
 		}
@@ -454,7 +459,7 @@ public:
 
 	FReply OnClicked_LeftStick_45()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.LeftStick_45;
 			if (prevState)
@@ -473,7 +478,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftStick_270() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftStick_270) return FSlateColor(ActiveColor);
 		}
@@ -483,7 +488,7 @@ public:
 
 	FText Text_LeftStick_270() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("270", InputElement->Flags.LeftStick_270 && InputElement->Flags.LeftStick_HOLD);
 		}
@@ -493,7 +498,7 @@ public:
 
 	FReply OnClicked_LeftStick_270()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.LeftStick_270;
 			if (prevState)
@@ -512,7 +517,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftStick_90() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftStick_90) return FSlateColor(ActiveColor);
 		}
@@ -522,7 +527,7 @@ public:
 
 	FText Text_LeftStick_90() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("90", InputElement->Flags.LeftStick_90 && InputElement->Flags.LeftStick_HOLD);
 		}
@@ -532,7 +537,7 @@ public:
 
 	FReply OnClicked_LeftStick_90()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.LeftStick_90;
 			if (prevState)
@@ -551,7 +556,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftStick_225() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftStick_225) return FSlateColor(ActiveColor);
 		}
@@ -561,7 +566,7 @@ public:
 
 	FText Text_LeftStick_225() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("225", InputElement->Flags.LeftStick_225 && InputElement->Flags.LeftStick_HOLD);
 		}
@@ -571,7 +576,7 @@ public:
 
 	FReply OnClicked_LeftStick_225()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.LeftStick_225;
 			if (prevState)
@@ -590,7 +595,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftStick_180() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftStick_180) return FSlateColor(ActiveColor);
 		}
@@ -600,7 +605,7 @@ public:
 
 	FText Text_LeftStick_180() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("180", InputElement->Flags.LeftStick_180 && InputElement->Flags.LeftStick_HOLD);
 		}
@@ -610,7 +615,7 @@ public:
 
 	FReply OnClicked_LeftStick_180()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.LeftStick_180;
 			if (prevState)
@@ -629,7 +634,7 @@ public:
 
 	FSlateColor ColorAndOpacity_LeftStick_135() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.LeftStick_135) return FSlateColor(ActiveColor);
 		}
@@ -639,7 +644,7 @@ public:
 
 	FText Text_LeftStick_135() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("135", InputElement->Flags.LeftStick_135 && InputElement->Flags.LeftStick_HOLD);
 		}
@@ -649,7 +654,7 @@ public:
 
 	FReply OnClicked_LeftStick_135()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.LeftStick_135;
 			if (prevState)
@@ -668,7 +673,7 @@ public:
 
 	bool IsEnabled_RightStick() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.RightStick_HOLD_IN_PARENT;
 		}
@@ -678,7 +683,7 @@ public:
 
 	void SwitchHold_RightStick()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightStick_HOLD)
 			{
@@ -694,7 +699,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightStick_315() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightStick_315) return FSlateColor(ActiveColor);
 		}
@@ -704,7 +709,7 @@ public:
 
 	FText Text_RightStick_315() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("315", InputElement->Flags.RightStick_315 && InputElement->Flags.RightStick_HOLD);
 		}
@@ -714,7 +719,7 @@ public:
 
 	FReply OnClicked_RightStick_315()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.RightStick_315;
 			if (prevState)
@@ -733,7 +738,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightStick_0() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightStick_0) return FSlateColor(ActiveColor);
 		}
@@ -743,7 +748,7 @@ public:
 
 	FText Text_RightStick_0() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("0", InputElement->Flags.RightStick_0 && InputElement->Flags.RightStick_HOLD);
 		}
@@ -753,7 +758,7 @@ public:
 
 	FReply OnClicked_RightStick_0()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.RightStick_0;
 			if (prevState)
@@ -772,7 +777,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightStick_45() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightStick_45) return FSlateColor(ActiveColor);
 		}
@@ -782,7 +787,7 @@ public:
 
 	FText Text_RightStick_45() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("45", InputElement->Flags.RightStick_45 && InputElement->Flags.RightStick_HOLD);
 		}
@@ -792,7 +797,7 @@ public:
 
 	FReply OnClicked_RightStick_45()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.RightStick_45;
 			if (prevState)
@@ -811,7 +816,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightStick_270() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightStick_270) return FSlateColor(ActiveColor);
 		}
@@ -821,7 +826,7 @@ public:
 
 	FText Text_RightStick_270() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("270", InputElement->Flags.RightStick_270 && InputElement->Flags.RightStick_HOLD);
 		}
@@ -831,7 +836,7 @@ public:
 
 	FReply OnClicked_RightStick_270()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.RightStick_270;
 			if (prevState)
@@ -850,7 +855,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightStick_90() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightStick_90) return FSlateColor(ActiveColor);
 		}
@@ -860,7 +865,7 @@ public:
 
 	FText Text_RightStick_90() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("90", InputElement->Flags.RightStick_90 && InputElement->Flags.RightStick_HOLD);
 		}
@@ -870,7 +875,7 @@ public:
 
 	FReply OnClicked_RightStick_90()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.RightStick_90;
 			if (prevState)
@@ -889,7 +894,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightStick_225() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightStick_225) return FSlateColor(ActiveColor);
 		}
@@ -899,7 +904,7 @@ public:
 
 	FText Text_RightStick_225() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("225", InputElement->Flags.RightStick_225 && InputElement->Flags.RightStick_HOLD);
 		}
@@ -909,7 +914,7 @@ public:
 
 	FReply OnClicked_RightStick_225()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.RightStick_225;
 			if (prevState)
@@ -928,7 +933,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightStick_180() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightStick_180) return FSlateColor(ActiveColor);
 		}
@@ -938,7 +943,7 @@ public:
 
 	FText Text_RightStick_180() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("180", InputElement->Flags.RightStick_180 && InputElement->Flags.RightStick_HOLD);
 		}
@@ -948,7 +953,7 @@ public:
 
 	FReply OnClicked_RightStick_180()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.RightStick_180;
 			if (prevState)
@@ -967,7 +972,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightStick_135() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightStick_135) return FSlateColor(ActiveColor);
 		}
@@ -977,7 +982,7 @@ public:
 
 	FText Text_RightStick_135() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("135", InputElement->Flags.RightStick_135 && InputElement->Flags.RightStick_HOLD);
 		}
@@ -987,7 +992,7 @@ public:
 
 	FReply OnClicked_RightStick_135()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			const bool prevState = InputElement->Flags.RightStick_135;
 			if (prevState)
@@ -1006,7 +1011,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightUpperTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightUpperTrigger) return FSlateColor(ActiveColor);
 		}
@@ -1016,7 +1021,7 @@ public:
 
 	FText Text_RightUpperTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("LB", InputElement->Flags.RightUpperTrigger_HOLD);
 		}
@@ -1026,7 +1031,7 @@ public:
 
 	FReply OnClicked_RightUpperTrigger()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightUpperTrigger_HOLD_IN_PARENT)
 			{
@@ -1062,7 +1067,7 @@ public:
 
 	bool IsEnabled_RightUpperTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.RightUpperTrigger_HOLD_IN_PARENT;
 		}
@@ -1072,7 +1077,7 @@ public:
 
 	FSlateColor ColorAndOpacity_RightTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightTrigger) return FSlateColor(ActiveColor);
 		}
@@ -1082,7 +1087,7 @@ public:
 
 	FText Text_RightTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return GetStickButtonText("LT", InputElement->Flags.RightTrigger_HOLD);
 		}
@@ -1092,7 +1097,7 @@ public:
 
 	FReply OnClicked_RightTrigger()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.RightTrigger_HOLD_IN_PARENT)
 			{
@@ -1128,7 +1133,7 @@ public:
 
 	bool IsEnabled_RightTrigger() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.RightTrigger_HOLD_IN_PARENT;
 		}
@@ -1138,7 +1143,7 @@ public:
 
 	FSlateColor ColorAndOpacity_X() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.X) return FSlateColor(ActiveColor);
 		}
@@ -1148,7 +1153,7 @@ public:
 
 	FText Text_X() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.X_HOLD) return HoldText;
 
@@ -1162,7 +1167,7 @@ public:
 
 	FReply OnClicked_X()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.X_HOLD_IN_PARENT)
 			{
@@ -1198,7 +1203,7 @@ public:
 
 	bool IsEnabled_X() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.X_HOLD_IN_PARENT;
 		}
@@ -1208,7 +1213,7 @@ public:
 
 	FSlateColor ColorAndOpacity_A() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.A) return FSlateColor(ActiveColor);
 		}
@@ -1218,7 +1223,7 @@ public:
 
 	FText Text_A() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.A_HOLD) return HoldText;
 
@@ -1232,7 +1237,7 @@ public:
 
 	FReply OnClicked_A()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.A_HOLD_IN_PARENT)
 			{
@@ -1268,7 +1273,7 @@ public:
 
 	bool IsEnabled_A() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.A_HOLD_IN_PARENT;
 		}
@@ -1278,7 +1283,7 @@ public:
 
 	FSlateColor ColorAndOpacity_Y() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.Y) return FSlateColor(ActiveColor);
 		}
@@ -1288,7 +1293,7 @@ public:
 
 	FText Text_Y() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.Y_HOLD) return HoldText;
 
@@ -1302,7 +1307,7 @@ public:
 
 	FReply OnClicked_Y()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.Y_HOLD_IN_PARENT)
 			{
@@ -1338,7 +1343,7 @@ public:
 
 	bool IsEnabled_Y() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.Y_HOLD_IN_PARENT;
 		}
@@ -1348,7 +1353,7 @@ public:
 
 	FSlateColor ColorAndOpacity_B() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.B) return FSlateColor(ActiveColor);
 		}
@@ -1358,7 +1363,7 @@ public:
 
 	FText Text_B() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.B_HOLD) return HoldText;
 
@@ -1372,7 +1377,7 @@ public:
 
 	FReply OnClicked_B()
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			if (InputElement->Flags.B_HOLD_IN_PARENT)
 			{
@@ -1408,7 +1413,7 @@ public:
 
 	bool IsEnabled_B() const
 	{
-		if (InputElement)
+		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
 			return !InputElement->Flags.B_HOLD_IN_PARENT;
 		}
@@ -1430,7 +1435,33 @@ void FPTCustomization_JoystickInput::CustomizeHeader(TSharedRef<IPropertyHandle>
 void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandle> PropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& CustomizationUtils) {
 	StructPropertyHandle = PropertyHandle;
 
-	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[SNew(SGridPanel)];
+	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
+		SNew(SVerticalBox)
+			+ SVerticalBox::Slot()[SAssignNew(grid, SGridPanel).FillColumn(0, 1).FillColumn(1, 0)]
+			+ SVerticalBox::Slot()[SNew(SButton).Text("Add")]
+	];
+
+	if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
+	{
+		for (int32 i = 0; i < joystickInput->InputElements.Num(); i++)
+		{
+			TSharedPtr<SJoytsickInputElement> element = SNew(SJoytsickInputElement, joystickInput, i);
+			TSharedPtr<SButton> button = SNew(SButton);
+
+			//button->SetText("Remove");
+			button.Get()->SetOnClicked(FOnClicked::CreateRaw(this, &FPTCustomization_JoystickInput::Remove, element, button));
+
+			grid->AddSlot(0, i)[element.ToSharedRef()];
+			grid->AddSlot(1, i)[button.ToSharedRef()];
+		}
+	}
+}
+
+FReply FPTCustomization_JoystickInput::Remove(TSharedPtr<SJoytsickInputElement> element, TSharedPtr<SButton> button) {
+	grid->RemoveSlot(element.ToSharedRef());
+	grid->RemoveSlot(button.ToSharedRef());
+
+	return FReply::Handled();
 }
 
 #undef LOCTEXT_NAMESPACE

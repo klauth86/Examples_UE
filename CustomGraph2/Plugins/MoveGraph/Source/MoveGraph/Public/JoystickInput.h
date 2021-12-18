@@ -127,4 +127,6 @@ struct MOVEGRAPH_API FJoystickInput
 	GENERATED_USTRUCT_BODY()
 
 public:
+
+	TArray<FJoystickInputElement> InputElements;
 };
