@@ -5,18 +5,12 @@
 #include "UObject/NoExportTypes.h"
 #include "JoystickInput.generated.h"
 
-USTRUCT(BlueprintType)
-struct MOVEGRAPH_API FJoystickInput
+union FJoystickInputElement
 {
-	GENERATED_USTRUCT_BODY()
+	FJoystickInputElement() { PackedBits = 0; }
 
-public:
-
-	FJoystickInput()
-	{
-		PackedBits = 0;
-	}
-
+struct
+{
 	bool HasLeftStick() const { return LeftStick_0 | LeftStick_45 | LeftStick_90 | LeftStick_135 | LeftStick_180 | LeftStick_225 | LeftStick_270 | LeftStick_315; }
 
 	void ResetLeftStick() { LeftStick_0 = false; LeftStick_45 = false; LeftStick_90 = false; LeftStick_135 = false; LeftStick_180 = false; LeftStick_225 = false; LeftStick_270 = false; LeftStick_315 = false; LeftStick_HOLD = false; }
@@ -25,153 +19,112 @@ public:
 
 	void ResetRightStick() { RightStick_0 = false; RightStick_45 = false; RightStick_90 = false; RightStick_135 = false; RightStick_180 = false; RightStick_225 = false; RightStick_270 = false; RightStick_315 = false; RightStick_HOLD = false; }
 
-	union
-	{
-		struct
-		{
-			// LEFT STICK
+	// LEFT TRIGGER
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_0 : 1;
+	uint64 LeftUpperTrigger : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_45 : 1;
+	uint64 LeftUpperTrigger_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_90 : 1;
+	uint64 LeftUpperTrigger_HOLD_IN_PARENT : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_135 : 1;
+	uint64 LeftTrigger : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_180 : 1;
+	uint64 LeftTrigger_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_225 : 1;
+	uint64 LeftTrigger_HOLD_IN_PARENT : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_270 : 1;
+	// LEFT STICK
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_315 : 1;
+	uint64 LeftStick_0 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_HOLD : 1;
+	uint64 LeftStick_45 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftStick_HOLD_IN_PARENT : 1;
+	uint64 LeftStick_90 : 1;
 
-			// LEFT TRIGGER
+	uint64 LeftStick_135 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftUpperTrigger : 1;
+	uint64 LeftStick_180 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftUpperTrigger_HOLD : 1;
+	uint64 LeftStick_225 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftUpperTrigger_HOLD_IN_PARENT : 1;
+	uint64 LeftStick_270 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftTrigger : 1;
+	uint64 LeftStick_315 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftTrigger_HOLD : 1;
+	uint64 LeftStick_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 LeftTrigger_HOLD_IN_PARENT : 1;
+	uint64 LeftStick_HOLD_IN_PARENT : 1;
 
-			// RIGHT STICK
+	// RIGHT STICK
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_0 : 1;
+	uint64 RightStick_0 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_45 : 1;
+	uint64 RightStick_45 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_90 : 1;
+	uint64 RightStick_90 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_135 : 1;
+	uint64 RightStick_135 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_180 : 1;
+	uint64 RightStick_180 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_225 : 1;
+	uint64 RightStick_225 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_270 : 1;
+	uint64 RightStick_270 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_315 : 1;
+	uint64 RightStick_315 : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_HOLD : 1;
+	uint64 RightStick_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightStick_HOLD_IN_PARENT : 1;
+	uint64 RightStick_HOLD_IN_PARENT : 1;
 
-			// RIGHT TRIGGER
+	// RIGHT TRIGGER
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightUpperTrigger : 1;
+	uint64 RightUpperTrigger : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightUpperTrigger_HOLD : 1;
+	uint64 RightUpperTrigger_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightUpperTrigger_HOLD_IN_PARENT : 1;
+	uint64 RightUpperTrigger_HOLD_IN_PARENT : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightTrigger : 1;
+	uint64 RightTrigger : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightTrigger_HOLD : 1;
+	uint64 RightTrigger_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 RightTrigger_HOLD_IN_PARENT : 1;
+	uint64 RightTrigger_HOLD_IN_PARENT : 1;
 
-			// XYAB
+	// XYAB
 
-			UPROPERTY(EditAnywhere)
-				uint64 X : 1;
+	uint64 X : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 X_HOLD : 1;
+	uint64 X_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 X_HOLD_IN_PARENT : 1;
+	uint64 X_HOLD_IN_PARENT : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 Y : 1;
+	uint64 Y : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 Y_HOLD : 1;
+	uint64 Y_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 Y_HOLD_IN_PARENT : 1;
+	uint64 Y_HOLD_IN_PARENT : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 A : 1;
+	uint64 A : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 A_HOLD : 1;
+	uint64 A_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 A_HOLD_IN_PARENT : 1;
+	uint64 A_HOLD_IN_PARENT : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 B : 1;
+	uint64 B : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 B_HOLD : 1;
+	uint64 B_HOLD : 1;
 
-			UPROPERTY(EditAnywhere)
-				uint64 B_HOLD_IN_PARENT : 1;
-		};
+	uint64 B_HOLD_IN_PARENT : 1;
+} Flags;
 
-		uint64 PackedBits;
-	};
+	uint64 PackedBits;
+};
+
+USTRUCT(BlueprintType)
+struct MOVEGRAPH_API FJoystickInput
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
 };
