@@ -50,14 +50,12 @@ public:
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftUpperTrigger)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftUpperTrigger)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftUpperTrigger)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftUpperTrigger)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftUpperTrigger)]
 
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftTrigger)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftTrigger)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftTrigger)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftTrigger)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftTrigger)]
 		];
 
 		AddSlot(2, 0).VAlign(VAlign_Center)[
@@ -66,45 +64,37 @@ public:
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_315)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_315)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_315)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_315)]
 				+ SGridPanel::Slot(1, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_0)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_0)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_0)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_0)]
 				+ SGridPanel::Slot(2, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_45)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_45)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_45)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_45)]
 
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_270)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_270)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_270)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_270)]
 				+ SGridPanel::Slot(2, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_90)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_90)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_90)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_90)]
 
 				+ SGridPanel::Slot(0, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_225)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_225)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_225)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_225)]
 				+ SGridPanel::Slot(1, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_180)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_180)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_180)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_180)]
 				+ SGridPanel::Slot(2, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_135)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_135)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_135)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_LeftStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_135)]
 		];
 
 		AddSlot(4, 0).VAlign(VAlign_Center)[
@@ -113,45 +103,37 @@ public:
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_315)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_315)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_315)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_315)]
 				+ SGridPanel::Slot(1, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_0)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_0)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_0)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_0)]
 				+ SGridPanel::Slot(2, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_45)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_45)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_45)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_45)]
 
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_270)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_270)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_270)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_270)]
 				+ SGridPanel::Slot(2, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_90)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_90)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_90)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_90)]
 
 				+ SGridPanel::Slot(0, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_225)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_225)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_225)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_225)]
 				+ SGridPanel::Slot(1, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_180)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_180)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_180)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_180)]
 				+ SGridPanel::Slot(2, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_135)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_135)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_135)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightStick)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_135)]
 		];
 
 		AddSlot(6, 0).VAlign(VAlign_Center)[
@@ -160,14 +142,12 @@ public:
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightUpperTrigger)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightUpperTrigger)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightUpperTrigger)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightUpperTrigger)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightUpperTrigger)]
 
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightTrigger)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightTrigger)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightTrigger)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_RightTrigger)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightTrigger)]
 		];
 
 		AddSlot(8, 0).VAlign(VAlign_Center)[
@@ -176,23 +156,19 @@ public:
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_X)
 				.Text_Raw(this, &SJoytsickInputElement::Text_X)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_X)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_X)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_X)]
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_A)
 				.Text_Raw(this, &SJoytsickInputElement::Text_A)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_A)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_A)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_A)]
 				+ SGridPanel::Slot(1, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_Y)
 				.Text_Raw(this, &SJoytsickInputElement::Text_Y)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_Y)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_Y)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_Y)]
 				+ SGridPanel::Slot(1, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_B)
 				.Text_Raw(this, &SJoytsickInputElement::Text_B)
-				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_B)
-				.IsEnabled_Raw(this, &SJoytsickInputElement::IsEnabled_B)]
+				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_B)]
 		];
 	}
 
@@ -225,46 +201,22 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.LeftUpperTrigger_HOLD_IN_PARENT)
+			if (!InputElement->Flags.LeftUpperTrigger)
 			{
-				if (!InputElement->Flags.LeftUpperTrigger_HOLD)
-				{
-					InputElement->Flags.LeftUpperTrigger_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.LeftUpperTrigger_HOLD = false;
-				}
+				InputElement->Flags.LeftUpperTrigger = true;
+			}
+			else if (!InputElement->Flags.LeftUpperTrigger_HOLD)
+			{
+				InputElement->Flags.LeftUpperTrigger_HOLD = true;
 			}
 			else
 			{
-				if (!InputElement->Flags.LeftUpperTrigger)
-				{
-					InputElement->Flags.LeftUpperTrigger = true;
-				}
-				else if (!InputElement->Flags.LeftUpperTrigger_HOLD)
-				{
-					InputElement->Flags.LeftUpperTrigger_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.LeftUpperTrigger = false;
-					InputElement->Flags.LeftUpperTrigger_HOLD = false;
-				}
+				InputElement->Flags.LeftUpperTrigger = false;
+				InputElement->Flags.LeftUpperTrigger_HOLD = false;
 			}
 		}
 
 		return FReply::Handled();
-	}
-
-	bool IsEnabled_LeftUpperTrigger() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.LeftUpperTrigger_HOLD_IN_PARENT;
-		}
-
-		return false;
 	}
 
 	FSlateColor ColorAndOpacity_LeftTrigger() const
@@ -291,56 +243,22 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.LeftTrigger_HOLD_IN_PARENT)
+			if (!InputElement->Flags.LeftTrigger)
 			{
-				if (!InputElement->Flags.LeftTrigger_HOLD)
-				{
-					InputElement->Flags.LeftTrigger_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.LeftTrigger_HOLD = false;
-				}
+				InputElement->Flags.LeftTrigger = true;
+			}
+			else if (!InputElement->Flags.LeftTrigger_HOLD)
+			{
+				InputElement->Flags.LeftTrigger_HOLD = true;
 			}
 			else
 			{
-				if (!InputElement->Flags.LeftTrigger)
-				{
-					InputElement->Flags.LeftTrigger = true;
-				}
-				else if (!InputElement->Flags.LeftTrigger_HOLD)
-				{
-					InputElement->Flags.LeftTrigger_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.LeftTrigger = false;
-					InputElement->Flags.LeftTrigger_HOLD = false;
-				}
+				InputElement->Flags.LeftTrigger = false;
+				InputElement->Flags.LeftTrigger_HOLD = false;
 			}
 		}
 
 		return FReply::Handled();
-	}
-
-	bool IsEnabled_LeftTrigger() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.LeftTrigger_HOLD_IN_PARENT;
-		}
-
-		return false;
-	}
-
-	bool IsEnabled_LeftStick() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.LeftStick_HOLD_IN_PARENT;
-		}
-
-		return false;
 	}
 
 	void SwitchHold_LeftStick()
@@ -669,16 +587,6 @@ public:
 		}
 
 		return FReply::Handled();
-	}
-
-	bool IsEnabled_RightStick() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.RightStick_HOLD_IN_PARENT;
-		}
-
-		return false;
 	}
 
 	void SwitchHold_RightStick()
@@ -1033,46 +941,22 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.RightUpperTrigger_HOLD_IN_PARENT)
+			if (!InputElement->Flags.RightUpperTrigger)
 			{
-				if (!InputElement->Flags.RightUpperTrigger_HOLD)
-				{
-					InputElement->Flags.RightUpperTrigger_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.RightUpperTrigger_HOLD = false;
-				}
+				InputElement->Flags.RightUpperTrigger = true;
+			}
+			else if (!InputElement->Flags.RightUpperTrigger_HOLD)
+			{
+				InputElement->Flags.RightUpperTrigger_HOLD = true;
 			}
 			else
 			{
-				if (!InputElement->Flags.RightUpperTrigger)
-				{
-					InputElement->Flags.RightUpperTrigger = true;
-				}
-				else if (!InputElement->Flags.RightUpperTrigger_HOLD)
-				{
-					InputElement->Flags.RightUpperTrigger_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.RightUpperTrigger = false;
-					InputElement->Flags.RightUpperTrigger_HOLD = false;
-				}
+				InputElement->Flags.RightUpperTrigger = false;
+				InputElement->Flags.RightUpperTrigger_HOLD = false;
 			}
 		}
 
 		return FReply::Handled();
-	}
-
-	bool IsEnabled_RightUpperTrigger() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.RightUpperTrigger_HOLD_IN_PARENT;
-		}
-
-		return false;
 	}
 
 	FSlateColor ColorAndOpacity_RightTrigger() const
@@ -1099,46 +983,22 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.RightTrigger_HOLD_IN_PARENT)
+			if (!InputElement->Flags.RightTrigger)
 			{
-				if (!InputElement->Flags.RightTrigger_HOLD)
-				{
-					InputElement->Flags.RightTrigger_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.RightTrigger_HOLD = false;
-				}
+				InputElement->Flags.RightTrigger = true;
+			}
+			else if (!InputElement->Flags.RightTrigger_HOLD)
+			{
+				InputElement->Flags.RightTrigger_HOLD = true;
 			}
 			else
 			{
-				if (!InputElement->Flags.RightTrigger)
-				{
-					InputElement->Flags.RightTrigger = true;
-				}
-				else if (!InputElement->Flags.RightTrigger_HOLD)
-				{
-					InputElement->Flags.RightTrigger_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.RightTrigger = false;
-					InputElement->Flags.RightTrigger_HOLD = false;
-				}
+				InputElement->Flags.RightTrigger = false;
+				InputElement->Flags.RightTrigger_HOLD = false;
 			}
 		}
 
 		return FReply::Handled();
-	}
-
-	bool IsEnabled_RightTrigger() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.RightTrigger_HOLD_IN_PARENT;
-		}
-
-		return false;
 	}
 
 	FSlateColor ColorAndOpacity_X() const
@@ -1165,46 +1025,22 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.X_HOLD_IN_PARENT)
+			if (!InputElement->Flags.X)
 			{
-				if (!InputElement->Flags.X_HOLD)
-				{
-					InputElement->Flags.X_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.X_HOLD = false;
-				}
+				InputElement->Flags.X = true;
+			}
+			else if (!InputElement->Flags.X_HOLD)
+			{
+				InputElement->Flags.X_HOLD = true;
 			}
 			else
 			{
-				if (!InputElement->Flags.X)
-				{
-					InputElement->Flags.X = true;
-				}
-				else if (!InputElement->Flags.X_HOLD)
-				{
-					InputElement->Flags.X_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.X = false;
-					InputElement->Flags.X_HOLD = false;
-				}
+				InputElement->Flags.X = false;
+				InputElement->Flags.X_HOLD = false;
 			}
 		}
 
 		return FReply::Handled();
-	}
-
-	bool IsEnabled_X() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.X_HOLD_IN_PARENT;
-		}
-
-		return false;
 	}
 
 	FSlateColor ColorAndOpacity_A() const
@@ -1231,46 +1067,22 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.A_HOLD_IN_PARENT)
+			if (!InputElement->Flags.A)
 			{
-				if (!InputElement->Flags.A_HOLD)
-				{
-					InputElement->Flags.A_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.A_HOLD = false;
-				}
+				InputElement->Flags.A = true;
+			}
+			else if (!InputElement->Flags.A_HOLD)
+			{
+				InputElement->Flags.A_HOLD = true;
 			}
 			else
 			{
-				if (!InputElement->Flags.A)
-				{
-					InputElement->Flags.A = true;
-				}
-				else if (!InputElement->Flags.A_HOLD)
-				{
-					InputElement->Flags.A_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.A = false;
-					InputElement->Flags.A_HOLD = false;
-				}
+				InputElement->Flags.A = false;
+				InputElement->Flags.A_HOLD = false;
 			}
 		}
 
 		return FReply::Handled();
-	}
-
-	bool IsEnabled_A() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.A_HOLD_IN_PARENT;
-		}
-
-		return false;
 	}
 
 	FSlateColor ColorAndOpacity_Y() const
@@ -1297,46 +1109,22 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.Y_HOLD_IN_PARENT)
+			if (!InputElement->Flags.Y)
 			{
-				if (!InputElement->Flags.Y_HOLD)
-				{
-					InputElement->Flags.Y_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.Y_HOLD = false;
-				}
+				InputElement->Flags.Y = true;
+			}
+			else if (!InputElement->Flags.Y_HOLD)
+			{
+				InputElement->Flags.Y_HOLD = true;
 			}
 			else
 			{
-				if (!InputElement->Flags.Y)
-				{
-					InputElement->Flags.Y = true;
-				}
-				else if (!InputElement->Flags.Y_HOLD)
-				{
-					InputElement->Flags.Y_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.Y = false;
-					InputElement->Flags.Y_HOLD = false;
-				}
+				InputElement->Flags.Y = false;
+				InputElement->Flags.Y_HOLD = false;
 			}
 		}
 
 		return FReply::Handled();
-	}
-
-	bool IsEnabled_Y() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.Y_HOLD_IN_PARENT;
-		}
-
-		return false;
 	}
 
 	FSlateColor ColorAndOpacity_B() const
@@ -1363,46 +1151,22 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			if (InputElement->Flags.B_HOLD_IN_PARENT)
+			if (!InputElement->Flags.B)
 			{
-				if (!InputElement->Flags.B_HOLD)
-				{
-					InputElement->Flags.B_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.B_HOLD = false;
-				}
+				InputElement->Flags.B = true;
+			}
+			else if (!InputElement->Flags.B_HOLD)
+			{
+				InputElement->Flags.B_HOLD = true;
 			}
 			else
 			{
-				if (!InputElement->Flags.B)
-				{
-					InputElement->Flags.B = true;
-				}
-				else if (!InputElement->Flags.B_HOLD)
-				{
-					InputElement->Flags.B_HOLD = true;
-				}
-				else
-				{
-					InputElement->Flags.B = false;
-					InputElement->Flags.B_HOLD = false;
-				}
+				InputElement->Flags.B = false;
+				InputElement->Flags.B_HOLD = false;
 			}
 		}
 
 		return FReply::Handled();
-	}
-
-	bool IsEnabled_B() const
-	{
-		if (FJoystickInputElement* InputElement = GetInputElement())
-		{
-			return !InputElement->Flags.B_HOLD_IN_PARENT;
-		}
-
-		return false;
 	}
 };
 

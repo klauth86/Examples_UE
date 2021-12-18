@@ -29,13 +29,9 @@ struct
 
 	uint64 LeftUpperTrigger_HOLD : 1;
 
-	uint64 LeftUpperTrigger_HOLD_IN_PARENT : 1;
-
 	uint64 LeftTrigger : 1;
 
 	uint64 LeftTrigger_HOLD : 1;
-
-	uint64 LeftTrigger_HOLD_IN_PARENT : 1;
 
 	// LEFT STICK
 
@@ -57,8 +53,6 @@ struct
 
 	uint64 LeftStick_HOLD : 1;
 
-	uint64 LeftStick_HOLD_IN_PARENT : 1;
-
 	// RIGHT STICK
 
 	uint64 RightStick_0 : 1;
@@ -79,21 +73,15 @@ struct
 
 	uint64 RightStick_HOLD : 1;
 
-	uint64 RightStick_HOLD_IN_PARENT : 1;
-
 	// RIGHT TRIGGER
 
 	uint64 RightUpperTrigger : 1;
 
 	uint64 RightUpperTrigger_HOLD : 1;
 
-	uint64 RightUpperTrigger_HOLD_IN_PARENT : 1;
-
 	uint64 RightTrigger : 1;
 
 	uint64 RightTrigger_HOLD : 1;
-
-	uint64 RightTrigger_HOLD_IN_PARENT : 1;
 
 	// XYAB
 
@@ -101,25 +89,17 @@ struct
 
 	uint64 X_HOLD : 1;
 
-	uint64 X_HOLD_IN_PARENT : 1;
-
 	uint64 Y : 1;
 
 	uint64 Y_HOLD : 1;
-
-	uint64 Y_HOLD_IN_PARENT : 1;
 
 	uint64 A : 1;
 
 	uint64 A_HOLD : 1;
 
-	uint64 A_HOLD_IN_PARENT : 1;
-
 	uint64 B : 1;
 
 	uint64 B_HOLD : 1;
-
-	uint64 B_HOLD_IN_PARENT : 1;
 } Flags;
 
 	uint64 PackedBits;
