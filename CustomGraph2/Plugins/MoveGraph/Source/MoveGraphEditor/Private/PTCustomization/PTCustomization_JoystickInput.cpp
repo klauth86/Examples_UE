@@ -931,7 +931,7 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			return GetStickButtonText("LB", InputElement->Flags.RightUpperTrigger_HOLD);
+			return GetStickButtonText("RB", InputElement->Flags.RightUpperTrigger_HOLD);
 		}
 
 		return UndeterminedText;
@@ -973,7 +973,7 @@ public:
 	{
 		if (FJoystickInputElement* InputElement = GetInputElement())
 		{
-			return GetStickButtonText("LT", InputElement->Flags.RightTrigger_HOLD);
+			return GetStickButtonText("RT", InputElement->Flags.RightTrigger_HOLD);
 		}
 
 		return UndeterminedText;
