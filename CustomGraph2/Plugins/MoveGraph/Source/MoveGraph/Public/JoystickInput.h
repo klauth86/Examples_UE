@@ -113,4 +113,14 @@ struct MOVEGRAPH_API FJoystickInput
 public:
 
 	TArray<FJoystickInputElement> InputElements;
+
+	const TArray<uint64>& GetInputElementsCode()
+	{
+		if (InputElements.Num() == 0) { for (auto& inputElement : InputElements) { InputElementsCode.Add(inputElement.PackedBits); } }
+		return InputElementsCode;
+	}
+
+protected:
+
+	TArray<uint64> InputElementsCode;
 };
