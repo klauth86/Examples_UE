@@ -3,10 +3,10 @@
 #pragma once
 
 #include "MoveNode_Base.h"
-#include "MoveNode.generated.h"
+#include "MoveNode_Entry.generated.h"
 
 UCLASS()
-class MOVEGRAPH_API UMoveNode : public UMoveNode_Base
+class MOVEGRAPH_API UMoveNode_Entry : public UMoveNode_Base
 {
 	GENERATED_BODY()
 };

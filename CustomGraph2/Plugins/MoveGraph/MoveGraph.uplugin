@@ -17,8 +17,8 @@
 	"Modules": [
 		{
 			"Name": "MoveGraph",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"Type": "UncookedOnly",
+			"LoadingPhase": "PreDefault"
 		},
 		{
 			"Name": "MoveGraphEditor",
