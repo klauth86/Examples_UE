@@ -10,7 +10,7 @@ class UEdGraph;
 #endif // WITH_EDITORONLY_DATA
 
 UCLASS()
-class MOVEGRAPH_API UMove : public UObject
+class MOVEEDITORMODULE_API UMove : public UObject
 {
 	GENERATED_BODY()
 

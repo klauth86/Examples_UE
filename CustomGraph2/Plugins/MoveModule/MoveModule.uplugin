@@ -24,6 +24,6 @@
 			"Name": "MoveEditorModule",
 			"Type": "UncookedOnly",
 			"LoadingPhase": "PreDefault"
-		},
+		}
 	]
 }

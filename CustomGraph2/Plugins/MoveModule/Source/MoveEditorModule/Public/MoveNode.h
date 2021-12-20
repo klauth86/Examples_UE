@@ -6,7 +6,7 @@
 #include "MoveNode.generated.h"
 
 UCLASS()
-class MOVEGRAPH_API UMoveNode : public UMoveNode_Base
+class MOVEEDITORMODULE_API UMoveNode : public UMoveNode_Base
 {
 	GENERATED_BODY()
 };

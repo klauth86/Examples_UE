@@ -5,7 +5,7 @@
 #include "UObject/NoExportTypes.h"
 #include "JoystickInput.generated.h"
 
-union MOVEGRAPH_API FJoystickInputElement
+union MOVECOREMODULE_API FJoystickInputElement
 {
 	FJoystickInputElement() { PackedBits = 0; }
 
@@ -106,7 +106,7 @@ struct
 };
 
 USTRUCT(BlueprintType)
-struct MOVEGRAPH_API FJoystickInput
+struct MOVECOREMODULE_API FJoystickInput
 {
 	GENERATED_USTRUCT_BODY()
 
