@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class MoveGraph : ModuleRules
+public class MoveCoreModule : ModuleRules
 {
-	public MoveGraph(ReadOnlyTargetRules Target) : base(Target)
+	public MoveCoreModule(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -25,7 +25,7 @@ public class MoveGraph : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "Engine"
+				"Core",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

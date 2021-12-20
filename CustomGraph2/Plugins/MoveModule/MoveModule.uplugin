@@ -2,7 +2,7 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "MoveGraph",
+	"FriendlyName": "MoveModule",
 	"Description": "",
 	"Category": "Other",
 	"CreatedBy": "",
@@ -16,14 +16,14 @@
 	"Installed": false,
 	"Modules": [
 		{
-			"Name": "MoveGraph",
+			"Name": "MoveCoreModule",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "MoveEditorModule",
 			"Type": "UncookedOnly",
 			"LoadingPhase": "PreDefault"
 		},
-		{
-			"Name": "MoveGraphEditor",
-			"Type": "Editor",
-			"LoadingPhase": "Default"
-		}		
 	]
 }

@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class MoveGraphEditor : ModuleRules
+public class MoveEditorModule : ModuleRules
 {
-	public MoveGraphEditor(ReadOnlyTargetRules Target) : base(Target)
+	public MoveEditorModule(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -29,13 +29,12 @@ public class MoveGraphEditor : ModuleRules
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
-
-
+			
+		
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"CoreUObject", "PropertyEditor", "SlateCore", "Slate", "AssetTools", "PropertyEditor", "UnrealEd",
-				"MoveGraph"
+				"CoreUObject",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

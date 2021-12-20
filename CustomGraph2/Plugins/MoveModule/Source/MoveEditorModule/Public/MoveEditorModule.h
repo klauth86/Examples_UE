@@ -2,17 +2,13 @@
 
 #pragma once
 
+#include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FMoveGraphEditorModule : public IModuleInterface
+class FMoveEditorModule : public IModuleInterface
 {
 public:
 
-	/** IModuleInterface implementation */
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
-
-private:
-
-	TArray<TSharedPtr<FAssetTypeActions_Base>> RegisteredAssetTypeActions;
 };
