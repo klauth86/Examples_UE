@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "UObject/NoExportTypes.h"
+#include "UObject/UObject.h"
 #include "JoystickInput.generated.h"
 
 union MOVECOREMODULE_API FJoystickInputElement

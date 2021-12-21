@@ -34,7 +34,7 @@ public class MoveCoreEditorModule : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				
+				"MoveCoreModule", "PropertyEditor", "SlateCore", "Slate", "AssetTools", "PropertyEditor", "UnrealEd",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
