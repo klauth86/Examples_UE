@@ -21,9 +21,9 @@
 			"LoadingPhase": "Default"
 		},
 		{
-			"Name": "MoveEditorModule",
-			"Type": "UncookedOnly",
-			"LoadingPhase": "PreDefault"
+			"Name": "MoveCoreEditorModule",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
 		}
 	]
 }

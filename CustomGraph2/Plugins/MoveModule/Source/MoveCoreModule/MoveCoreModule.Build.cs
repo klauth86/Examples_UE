@@ -34,7 +34,7 @@ public class MoveCoreModule : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"CoreUObject",
+				
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

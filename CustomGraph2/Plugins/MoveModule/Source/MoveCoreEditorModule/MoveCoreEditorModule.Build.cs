@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class MoveEditorModule : ModuleRules
+public class MoveCoreEditorModule : ModuleRules
 {
-	public MoveEditorModule(ReadOnlyTargetRules Target) : base(Target)
+	public MoveCoreEditorModule(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -25,7 +25,7 @@ public class MoveEditorModule : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "Engine"
+				"Core"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -34,7 +34,7 @@ public class MoveEditorModule : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"CoreUObject",
+				
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

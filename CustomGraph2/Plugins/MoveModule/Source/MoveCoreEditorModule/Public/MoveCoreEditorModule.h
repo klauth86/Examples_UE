@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FMoveEditorModule : public IModuleInterface
+class FMoveCoreEditorModule : public IModuleInterface
 {
 public:
 
