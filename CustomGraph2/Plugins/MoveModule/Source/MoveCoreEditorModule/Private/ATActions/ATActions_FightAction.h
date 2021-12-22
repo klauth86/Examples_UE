@@ -4,11 +4,11 @@
 
 #include "AssetTypeActions_Base.h"
 
-class FATActions_Move : public FAssetTypeActions_Base
+class FATActions_FightAction : public FAssetTypeActions_Base
 {
 public:
 	//~ Begin IAssetTypeActions Implementation
-	virtual FText GetName() const override { return NSLOCTEXT("AssetTypeActions", "FAssetTypeActions_Move", "Move"); }
+	virtual FText GetName() const override { return NSLOCTEXT("AssetTypeActions", "FATActions_FightAction", "Fight Action"); }
 	virtual FColor GetTypeColor() const override { return FColor(97, 97, 85); }
 	virtual uint32 GetCategories() override { return EAssetTypeCategories::Blueprint; }
 	virtual UClass* GetSupportedClass() const override;
