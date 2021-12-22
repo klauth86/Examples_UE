@@ -12,7 +12,7 @@ class UFactory_MoveSequence : public UFactory
 
 public:
 
-	virtual FText GetDisplayName() const override { return NSLOCTEXT("Factory_MoveSequence", "UFactory_MoveSequence", "Fight Action"); }
+	virtual FText GetDisplayName() const override { return NSLOCTEXT("Factory_MoveSequence", "UFactory_MoveSequence", "Move Sequence"); }
 	virtual uint32 GetMenuCategories() const override;
 	virtual UObject* FactoryCreateNew(UClass* Class, UObject* InParent, FName Name, EObjectFlags Flags, UObject* Context, FFeedbackContext* Warn, FName CallingContext) override;
 	virtual UObject* FactoryCreateNew(UClass* Class, UObject* InParent, FName Name, EObjectFlags Flags, UObject* Context, FFeedbackContext* Warn) override
