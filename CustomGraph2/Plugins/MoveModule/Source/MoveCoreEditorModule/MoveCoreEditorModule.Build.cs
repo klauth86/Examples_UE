@@ -35,6 +35,7 @@ public class MoveCoreEditorModule : ModuleRules
 			new string[]
 			{
 				"CoreUObject", "MoveCoreModule", "PropertyEditor", "SlateCore", "Slate", "AssetTools", "PropertyEditor", "UnrealEd",
+				"Engine"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
