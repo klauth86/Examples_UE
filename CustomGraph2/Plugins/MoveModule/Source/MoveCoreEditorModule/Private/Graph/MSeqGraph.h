@@ -6,7 +6,18 @@
 #include "MSeqGraph.generated.h"
 
 UCLASS()
-class UMSeqGraph : public UEdGraph
+class MOVECOREEDITORMODULE_API UMSeqGraph : public UEdGraph
 {
 	GENERATED_BODY()
+
+public:
+
+	bool IsLocked() const { return bLockUpdates; }
+	void LockUpdates() { bLockUpdates = 1; }
+	void UnlockUpdates() { bLockUpdates = 0; // TODO 
+	}
+
+protected:
+
+	uint32 bLockUpdates : 1;
 };

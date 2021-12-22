@@ -2,14 +2,98 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "EditorUndoClient.h"
+#include "GraphEditor.h"
+#include "Toolkits/AssetEditorToolkit.h"
 
-/**
- * 
- */
-class MSeqEditor
+class UMoveSequence;
+
+class MOVECOREEDITORMODULE_API FMSeqEditor : public FEditorUndoClient, public FAssetEditorToolkit
 {
 public:
-	MSeqEditor();
-	~MSeqEditor();
+
+	virtual void RegisterTabSpawners(const TSharedRef<class FTabManager>& TabManager) override;
+	virtual void UnregisterTabSpawners(const TSharedRef<class FTabManager>& TabManager) override;
+
+	void InitEditor(const EToolkitMode::Type Mode, const TSharedPtr< class IToolkitHost >& InitToolkitHost, UMoveSequence* mSeq);
+
+	//~ Begin IToolkit Interface
+	virtual FName GetToolkitFName() const override;
+	virtual FText GetBaseToolkitName() const override;
+	virtual FString GetWorldCentricTabPrefix() const override;
+	virtual FLinearColor GetWorldCentricTabColorScale() const override;
+	//~ End IToolkit Interface
+
+protected:
+
+	virtual void SaveAsset_Execute() override;
+
+private:
+
+	TSharedRef<class SGraphEditor> CreateGraphEditorWidget(UEdGraph* InGraph);
+
+	void CreateInternalWidgets();
+
+	TSharedRef<SDockTab> SpawnTab_UpdateGraph(const FSpawnTabArgs& Args);
+	TSharedRef<SDockTab> SpawnTab_Properties(const FSpawnTabArgs& Args);
+	TSharedRef<SDockTab> SpawnTab_Profiler(const FSpawnTabArgs& Args);
+
+	UMoveSequence* MoveSequence;
+
+	TSharedPtr<class IDetailsView> DetailsView;
+	//TSharedPtr<SEnvQueryProfiler> ProfilerView;
+
+	uint32 SelectedNodesCount;
+
+	static const FName EQSUpdateGraphTabId;
+	static const FName EQSPropertiesTabId;
+	static const FName EQSProfilerTabId;
+
+public:
+
+	FMSeqEditor();
+	virtual ~FMSeqEditor();
+
+	FGraphPanelSelectionSet GetSelectedNodes() const;
+	void OnSelectedNodesChanged(const TSet<class UObject*>& NewSelection);
+
+	//~ Begin FEditorUndoClient Interface
+	virtual void PostUndo(bool bSuccess) override;
+	virtual void PostRedo(bool bSuccess) override;
+	// End of FEditorUndoClient
+
+	void CreateCommandList();
+
+	// Delegates for graph editor commands
+	void SelectAllNodes();
+	bool CanSelectAllNodes() const;
+	void DeleteSelectedNodes();
+	bool CanDeleteNodes() const;
+	void DeleteSelectedDuplicatableNodes();
+	void CutSelectedNodes();
+	bool CanCutNodes() const;
+	void CopySelectedNodes();
+	bool CanCopyNodes() const;
+	void PasteNodes();
+	void PasteNodesHere(const FVector2D& Location);
+	bool CanPasteNodes() const;
+	void DuplicateNodes();
+	bool CanDuplicateNodes() const;
+
+	bool CanCreateComment() const;
+	void OnCreateComment();
+
+protected:
+	virtual void FixupPastedNodes(const TSet<UEdGraphNode*>& NewPastedGraphNodes, const TMap<FGuid/*New*/, FGuid/*Old*/>& NewToOldNodeMapping);
+
+protected:
+
+	/** Currently focused graph */
+	TWeakPtr<SGraphEditor> UpdateGraphEdPtr;
+
+	/** The command list for this editor */
+	TSharedPtr<FUICommandList> GraphEditorCommands;
+
+	/** Handle to the registered OnClassListUpdated delegate */
+	FDelegateHandle OnClassListUpdatedDelegateHandle;
 };

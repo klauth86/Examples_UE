@@ -6,7 +6,7 @@
 #include "MSeqGraphSchema.generated.h"
 
 UCLASS()
-class UMSeqGraphSchema : public UEdGraphSchema
+class MOVECOREEDITORMODULE_API UMSeqGraphSchema : public UEdGraphSchema
 {
 	GENERATED_BODY()	
 };
