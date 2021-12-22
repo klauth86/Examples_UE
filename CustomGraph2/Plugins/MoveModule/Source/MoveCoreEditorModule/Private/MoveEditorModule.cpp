@@ -4,6 +4,7 @@
 
 #include "AssetToolsModule.h"
 #include "ATActions/ATActions_FightAction.h"
+#include "ATActions/ATActions_MoveSequence.h"
 
 #include "PropertyEditorModule.h"
 #include "JoystickInput.h"
@@ -17,7 +18,8 @@ void FMoveCoreEditorModule::StartupModule()
 	PropertyModule.RegisterCustomPropertyTypeLayout(FJoystickInput::StaticStruct()->GetFName(), FOnGetPropertyTypeCustomizationInstance::CreateStatic(&FPTCustomization_JoystickInput::MakeInstance));
 
 	RegisteredAssetTypeActions.Add(MakeShared<FATActions_FightAction>());
-
+	RegisteredAssetTypeActions.Add(MakeShared<FATActions_MoveSequence>());
+	
 	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
 	for (auto& registeredAssetTypeAction : RegisteredAssetTypeActions)
 	{
