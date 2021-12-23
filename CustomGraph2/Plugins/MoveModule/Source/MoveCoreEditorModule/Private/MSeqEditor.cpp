@@ -57,7 +57,7 @@ void FMSeqEditor::InitEditor(const EToolkitMode::Type Mode, const TSharedPtr< cl
 	MoveSequence = mSeq;
 	check(MoveSequence != NULL);
 
-	TSharedRef<FTabManager::FLayout> StandaloneDefaultLayout = FTabManager::NewLayout("Standalone_EnvironmentQuery_Layout")
+	TSharedRef<FTabManager::FLayout> StandaloneDefaultLayout = FTabManager::NewLayout("Standalone_MoveSequence_Layout")
 		->AddArea
 		(
 			FTabManager::NewPrimaryArea()->SetOrientation(Orient_Vertical)
@@ -93,9 +93,6 @@ void FMSeqEditor::InitEditor(const EToolkitMode::Type Mode, const TSharedPtr< cl
 		);
 
 	FAssetEditorToolkit::InitAssetEditor(Mode, InitToolkitHost, MSeqEditorAppIdentifier, StandaloneDefaultLayout, true, true, MoveSequence);
-
-	//////FMSeqEditorModule& MSeqEditorModule = FModuleManager::LoadModuleChecked<FMSeqEditorModule>("MSeqEditor");
-	//////AddMenuExtender(MSeqEditorModule.GetMenuExtensibilityManager()->GetAllExtenders(GetToolkitCommands(), GetEditingObjects()));
 
 	//////BindCommands();
 	//////ExtendToolbar();
@@ -192,6 +189,22 @@ void FMSeqEditor::CreateInternalWidgets()
 	DetailsView->SetObject(NULL);
 }
 
+TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Properties(const FSpawnTabArgs& Args)
+{
+	check(Args.GetTabId() == MSeqEditorPropertiesTabId);
+
+	CreateInternalWidgets();
+
+	TSharedRef<SDockTab> SpawnedTab = SNew(SDockTab)
+		.Icon(FEditorStyle::GetBrush("SoundClassEditor.Tabs.Properties"))
+		.Label(NSLOCTEXT("MSeqEditor", "PropertiesTab", "Details"))
+		[
+			DetailsView.ToSharedRef()
+		];
+
+	return SpawnedTab;
+}
+
 TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Graph(const FSpawnTabArgs& Args)
 {
 	check(Args.GetTabId().TabType == MSeqEditorGraphTabId);
@@ -227,29 +240,13 @@ TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Graph(const FSpawnTabArgs& Args)
 		;
 }
 
-TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Properties(const FSpawnTabArgs& Args)
-{
-	check(Args.GetTabId() == MSeqEditorPropertiesTabId);
-
-	CreateInternalWidgets();
-
-	TSharedRef<SDockTab> SpawnedTab = SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("SoundClassEditor.Tabs.Properties"))
-		.Label(NSLOCTEXT("MSeqEditor", "PropertiesTab", "Details"))
-		[
-			DetailsView.ToSharedRef()
-		];
-
-	return SpawnedTab;
-}
-
 TSharedRef<SDockTab> FMSeqEditor::SpawnTab_AssetBrowser(const FSpawnTabArgs& Args)
 {
 	check(Args.GetTabId() == MSeqEditorAssetBrowserTabId);
 
 	TSharedRef<SDockTab> SpawnedTab = SNew(SDockTab)
 		.Icon(FEditorStyle::GetBrush("SoundClassEditor.Tabs.Properties"))
-		.Label(NSLOCTEXT("MSeqEditor", "ProfilerTab", "Profiler"))
+		.Label(NSLOCTEXT("MSeqEditor", "AssetBrowserTab", "Asset Browser"))
 		//[
 		//	ProfilerView.ToSharedRef()
 		//]

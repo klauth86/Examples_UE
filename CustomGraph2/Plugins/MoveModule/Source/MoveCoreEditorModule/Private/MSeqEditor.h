@@ -40,8 +40,8 @@ private:
 
 	void CreateInternalWidgets();
 
-	TSharedRef<SDockTab> SpawnTab_Graph(const FSpawnTabArgs& Args);
 	TSharedRef<SDockTab> SpawnTab_Properties(const FSpawnTabArgs& Args);
+	TSharedRef<SDockTab> SpawnTab_Graph(const FSpawnTabArgs& Args);
 	TSharedRef<SDockTab> SpawnTab_AssetBrowser(const FSpawnTabArgs& Args);
 
 	UMoveSequence* MoveSequence;
