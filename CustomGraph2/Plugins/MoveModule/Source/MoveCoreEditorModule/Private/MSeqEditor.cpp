@@ -57,36 +57,40 @@ void FMSeqEditor::InitEditor(const EToolkitMode::Type Mode, const TSharedPtr< cl
 	MoveSequence = mSeq;
 	check(MoveSequence != NULL);
 
-	TSharedRef<FTabManager::FLayout> StandaloneDefaultLayout = FTabManager::NewLayout("Standalone_EnvironmentQuery_Layout");
-	//////->AddArea
-	//////(
-	//////		FTabManager::NewPrimaryArea()->SetOrientation(Orient_Vertical)
-	//////		->Split
-	//////		(
-	//////			FTabManager::NewStack()
-	//////			->SetSizeCoefficient(0.1f)
-	//////			->AddTab(GetToolbarTabId(), ETabState::OpenedTab)
-	//////			->SetHideTabWell(true)
-	//////		)
-	//////		->Split
-	//////		(
-	//////			FTabManager::NewSplitter()->SetOrientation(Orient_Horizontal)
-	//////			->Split
-	//////			(
-	//////				FTabManager::NewStack()
-	//////				->SetSizeCoefficient(0.7f)
-	//////				->AddTab(MSeqEditorGraphTabId, ETabState::OpenedTab)
-	//////			)
-	//////			->Split
-	//////			(
-	//////				FTabManager::NewStack()
-	//////				->SetSizeCoefficient(0.3f)
-	//////				->AddTab(MSeqEditorPropertiesTabId, ETabState::OpenedTab)
-	//////				->AddTab(MSeqEditorAssetBrowserTabId, ETabState::OpenedTab)
-	//////				->SetForegroundTab(MSeqEditorPropertiesTabId)
-	//////			)
-	//////		)
-	//////)
+	TSharedRef<FTabManager::FLayout> StandaloneDefaultLayout = FTabManager::NewLayout("Standalone_EnvironmentQuery_Layout")
+		->AddArea
+		(
+			FTabManager::NewPrimaryArea()->SetOrientation(Orient_Vertical)
+			->Split
+			(
+				FTabManager::NewStack()
+				->SetSizeCoefficient(0.1f)
+				->AddTab(GetToolbarTabId(), ETabState::OpenedTab)
+				->SetHideTabWell(true)
+			)
+			->Split
+			(
+				FTabManager::NewSplitter()->SetOrientation(Orient_Horizontal)
+				->Split
+				(
+					FTabManager::NewStack()
+					->SetSizeCoefficient(0.15f)
+					->AddTab(MSeqEditorPropertiesTabId, ETabState::OpenedTab)
+				)
+				->Split
+				(
+					FTabManager::NewStack()
+					->SetSizeCoefficient(0.7f)
+					->AddTab(MSeqEditorGraphTabId, ETabState::OpenedTab)
+				)
+				->Split
+				(
+					FTabManager::NewStack()
+					->SetSizeCoefficient(0.15f)
+					->AddTab(MSeqEditorAssetBrowserTabId, ETabState::OpenedTab)
+				)
+			)
+		);
 
 	FAssetEditorToolkit::InitAssetEditor(Mode, InitToolkitHost, MSeqEditorAppIdentifier, StandaloneDefaultLayout, true, true, MoveSequence);
 
