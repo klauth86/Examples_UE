@@ -14,29 +14,31 @@
 
 #define LOCTEXT_NAMESPACE "MSeqGraph"
 
-const FName FMSeqEditor::EQSUpdateGraphTabId(TEXT("EnvironmentQueryEditor_UpdateGraph"));
-const FName FMSeqEditor::EQSPropertiesTabId(TEXT("EnvironmentQueryEditor_Properties"));
-const FName FMSeqEditor::EQSProfilerTabId(TEXT("EnvironmentQueryEditor_Profiler"));
+const FName FMSeqEditor::MSeqEditorAppIdentifier(TEXT("MSeqEditorApp"));
+
+const FName FMSeqEditor::MSeqEditorPropertiesTabId(TEXT("MSeqEditor_PropertiesTab"));
+const FName FMSeqEditor::MSeqEditorGraphTabId(TEXT("MSeqEditor_GraphTab"));
+const FName FMSeqEditor::MSeqEditorAssetBrowserTabId(TEXT("MSeqEditor_AssetBrowserTab"));
 
 void FMSeqEditor::RegisterTabSpawners(const TSharedRef<class FTabManager>& InTabManager)
 {
-	WorkspaceMenuCategory = InTabManager->AddLocalWorkspaceMenuCategory(LOCTEXT("WorkspaceMenu_EnvironmentQueryEditor", "Environment Query Editor"));
+	WorkspaceMenuCategory = InTabManager->AddLocalWorkspaceMenuCategory(LOCTEXT("WorkspaceMenu_MSeqEditor", "Environment Query Editor"));
 	auto WorkspaceMenuCategoryRef = WorkspaceMenuCategory.ToSharedRef();
 
 	FAssetEditorToolkit::RegisterTabSpawners(InTabManager);
 
-	InTabManager->RegisterTabSpawner(EQSUpdateGraphTabId, FOnSpawnTab::CreateSP(this, &FMSeqEditor::SpawnTab_UpdateGraph))
-		.SetDisplayName(NSLOCTEXT("EnvironmentQueryEditor", "Graph", "Graph"))
-		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "GraphEditor.EventGraph_16x"));
-
-	InTabManager->RegisterTabSpawner(EQSPropertiesTabId, FOnSpawnTab::CreateSP(this, &FMSeqEditor::SpawnTab_Properties))
-		.SetDisplayName(NSLOCTEXT("EnvironmentQueryEditor", "PropertiesTab", "Details"))
+	InTabManager->RegisterTabSpawner(MSeqEditorPropertiesTabId, FOnSpawnTab::CreateSP(this, &FMSeqEditor::SpawnTab_Properties))
+		.SetDisplayName(NSLOCTEXT("MSeqEditor", "PropertiesTab", "Details"))
 		.SetGroup(WorkspaceMenuCategoryRef)
 		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.Details"));
 
-	InTabManager->RegisterTabSpawner(EQSProfilerTabId, FOnSpawnTab::CreateSP(this, &FMSeqEditor::SpawnTab_Profiler))
-		.SetDisplayName(NSLOCTEXT("EnvironmentQueryEditor", "ProfilerTab", "Profiler"))
+	InTabManager->RegisterTabSpawner(MSeqEditorGraphTabId, FOnSpawnTab::CreateSP(this, &FMSeqEditor::SpawnTab_Graph))
+		.SetDisplayName(NSLOCTEXT("MSeqEditor", "Graph", "Graph"))
+		.SetGroup(WorkspaceMenuCategoryRef)
+		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "GraphEditor.EventGraph_16x"));
+
+	InTabManager->RegisterTabSpawner(MSeqEditorAssetBrowserTabId, FOnSpawnTab::CreateSP(this, &FMSeqEditor::SpawnTab_AssetBrowser))
+		.SetDisplayName(NSLOCTEXT("MSeqEditor", "AssetBrowserTab", "AssetBrowser"))
 		.SetGroup(WorkspaceMenuCategoryRef)
 		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "Profiler.EventGraph.ExpandHotPath"));
 }
@@ -45,12 +47,10 @@ void FMSeqEditor::UnregisterTabSpawners(const TSharedRef<class FTabManager>& InT
 {
 	FAssetEditorToolkit::UnregisterTabSpawners(InTabManager);
 
-	InTabManager->UnregisterTabSpawner(EQSPropertiesTabId);
-	InTabManager->UnregisterTabSpawner(EQSUpdateGraphTabId);
-	InTabManager->UnregisterTabSpawner(EQSProfilerTabId);
+	InTabManager->UnregisterTabSpawner(MSeqEditorPropertiesTabId);
+	InTabManager->UnregisterTabSpawner(MSeqEditorGraphTabId);
+	InTabManager->UnregisterTabSpawner(MSeqEditorAssetBrowserTabId);
 }
-
-const FName EnvironmentQueryEditorAppIdentifier(TEXT("EnvironmentQueryEditorApp"));
 
 void FMSeqEditor::InitEditor(const EToolkitMode::Type Mode, const TSharedPtr< class IToolkitHost >& InitToolkitHost, UMoveSequence* mSeq)
 {
@@ -75,23 +75,23 @@ void FMSeqEditor::InitEditor(const EToolkitMode::Type Mode, const TSharedPtr< cl
 	//////			(
 	//////				FTabManager::NewStack()
 	//////				->SetSizeCoefficient(0.7f)
-	//////				->AddTab(EQSUpdateGraphTabId, ETabState::OpenedTab)
+	//////				->AddTab(MSeqEditorGraphTabId, ETabState::OpenedTab)
 	//////			)
 	//////			->Split
 	//////			(
 	//////				FTabManager::NewStack()
 	//////				->SetSizeCoefficient(0.3f)
-	//////				->AddTab(EQSPropertiesTabId, ETabState::OpenedTab)
-	//////				->AddTab(EQSProfilerTabId, ETabState::OpenedTab)
-	//////				->SetForegroundTab(EQSPropertiesTabId)
+	//////				->AddTab(MSeqEditorPropertiesTabId, ETabState::OpenedTab)
+	//////				->AddTab(MSeqEditorAssetBrowserTabId, ETabState::OpenedTab)
+	//////				->SetForegroundTab(MSeqEditorPropertiesTabId)
 	//////			)
 	//////		)
 	//////)
 
-	FAssetEditorToolkit::InitAssetEditor(Mode, InitToolkitHost, EnvironmentQueryEditorAppIdentifier, StandaloneDefaultLayout, true, true, MoveSequence);
+	FAssetEditorToolkit::InitAssetEditor(Mode, InitToolkitHost, MSeqEditorAppIdentifier, StandaloneDefaultLayout, true, true, MoveSequence);
 
-	//////FEnvironmentQueryEditorModule& EnvironmentQueryEditorModule = FModuleManager::LoadModuleChecked<FEnvironmentQueryEditorModule>("EnvironmentQueryEditor");
-	//////AddMenuExtender(EnvironmentQueryEditorModule.GetMenuExtensibilityManager()->GetAllExtenders(GetToolkitCommands(), GetEditingObjects()));
+	//////FMSeqEditorModule& MSeqEditorModule = FModuleManager::LoadModuleChecked<FMSeqEditorModule>("MSeqEditor");
+	//////AddMenuExtender(MSeqEditorModule.GetMenuExtensibilityManager()->GetAllExtenders(GetToolkitCommands(), GetEditingObjects()));
 
 	//////BindCommands();
 	//////ExtendToolbar();
@@ -138,7 +138,7 @@ void FMSeqEditor::SaveAsset_Execute()
 		//////EdGraph->UpdateAsset(); //////TODO
 	}
 	// save it
-	////// TODO IEnvironmentQueryEditor::SaveAsset_Execute();
+	////// TODO IMSeqEditor::SaveAsset_Execute();
 }
 
 TSharedRef<SGraphEditor> FMSeqEditor::CreateGraphEditorWidget(UEdGraph* InGraph)
@@ -147,7 +147,7 @@ TSharedRef<SGraphEditor> FMSeqEditor::CreateGraphEditorWidget(UEdGraph* InGraph)
 
 	// Create the appearance info
 	FGraphAppearanceInfo AppearanceInfo;
-	AppearanceInfo.CornerText = NSLOCTEXT("EnvironmentQueryEditor", "AppearanceCornerText", "ENVIRONMENT QUERY");
+	AppearanceInfo.CornerText = NSLOCTEXT("MSeqEditor", "AppearanceCornerText", "ENVIRONMENT QUERY");
 
 	SGraphEditor::FGraphEditorEvents InEvents;
 	InEvents.OnSelectionChanged = SGraphEditor::FOnSelectionChanged::CreateSP(this, &FMSeqEditor::OnSelectedNodesChanged);
@@ -166,7 +166,7 @@ TSharedRef<SGraphEditor> FMSeqEditor::CreateGraphEditorWidget(UEdGraph* InGraph)
 		.FillWidth(1.f)
 		[
 			SNew(STextBlock)
-			.Text(NSLOCTEXT("EnvironmentQueryEditor", "TheQueryGraphLabel", "Query Graph"))
+			.Text(NSLOCTEXT("MSeqEditor", "TheQueryGraphLabel", "Query Graph"))
 		.TextStyle(FEditorStyle::Get(), TEXT("GraphBreadcrumbButtonText"))
 		]
 		];
@@ -188,9 +188,9 @@ void FMSeqEditor::CreateInternalWidgets()
 	DetailsView->SetObject(NULL);
 }
 
-TSharedRef<SDockTab> FMSeqEditor::SpawnTab_UpdateGraph(const FSpawnTabArgs& Args)
+TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Graph(const FSpawnTabArgs& Args)
 {
-	check(Args.GetTabId().TabType == EQSUpdateGraphTabId);
+	check(Args.GetTabId().TabType == MSeqEditorGraphTabId);
 
 	//////UMSeqGraph* MyGraph = Cast<UMSeqGraph>(Query->EdGraph);
 	//////if (Query->EdGraph == NULL)
@@ -215,7 +215,7 @@ TSharedRef<SDockTab> FMSeqEditor::SpawnTab_UpdateGraph(const FSpawnTabArgs& Args
 	//////UpdateGraphEdPtr = UpdateGraphEditor; // Keep pointer to editor
 
 	return SNew(SDockTab)
-		.Label(NSLOCTEXT("EnvironmentQueryEditor", "UpdateGraph", "Update Graph"))
+		.Label(NSLOCTEXT("MSeqEditor", "UpdateGraph", "Update Graph"))
 		.TabColorScale(GetTabColorScale())
 		//////[
 		//////	UpdateGraphEditor
@@ -225,13 +225,13 @@ TSharedRef<SDockTab> FMSeqEditor::SpawnTab_UpdateGraph(const FSpawnTabArgs& Args
 
 TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Properties(const FSpawnTabArgs& Args)
 {
-	check(Args.GetTabId() == EQSPropertiesTabId);
+	check(Args.GetTabId() == MSeqEditorPropertiesTabId);
 
 	CreateInternalWidgets();
 
 	TSharedRef<SDockTab> SpawnedTab = SNew(SDockTab)
 		.Icon(FEditorStyle::GetBrush("SoundClassEditor.Tabs.Properties"))
-		.Label(NSLOCTEXT("EnvironmentQueryEditor", "PropertiesTab", "Details"))
+		.Label(NSLOCTEXT("MSeqEditor", "PropertiesTab", "Details"))
 		[
 			DetailsView.ToSharedRef()
 		];
@@ -239,13 +239,13 @@ TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Properties(const FSpawnTabArgs& Args)
 	return SpawnedTab;
 }
 
-TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Profiler(const FSpawnTabArgs& Args)
+TSharedRef<SDockTab> FMSeqEditor::SpawnTab_AssetBrowser(const FSpawnTabArgs& Args)
 {
-	check(Args.GetTabId() == EQSProfilerTabId);
+	check(Args.GetTabId() == MSeqEditorAssetBrowserTabId);
 
 	TSharedRef<SDockTab> SpawnedTab = SNew(SDockTab)
 		.Icon(FEditorStyle::GetBrush("SoundClassEditor.Tabs.Properties"))
-		.Label(NSLOCTEXT("EnvironmentQueryEditor", "ProfilerTab", "Profiler"))
+		.Label(NSLOCTEXT("MSeqEditor", "ProfilerTab", "Profiler"))
 		//[
 		//	ProfilerView.ToSharedRef()
 		//]

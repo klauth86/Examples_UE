@@ -12,6 +12,12 @@ class MOVECOREEDITORMODULE_API FMSeqEditor : public FEditorUndoClient, public FA
 {
 public:
 
+	static const FName MSeqEditorAppIdentifier;
+
+	static const FName MSeqEditorPropertiesTabId;
+	static const FName MSeqEditorGraphTabId;
+	static const FName MSeqEditorAssetBrowserTabId;
+
 	virtual void RegisterTabSpawners(const TSharedRef<class FTabManager>& TabManager) override;
 	virtual void UnregisterTabSpawners(const TSharedRef<class FTabManager>& TabManager) override;
 
@@ -34,9 +40,9 @@ private:
 
 	void CreateInternalWidgets();
 
-	TSharedRef<SDockTab> SpawnTab_UpdateGraph(const FSpawnTabArgs& Args);
+	TSharedRef<SDockTab> SpawnTab_Graph(const FSpawnTabArgs& Args);
 	TSharedRef<SDockTab> SpawnTab_Properties(const FSpawnTabArgs& Args);
-	TSharedRef<SDockTab> SpawnTab_Profiler(const FSpawnTabArgs& Args);
+	TSharedRef<SDockTab> SpawnTab_AssetBrowser(const FSpawnTabArgs& Args);
 
 	UMoveSequence* MoveSequence;
 
@@ -44,10 +50,6 @@ private:
 	//TSharedPtr<SEnvQueryProfiler> ProfilerView;
 
 	uint32 SelectedNodesCount;
-
-	static const FName EQSUpdateGraphTabId;
-	static const FName EQSPropertiesTabId;
-	static const FName EQSProfilerTabId;
 
 public:
 
