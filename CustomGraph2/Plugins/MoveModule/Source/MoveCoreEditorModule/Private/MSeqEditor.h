@@ -86,6 +86,7 @@ public:
 	void OnCreateComment();
 
 protected:
+
 	virtual void FixupPastedNodes(const TSet<UEdGraphNode*>& NewPastedGraphNodes, const TMap<FGuid/*New*/, FGuid/*Old*/>& NewToOldNodeMapping);
 
 protected:
@@ -98,4 +99,6 @@ protected:
 
 	/** Handle to the registered OnClassListUpdated delegate */
 	FDelegateHandle OnClassListUpdatedDelegateHandle;
+
+	UEdGraph* EdGraph;
 };

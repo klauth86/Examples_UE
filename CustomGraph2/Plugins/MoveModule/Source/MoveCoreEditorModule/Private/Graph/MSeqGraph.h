@@ -14,8 +14,15 @@ public:
 
 	bool IsLocked() const { return bLockUpdates; }
 	void LockUpdates() { bLockUpdates = 1; }
-	void UnlockUpdates() { bLockUpdates = 0; // TODO 
-	}
+	void UnlockUpdates() { bLockUpdates = 0; }
+
+	virtual void OnCreated() {}
+	virtual void OnLoaded() {}
+	virtual void Initialize() {}
+
+	virtual void UpdateAsset(int32 UpdateFlags = 0) {}
+	void UpdateClassData() {}
+	virtual void OnNodesPasted(const FString& ImportStr) {}
 
 protected:
 

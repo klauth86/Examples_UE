@@ -95,18 +95,13 @@ void FMSeqEditor::InitEditor(const EToolkitMode::Type Mode, const TSharedPtr< cl
 
 	FAssetEditorToolkit::InitAssetEditor(Mode, InitToolkitHost, MSeqEditorAppIdentifier, StandaloneDefaultLayout, true, true, MoveSequence);
 
-	//////BindCommands();
-	//////ExtendToolbar();
-	//////RegenerateMenusAndToolbars();
-
-	//////// Update BT asset data based on saved graph to have correct data in editor
-	//////TSharedPtr<SGraphEditor> UpdateGraphEditor = UpdateGraphEdPtr.Pin();
-	//////if (UpdateGraphEditor.IsValid() && UpdateGraphEditor->GetCurrentGraph() != NULL)
-	//////{
-	//////	//let's find root node
-	//////	UEnvironmentQueryGraph* EQSGraph = Cast<UEnvironmentQueryGraph>(UpdateGraphEditor->GetCurrentGraph());
-	//////	EQSGraph->UpdateAsset();
-	//////}
+	TSharedPtr<SGraphEditor> UpdateGraphEditor = UpdateGraphEdPtr.Pin();
+	if (UpdateGraphEditor.IsValid() && UpdateGraphEditor->GetCurrentGraph() != NULL)
+	{
+		//let's find root node
+		UMSeqGraph* EQSGraph = Cast<UMSeqGraph>(UpdateGraphEditor->GetCurrentGraph());
+		EQSGraph->UpdateAsset();
+	}
 }
 
 FName FMSeqEditor::GetToolkitFName() const
@@ -131,16 +126,15 @@ FLinearColor FMSeqEditor::GetWorldCentricTabColorScale() const
 
 void FMSeqEditor::SaveAsset_Execute()
 {
-	// modify BT asset
 	TSharedPtr<SGraphEditor> UpdateGraphEditor = UpdateGraphEdPtr.Pin();
 	if (UpdateGraphEditor.IsValid() && UpdateGraphEditor->GetCurrentGraph() != NULL)
 	{
 		//let's find root node
 		UMSeqGraph* EdGraph = Cast<UMSeqGraph>(UpdateGraphEditor->GetCurrentGraph());
-		//////EdGraph->UpdateAsset(); //////TODO
+		EdGraph->UpdateAsset();
 	}
 	// save it
-	////// TODO IMSeqEditor::SaveAsset_Execute();
+	FAssetEditorToolkit::SaveAsset_Execute();
 }
 
 TSharedRef<SGraphEditor> FMSeqEditor::CreateGraphEditorWidget(UEdGraph* InGraph)
@@ -149,7 +143,7 @@ TSharedRef<SGraphEditor> FMSeqEditor::CreateGraphEditorWidget(UEdGraph* InGraph)
 
 	// Create the appearance info
 	FGraphAppearanceInfo AppearanceInfo;
-	AppearanceInfo.CornerText = NSLOCTEXT("MSeqEditor", "AppearanceCornerText", "ENVIRONMENT QUERY");
+	AppearanceInfo.CornerText = NSLOCTEXT("MSeqEditor", "AppearanceCornerText", "MOVE SEQUENCE");
 
 	SGraphEditor::FGraphEditorEvents InEvents;
 	InEvents.OnSelectionChanged = SGraphEditor::FOnSelectionChanged::CreateSP(this, &FMSeqEditor::OnSelectedNodesChanged);
@@ -168,7 +162,7 @@ TSharedRef<SGraphEditor> FMSeqEditor::CreateGraphEditorWidget(UEdGraph* InGraph)
 		.FillWidth(1.f)
 		[
 			SNew(STextBlock)
-			.Text(NSLOCTEXT("MSeqEditor", "TheQueryGraphLabel", "Query Graph"))
+			.Text(NSLOCTEXT("MSeqEditor", "TheQueryGraphLabel", "Move Sequence Graph"))
 		.TextStyle(FEditorStyle::Get(), TEXT("GraphBreadcrumbButtonText"))
 		]
 		];
@@ -210,35 +204,32 @@ TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Graph(const FSpawnTabArgs& Args)
 {
 	check(Args.GetTabId().TabType == MSeqEditorGraphTabId);
 
-	//////UMSeqGraph* MyGraph = Cast<UMSeqGraph>(Query->EdGraph);
-	//////if (Query->EdGraph == NULL)
-	//////{
-	//////	MyGraph = NewObject<UEnvironmentQueryGraph>(Query, NAME_None, RF_Transactional);
-	//////	Query->EdGraph = MyGraph;
+	UMSeqGraph* MyGraph = Cast<UMSeqGraph>(MoveSequence->EdGraph);
+	if (MoveSequence->EdGraph == NULL)
+	{
+		MyGraph = NewObject<UMSeqGraph>(MoveSequence, NAME_None, RF_Transactional);
+		MoveSequence->EdGraph = MyGraph;
 
-	//////	// let's read data from BT script and generate nodes
-	//////	const UEdGraphSchema* Schema = Query->EdGraph->GetSchema();
-	//////	Schema->CreateDefaultNodesForGraph(*Query->EdGraph);
+		// let's read data from BT script and generate nodes
+		const UEdGraphSchema* Schema = MoveSequence->EdGraph->GetSchema();
+		Schema->CreateDefaultNodesForGraph(*MoveSequence->EdGraph);
 
-	//////	MyGraph->OnCreated();
-	//////}
-	//////else
-	//////{
-	//////	MyGraph->OnLoaded();
-	//////}
+		MyGraph->OnCreated();
+	}
+	else
+	{
+		MyGraph->OnLoaded();
+	}
 
-	//////MyGraph->Initialize();
+	MyGraph->Initialize();
 
-	//////TSharedRef<SGraphEditor> UpdateGraphEditor = CreateGraphEditorWidget(Query->EdGraph);
-	//////UpdateGraphEdPtr = UpdateGraphEditor; // Keep pointer to editor
+	TSharedRef<SGraphEditor> UpdateGraphEditor = CreateGraphEditorWidget(MoveSequence->EdGraph);
+	UpdateGraphEdPtr = UpdateGraphEditor; // Keep pointer to editor
 
 	return SNew(SDockTab)
 		.Label(NSLOCTEXT("MSeqEditor", "UpdateGraph", "Update Graph"))
 		.TabColorScale(GetTabColorScale())
-		//////[
-		//////	UpdateGraphEditor
-		//////]
-		;
+		[UpdateGraphEditor];
 }
 
 TSharedRef<SDockTab> FMSeqEditor::SpawnTab_AssetBrowser(const FSpawnTabArgs& Args)
@@ -629,8 +620,8 @@ void FMSeqEditor::PasteNodesHere(const FVector2D& Location)
 
 	if (mSeqGraph)
 	{
-		//mSeqGraph->UpdateClassData(); ////// TODO
-		//mSeqGraph->OnNodesPasted(TextToImport);
+		mSeqGraph->UpdateClassData();
+		mSeqGraph->OnNodesPasted(TextToImport);
 		mSeqGraph->UnlockUpdates();
 	}
 

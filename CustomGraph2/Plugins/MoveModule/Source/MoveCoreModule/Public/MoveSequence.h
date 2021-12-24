@@ -7,6 +7,7 @@
 #include "MoveSequence.generated.h"
 
 class UFightAction;
+class UEdGraph;
 
 USTRUCT(BlueprintType)
 struct MOVECOREMODULE_API FMoveSequenceElement
@@ -26,6 +27,11 @@ UCLASS()
 class MOVECOREMODULE_API UMoveSequence : public UObject
 {
 	GENERATED_BODY()
+
+#if WITH_EDITORONLY_DATA
+	UPROPERTY()
+		UEdGraph* EdGraph;
+#endif
 
 protected:
 
