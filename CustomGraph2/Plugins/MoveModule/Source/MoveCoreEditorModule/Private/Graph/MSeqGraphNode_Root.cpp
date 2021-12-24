@@ -9,7 +9,7 @@ UMSeqGraphNode_Root::UMSeqGraphNode_Root(const FObjectInitializer& ObjectInitial
 
 void UMSeqGraphNode_Root::AllocateDefaultPins()
 {
-	UEdGraphPin* Outputs = CreatePin(EGPD_Output, TEXT("Transition"), TEXT("In"));
+	UEdGraphPin* Outputs = CreatePin(EGPD_Output, TEXT("Transition"), TEXT("Next"));
 }
 
 FText UMSeqGraphNode_Root::GetNodeTitle(ENodeTitleType::Type TitleType) const

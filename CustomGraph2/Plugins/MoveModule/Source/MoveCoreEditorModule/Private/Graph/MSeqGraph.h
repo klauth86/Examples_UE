@@ -5,6 +5,8 @@
 #include "EdGraph/EdGraph.h"
 #include "MSeqGraph.generated.h"
 
+class UFightAction;
+
 UCLASS()
 class MOVECOREEDITORMODULE_API UMSeqGraph : public UEdGraph
 {

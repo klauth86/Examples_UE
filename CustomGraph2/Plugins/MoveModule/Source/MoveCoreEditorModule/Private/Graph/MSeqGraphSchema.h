@@ -10,5 +10,9 @@ class MOVECOREEDITORMODULE_API UMSeqGraphSchema : public UEdGraphSchema
 {
 	GENERATED_BODY()
 
-	virtual void UMSeqGraphSchema::CreateDefaultNodesForGraph(UEdGraph& Graph) const override;
+	virtual void CreateDefaultNodesForGraph(UEdGraph& Graph) const override;
+
+	virtual const FPinConnectionResponse CanCreateConnection(const UEdGraphPin* PinA, const UEdGraphPin* PinB) const;
+
+	virtual void DroppedAssetsOnGraph(const TArray<struct FAssetData>& Assets, const FVector2D& GraphPosition, UEdGraph* Graph) const override;
 };

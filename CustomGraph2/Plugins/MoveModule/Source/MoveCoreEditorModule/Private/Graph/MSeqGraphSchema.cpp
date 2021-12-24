@@ -1,7 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Graph/MSeqGraphSchema.h"
-#include "MSeqGraphNode_Root.h"
+#include "Graph/MSeqGraphNode_Root.h"
+#include "Graph/MSeqGraphNode_Regular.h"
+#include "Graph/MSeqGraph.h"
+#include "FightAction.h"
+
+#define LOCTEXT_NAMESPACE "SoundClassSchema"
 
 void UMSeqGraphSchema::CreateDefaultNodesForGraph(UEdGraph& Graph) const
 {
@@ -10,3 +15,79 @@ void UMSeqGraphSchema::CreateDefaultNodesForGraph(UEdGraph& Graph) const
 	NodeCreator.Finalize();
 	SetNodeMetaData(MyNode, FNodeMetadata::DefaultGraphNode);
 }
+
+const FPinConnectionResponse UMSeqGraphSchema::CanCreateConnection(const UEdGraphPin* PinA, const UEdGraphPin* PinB) const
+{
+	// Make sure the pins are not on the same node
+	if (PinA->GetOwningNode() == PinB->GetOwningNode())
+	{
+		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Both are on the same node"));
+	}
+
+	if ((PinA->Direction == EGPD_Input && PinA->LinkedTo.Num() > 0) ||
+		(PinB->Direction == EGPD_Input && PinB->LinkedTo.Num() > 0))
+	{
+		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT(""));
+	}
+
+	// Compare the directions
+	bool bDirectionsOK = false;
+
+	if ((PinA->Direction == EGPD_Input) && (PinB->Direction == EGPD_Output))
+	{
+		bDirectionsOK = true;
+	}
+	else if ((PinB->Direction == EGPD_Input) && (PinA->Direction == EGPD_Output))
+	{
+		bDirectionsOK = true;
+	}
+
+	if (bDirectionsOK)
+	{
+		if ((PinA->Direction == EGPD_Input && PinA->LinkedTo.Num() > 0) || (PinB->Direction == EGPD_Input && PinB->LinkedTo.Num() > 0))
+		{
+			return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Already connected with other"));
+		}
+	}
+	else
+	{
+		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT(""));
+	}
+
+	return FPinConnectionResponse(CONNECT_RESPONSE_MAKE, TEXT(""));
+}
+
+void UMSeqGraphSchema::DroppedAssetsOnGraph(const TArray<struct FAssetData>& Assets, const FVector2D& GraphPosition, UEdGraph* Graph) const {
+	UMSeqGraph* MSeqGraph = CastChecked<UMSeqGraph>(Graph);
+
+	TArray<UFightAction*> fightActions;
+	for (int32 AssetIdx = 0; AssetIdx < Assets.Num(); ++AssetIdx)
+	{
+		if (UFightAction* fightAction = Cast<UFightAction>(Assets[AssetIdx].GetAsset())) fightActions.Add(fightAction);
+	}
+
+	if (fightActions.Num() > 0)
+	{
+		const FScopedTransaction Transaction(LOCTEXT("MSeqEditorDropClasses", "Move Sequence Editor: Drag and Drop Fight Actions"));
+
+		MSeqGraph->Modify();
+
+		auto NodePosX = GraphPosition.X;
+		auto NodePosY = GraphPosition.Y;
+
+		for (int32 ClassIndex = 0; ClassIndex < fightActions.Num(); ClassIndex++)
+		{
+			FGraphNodeCreator<UMSeqGraphNode_Regular> NodeCreator(*MSeqGraph);
+			UMSeqGraphNode_Regular* MyNode = NodeCreator.CreateNode(true);
+			MyNode->NodePosX = NodePosX;
+			MyNode->NodePosY = NodePosY;
+			NodeCreator.Finalize();
+
+			NodePosY += 400;
+		}
+
+		MSeqGraph->NotifyGraphChanged();
+	}
+}
+
+#undef LOCTEXT_NAMESPACE
