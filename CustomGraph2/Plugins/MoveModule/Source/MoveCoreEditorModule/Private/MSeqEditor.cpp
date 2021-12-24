@@ -11,6 +11,7 @@
 #include "GraphEditorActions.h"
 #include "HAL/PlatformApplicationMisc.h"
 #include "EdGraph/EdGraphSchema.h"
+#include "Browser/SMoveSequenceBrowser.h"
 
 #define LOCTEXT_NAMESPACE "MSeqGraph"
 
@@ -247,10 +248,9 @@ TSharedRef<SDockTab> FMSeqEditor::SpawnTab_AssetBrowser(const FSpawnTabArgs& Arg
 	TSharedRef<SDockTab> SpawnedTab = SNew(SDockTab)
 		.Icon(FEditorStyle::GetBrush("SoundClassEditor.Tabs.Properties"))
 		.Label(NSLOCTEXT("MSeqEditor", "AssetBrowserTab", "Asset Browser"))
-		//[
-		//	ProfilerView.ToSharedRef()
-		//]
-	;
+		[
+			SNew(SMoveSequenceBrowser).ShowHistory(true)
+		];
 
 	return SpawnedTab;
 }

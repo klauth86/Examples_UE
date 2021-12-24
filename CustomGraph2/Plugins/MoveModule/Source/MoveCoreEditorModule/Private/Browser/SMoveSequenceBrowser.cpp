@@ -69,95 +69,95 @@ void SMoveSequenceBrowser::Construct(const FArguments& InArgs)
 
 	static const FName DefaultForegroundName("DefaultForeground");
 
-	//TSharedRef< SMenuAnchor > BackMenuAnchorPtr = SNew(SMenuAnchor)
-	//	.Placement(MenuPlacement_BelowAnchor)
-	//	.OnGetMenuContent(this, &SMoveSequenceBrowser::CreateHistoryMenu, true)
-	//	[
-	//		SNew(SButton)
-	//		.OnClicked(this, &SMoveSequenceBrowser::OnGoBackInHistory)
-	//	.ForegroundColor(FEditorStyle::GetSlateColor(DefaultForegroundName))
-	//	.ButtonStyle(FEditorStyle::Get(), "FlatButton")
-	//	.ContentPadding(FMargin(1, 0))
-	//	.IsEnabled(this, &SMoveSequenceBrowser::CanStepBackwardInHistory)
-	//	.ToolTipText(LOCTEXT("Backward_Tooltip", "Step backward in the asset history. Right click to see full history."))
-	//	[
-	//		SNew(STextBlock)
-	//		.TextStyle(FEditorStyle::Get(), "ContentBrowser.TopBar.Font")
-	//	.Font(FEditorStyle::Get().GetFontStyle("FontAwesome.11"))
-	//	.Text(FText::FromString(FString(TEXT("\xf060"))) /*fa-arrow-left*/)
-	//	]
-	//	];
+	TSharedRef< SMenuAnchor > BackMenuAnchorPtr = SNew(SMenuAnchor)
+		.Placement(MenuPlacement_BelowAnchor)
+		.OnGetMenuContent(this, &SMoveSequenceBrowser::CreateHistoryMenu, true)
+		[
+			SNew(SButton)
+			.OnClicked(this, &SMoveSequenceBrowser::OnGoBackInHistory)
+		.ForegroundColor(FEditorStyle::GetSlateColor(DefaultForegroundName))
+		.ButtonStyle(FEditorStyle::Get(), "FlatButton")
+		.ContentPadding(FMargin(1, 0))
+		.IsEnabled(this, &SMoveSequenceBrowser::CanStepBackwardInHistory)
+		.ToolTipText(LOCTEXT("Backward_Tooltip", "Step backward in the asset history. Right click to see full history."))
+		[
+			SNew(STextBlock)
+			.TextStyle(FEditorStyle::Get(), "ContentBrowser.TopBar.Font")
+		.Font(FEditorStyle::Get().GetFontStyle("FontAwesome.11"))
+		.Text(FText::FromString(FString(TEXT("\xf060"))) /*fa-arrow-left*/)
+		]
+		];
 
-	//TSharedRef< SMenuAnchor > FwdMenuAnchorPtr = SNew(SMenuAnchor)
-	//	.Placement(MenuPlacement_BelowAnchor)
-	//	.OnGetMenuContent(this, &SMoveSequenceBrowser::CreateHistoryMenu, false)
-	//	[
-	//		SNew(SButton)
-	//		.OnClicked(this, &SMoveSequenceBrowser::OnGoForwardInHistory)
-	//	.ForegroundColor(FEditorStyle::GetSlateColor(DefaultForegroundName))
-	//	.ButtonStyle(FEditorStyle::Get(), "FlatButton")
-	//	.ContentPadding(FMargin(1, 0))
-	//	.IsEnabled(this, &SMoveSequenceBrowser::CanStepForwardInHistory)
-	//	.ToolTipText(LOCTEXT("Forward_Tooltip", "Step forward in the asset history. Right click to see full history."))
-	//	[
-	//		SNew(STextBlock)
-	//		.TextStyle(FEditorStyle::Get(), "ContentBrowser.TopBar.Font")
-	//	.Font(FEditorStyle::Get().GetFontStyle("FontAwesome.11"))
-	//	.Text(FText::FromString(FString(TEXT("\xf061"))) /*fa-arrow-right*/)
-	//	]
-	//	];
+	TSharedRef< SMenuAnchor > FwdMenuAnchorPtr = SNew(SMenuAnchor)
+		.Placement(MenuPlacement_BelowAnchor)
+		.OnGetMenuContent(this, &SMoveSequenceBrowser::CreateHistoryMenu, false)
+		[
+			SNew(SButton)
+			.OnClicked(this, &SMoveSequenceBrowser::OnGoForwardInHistory)
+		.ForegroundColor(FEditorStyle::GetSlateColor(DefaultForegroundName))
+		.ButtonStyle(FEditorStyle::Get(), "FlatButton")
+		.ContentPadding(FMargin(1, 0))
+		.IsEnabled(this, &SMoveSequenceBrowser::CanStepForwardInHistory)
+		.ToolTipText(LOCTEXT("Forward_Tooltip", "Step forward in the asset history. Right click to see full history."))
+		[
+			SNew(STextBlock)
+			.TextStyle(FEditorStyle::Get(), "ContentBrowser.TopBar.Font")
+		.Font(FEditorStyle::Get().GetFontStyle("FontAwesome.11"))
+		.Text(FText::FromString(FString(TEXT("\xf061"))) /*fa-arrow-right*/)
+		]
+		];
 
-	//this->ChildSlot
-	//	[
-	//		SNew(SVerticalBox)
-	//		+ SVerticalBox::Slot()
-	//	.AutoHeight()
-	//	[
-	//		SNew(SBorder)
-	//		.Visibility(this, &SMoveSequenceBrowser::GetHistoryVisibility)
-	//	.Padding(FMargin(3))
-	//	.BorderImage(FEditorStyle::GetBrush("ToolPanel.GroupBorder"))
-	//	[
-	//		SNew(SHorizontalBox)
-	//		+ SHorizontalBox::Slot()
-	//	.HAlign(HAlign_Left)
-	//	[
-	//		SNew(SHorizontalBox)
-	//		+ SHorizontalBox::Slot()
-	//	.AutoWidth()
-	//	[
-	//		SNew(SBorder)
-	//		.OnMouseButtonDown(this, &SMoveSequenceBrowser::OnMouseDownHistory, TWeakPtr<SMenuAnchor>(BackMenuAnchorPtr))
-	//	.BorderImage(FEditorStyle::GetBrush("NoBorder"))
-	//	[
-	//		BackMenuAnchorPtr
-	//	]
-	//	]
+	this->ChildSlot
+		[
+			SNew(SVerticalBox)
+			+ SVerticalBox::Slot()
+		.AutoHeight()
+		[
+			SNew(SBorder)
+			.Visibility(this, &SMoveSequenceBrowser::GetHistoryVisibility)
+		.Padding(FMargin(3))
+		.BorderImage(FEditorStyle::GetBrush("ToolPanel.GroupBorder"))
+		[
+			SNew(SHorizontalBox)
+			+ SHorizontalBox::Slot()
+		.HAlign(HAlign_Left)
+		[
+			SNew(SHorizontalBox)
+			+ SHorizontalBox::Slot()
+		.AutoWidth()
+		[
+			SNew(SBorder)
+			.OnMouseButtonDown(this, &SMoveSequenceBrowser::OnMouseDownHistory, TWeakPtr<SMenuAnchor>(BackMenuAnchorPtr))
+		.BorderImage(FEditorStyle::GetBrush("NoBorder"))
+		[
+			BackMenuAnchorPtr
+		]
+		]
 
-	//+ SHorizontalBox::Slot()
-	//	.AutoWidth()
-	//	[
-	//		SNew(SBorder)
-	//		.OnMouseButtonDown(this, &SMoveSequenceBrowser::OnMouseDownHistory, TWeakPtr<SMenuAnchor>(FwdMenuAnchorPtr))
-	//	.BorderImage(FEditorStyle::GetBrush("NoBorder"))
-	//	[
-	//		FwdMenuAnchorPtr
-	//	]
-	//	]
-	//	]
-	//	]
-	//	]
-	//+ SVerticalBox::Slot()
-	//	.FillHeight(1.f)
-	//	[
-	//		SNew(SBorder)
-	//		.Padding(FMargin(3))
-	//	.BorderImage(FEditorStyle::GetBrush("ToolPanel.GroupBorder"))
-	//	[
-	//		ContentBrowserModule.Get().CreateAssetPicker(Config)
-	//	]
-	//	]
-	//	];
+	+ SHorizontalBox::Slot()
+		.AutoWidth()
+		[
+			SNew(SBorder)
+			.OnMouseButtonDown(this, &SMoveSequenceBrowser::OnMouseDownHistory, TWeakPtr<SMenuAnchor>(FwdMenuAnchorPtr))
+		.BorderImage(FEditorStyle::GetBrush("NoBorder"))
+		[
+			FwdMenuAnchorPtr
+		]
+		]
+		]
+		]
+		]
+	+ SVerticalBox::Slot()
+		.FillHeight(1.f)
+		[
+			SNew(SBorder)
+			.Padding(FMargin(3))
+		.BorderImage(FEditorStyle::GetBrush("ToolPanel.GroupBorder"))
+		[
+			ContentBrowserModule.Get().CreateAssetPicker(Config)
+		]
+		]
+		];
 
 	//// Create the ignore set for asset registry tags
 	//// Making Skeleton to be private, and now GET_MEMBER_NAME_CHECKED doesn't work
