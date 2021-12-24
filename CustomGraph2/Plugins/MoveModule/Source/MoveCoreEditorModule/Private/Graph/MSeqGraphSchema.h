@@ -8,5 +8,7 @@
 UCLASS()
 class MOVECOREEDITORMODULE_API UMSeqGraphSchema : public UEdGraphSchema
 {
-	GENERATED_BODY()	
+	GENERATED_BODY()
+
+	virtual void UMSeqGraphSchema::CreateDefaultNodesForGraph(UEdGraph& Graph) const override;
 };
