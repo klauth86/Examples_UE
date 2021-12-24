@@ -8,7 +8,7 @@
 UCLASS()
 class MOVECOREEDITORMODULE_API UMSeqGraph : public UEdGraph
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 
 public:
 
