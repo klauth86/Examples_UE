@@ -8,18 +8,11 @@
 UCLASS()
 class UMSeqGraphNode_Root : public UMSeqGraphNode
 {
-	GENERATED_UCLASS_BODY()
+	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, Category = Debug)
-		TArray<FString> DebugMessages;
+public:
 
-	UPROPERTY()
-		bool bHasDebugError;
-
-	void LogDebugMessage(const FString& Message);
-	void LogDebugError(const FString& Message);
+	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
 
 	virtual void AllocateDefaultPins() override;
-	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
-	virtual bool HasErrors() const override { return false; }
 };
