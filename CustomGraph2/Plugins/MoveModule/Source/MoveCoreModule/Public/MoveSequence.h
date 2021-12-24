@@ -28,6 +28,8 @@ class MOVECOREMODULE_API UMoveSequence : public UObject
 {
 	GENERATED_BODY()
 
+public:
+
 #if WITH_EDITORONLY_DATA
 	UPROPERTY()
 		UEdGraph* EdGraph;

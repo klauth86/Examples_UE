@@ -99,6 +99,4 @@ protected:
 
 	/** Handle to the registered OnClassListUpdated delegate */
 	FDelegateHandle OnClassListUpdatedDelegateHandle;
-
-	UEdGraph* EdGraph;
 };
