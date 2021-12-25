@@ -7,7 +7,7 @@
 #include "FightAction.h"
 #include "MoveSequence.h"
 
-#define LOCTEXT_NAMESPACE "SoundClassSchema"
+#define LOCTEXT_NAMESPACE "MSeqGraphSchema"
 
 void UMSeqGraphSchema::CreateDefaultNodesForGraph(UEdGraph& Graph) const
 {
@@ -92,6 +92,8 @@ void UMSeqGraphSchema::DroppedAssetsOnGraph(const TArray<struct FAssetData>& Ass
 			MyNode->NodePosX = NodePosX;
 			MyNode->NodePosY = NodePosY;
 			NodeCreator.Finalize();
+
+			MyNode->SetFightAction(fightActions[ClassIndex]);
 
 			if (UMoveSequence* moveSequence = Graph->GetTypedOuter<UMoveSequence>())
 			{

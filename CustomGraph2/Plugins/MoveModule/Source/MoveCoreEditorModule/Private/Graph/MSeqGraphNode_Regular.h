@@ -26,6 +26,8 @@ public:
 		}
 	}
 
+	void SetFightAction(UFightAction* fightAction) { NodeInstance.FightAction = fightAction; }
+
 protected:
 
 	UPROPERTY(EditAnywhere, meta = (ShowOnlyInnerProperties))

@@ -4,7 +4,7 @@
 
 FText UMSeqGraphNode_Root::GetNodeTitle(ENodeTitleType::Type TitleType) const
 {
-	return NSLOCTEXT("MSeqEditor", "Root", "ROOT");
+	return NSLOCTEXT("MSeqEditor", "Root", "[0] ROOT");
 }
 
 void UMSeqGraphNode_Root::AllocateDefaultPins()

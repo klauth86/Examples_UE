@@ -13,6 +13,10 @@ class UMSeqGraphNode_Root : public UMSeqGraphNode
 
 public:
 
+	virtual bool CanDuplicateNode() const override { return false; }
+
+	virtual bool CanUserDeleteNode() const override { return false; }
+
 	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
 
 	virtual void AllocateDefaultPins() override;

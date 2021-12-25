@@ -1,10 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Graph/MSeqGraphNode_Regular.h"
+#include "FightAction.h"
 
 FText UMSeqGraphNode_Regular::GetNodeTitle(ENodeTitleType::Type TitleType) const
 {
-	return FText::GetEmpty();
+	FString result = "[";
+	result.AppendInt(GetGraph()->Nodes.IndexOfByKey(this));
+	result.Append("] ").Append(NodeInstance.FightAction ? NodeInstance.FightAction->GetName() : FString("NONE"));
+	return FText::FromString(result);
 }
 
 void UMSeqGraphNode_Regular::AllocateDefaultPins()
