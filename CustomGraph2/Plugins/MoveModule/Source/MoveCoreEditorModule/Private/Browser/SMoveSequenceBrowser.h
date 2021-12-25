@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "Browser/IMoveSequenceBrowser.h"
+#include "Widgets/SCompoundWidget.h"
 #include "ContentBrowserDelegates.h"
 #include "AssetRegistry/ARFilter.h"
 
 DECLARE_DELEGATE_OneParam(FMyOnOpenNewAsset, UObject* /* InAsset */);
 
-class SMoveSequenceBrowser : public IMoveSequenceBrowser
+class SMoveSequenceBrowser : public SCompoundWidget
 {
 public:
 	SLATE_BEGIN_ARGS(SMoveSequenceBrowser)
@@ -35,9 +35,9 @@ public:
 	virtual FReply OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent) override;
 
 	/** IMoveSequenceBrowser interface */
-	virtual void SelectAsset(UMoveSequence* InAsset) override;
+	void SelectAsset(UMoveSequence* InAsset);
 	
-	virtual void AddToHistory(UMoveSequence* InAsset) override;
+	void AddToHistory(UMoveSequence* InAsset);
 
 	/** Delegate that handles creation of context menu */
 	TSharedPtr<SWidget> OnGetAssetContextMenu(const TArray<FAssetData>& SelectedAssets);
