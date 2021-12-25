@@ -10,15 +10,15 @@ protected:
 	template<typename T>
 	T* GetPropertyAs() const
 	{
-		if (StructPropertyHandle.IsValid())
+		if (InternalPropertyHandle.IsValid())
 		{
 			TArray<void*> RawData;
-			StructPropertyHandle->AccessRawData(RawData);
+			InternalPropertyHandle->AccessRawData(RawData);
 			return reinterpret_cast<T*>(RawData[0]);
 		}
 
 		return nullptr;
 	}
 
-	TSharedPtr<IPropertyHandle> StructPropertyHandle;
+	TSharedPtr<IPropertyHandle> InternalPropertyHandle;
 };

@@ -37,5 +37,7 @@ public:
 
 protected:
 
+	TArray<UFightAction*> FightActions;
 
+	TMap<FIntPoint, FJoystickInput> TransitionInputs;
 };

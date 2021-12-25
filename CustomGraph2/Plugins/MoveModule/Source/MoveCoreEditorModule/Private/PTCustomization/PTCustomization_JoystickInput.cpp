@@ -1181,7 +1181,7 @@ void FPTCustomization_JoystickInput::CustomizeHeader(TSharedRef<IPropertyHandle>
 }
 
 void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandle> PropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& CustomizationUtils) {
-	StructPropertyHandle = PropertyHandle;
+	InternalPropertyHandle = PropertyHandle;
 
 	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
 		SNew(SVerticalBox)

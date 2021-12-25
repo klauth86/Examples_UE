@@ -336,7 +336,7 @@ void FMSeqEditor::OnSelectedNodesChanged(const TSet<class UObject*>& NewSelectio
 			UMSeqGraphNode* GraphNode = Cast<UMSeqGraphNode>(*SetIt);
 			if (GraphNode)
 			{
-				////// TODO Selection.Add(GraphNode->NodeInstance);
+				Selection.Add(GraphNode);
 			}
 		}
 	}

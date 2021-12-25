@@ -15,4 +15,8 @@ public:
 	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
 	
 	virtual void AllocateDefaultPins() override;
+
+protected:
+
+
 };
