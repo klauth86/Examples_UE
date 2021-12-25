@@ -26,10 +26,9 @@ void FDCustomization_MSeqGraphNode_Regular::CustomizeDetails(IDetailLayoutBuilde
 			if (moveSequence->GetActionsGraph().Contains(nodeIndex))
 			{
 				FActionsGraphNode& transitionCollection = moveSequence->GetActionsGraph()[nodeIndex];
-
 				auto EditStructData = MakeShared<FStructOnScope>(FActionsGraphNode::StaticStruct(), (uint8*)&transitionCollection);
-
-				//DetailBuilder. (EditStructData);
+				DetailBuilder.AddStructurePropertyData(EditStructData, GET_MEMBER_NAME_CHECKED(FActionsGraphNode, FightAction));
+				DetailBuilder.AddStructurePropertyData(EditStructData, GET_MEMBER_NAME_CHECKED(FActionsGraphNode, Transitions));
 			}
 		}
 	}

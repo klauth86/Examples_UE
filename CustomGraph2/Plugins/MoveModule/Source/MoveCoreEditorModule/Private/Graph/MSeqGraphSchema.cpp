@@ -5,6 +5,7 @@
 #include "Graph/MSeqGraphNode_Regular.h"
 #include "Graph/MSeqGraph.h"
 #include "FightAction.h"
+#include "MoveSequence.h"
 
 #define LOCTEXT_NAMESPACE "SoundClassSchema"
 
@@ -14,6 +15,11 @@ void UMSeqGraphSchema::CreateDefaultNodesForGraph(UEdGraph& Graph) const
 	UMSeqGraphNode_Root* MyNode = NodeCreator.CreateNode();
 	NodeCreator.Finalize();
 	SetNodeMetaData(MyNode, FNodeMetadata::DefaultGraphNode);
+
+	if (UMoveSequence* moveSequence = Graph.GetTypedOuter<UMoveSequence>())
+	{
+		moveSequence->GetActionsGraph().Emplace(Graph.Nodes.IndexOfByKey(MyNode));
+	}
 }
 
 const FPinConnectionResponse UMSeqGraphSchema::CanCreateConnection(const UEdGraphPin* PinA, const UEdGraphPin* PinB) const
@@ -82,6 +88,11 @@ void UMSeqGraphSchema::DroppedAssetsOnGraph(const TArray<struct FAssetData>& Ass
 			MyNode->NodePosX = NodePosX;
 			MyNode->NodePosY = NodePosY;
 			NodeCreator.Finalize();
+
+			if (UMoveSequence* moveSequence = Graph->GetTypedOuter<UMoveSequence>())
+			{
+				moveSequence->GetActionsGraph().Emplace(Graph->Nodes.IndexOfByKey(MyNode));
+			}
 
 			NodePosY += 400;
 		}
