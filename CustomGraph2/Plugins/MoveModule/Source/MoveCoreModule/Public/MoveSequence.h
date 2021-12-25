@@ -9,18 +9,30 @@
 class UFightAction;
 class UEdGraph;
 
-USTRUCT(BlueprintType)
-struct MOVECOREMODULE_API FMoveSequenceElement
+USTRUCT()
+struct MOVECOREMODULE_API FActionsGraphTransition
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+
+	int32 TargetIndex;
+
+	FJoystickInput TransitionInput;
+};
+
+USTRUCT()
+struct MOVECOREMODULE_API FActionsGraphNode
 {
 	GENERATED_USTRUCT_BODY()
 
 public:
 
 	UPROPERTY(EditAnywhere)
-		FJoystickInput ActivationInput;
+		UFightAction* FightAction;
 
 	UPROPERTY(EditAnywhere)
-		UFightAction* FightAction;
+		TArray<FActionsGraphTransition> Transitions;
 };
 
 UCLASS()
@@ -35,9 +47,9 @@ public:
 		UEdGraph* EdGraph;
 #endif
 
+	TMap<int32, FActionsGraphNode>& GetActionsGraph() { return ActionsGraph; }
+
 protected:
 
-	TArray<UFightAction*> FightActions;
-
-	TMap<FIntPoint, FJoystickInput> TransitionInputs;
+	TMap<int32, FActionsGraphNode> ActionsGraph;
 };
