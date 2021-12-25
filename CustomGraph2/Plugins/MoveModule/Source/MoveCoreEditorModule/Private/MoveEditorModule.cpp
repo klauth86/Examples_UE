@@ -8,9 +8,9 @@
 
 #include "PropertyEditorModule.h"
 #include "JoystickInput.h"
-#include "PTCustomization/PTCustomization_JoystickInput.h"
+#include "Customization/PTCustomization_JoystickInput.h"
 #include "Graph/MSeqGraphNode_Regular.h"
-#include "PTCustomization/PTCustomization_MSeqGraphNode_Regular.h"
+#include "Customization/DCustomization_MSeqGraphNode_Regular.h"
 
 #define LOCTEXT_NAMESPACE "FMoveCoreEditorModule"
 
