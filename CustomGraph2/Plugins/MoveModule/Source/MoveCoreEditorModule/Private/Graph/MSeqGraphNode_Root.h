@@ -21,14 +21,9 @@ public:
 
 	virtual void AllocateDefaultPins() override;
 
-	virtual void AddTransition(int32 indexB) override
-	{
-		if (!Transitions.FindByPredicate([indexB](const FActionsGraphTransition& transition) { return transition.TargetIndex == indexB; }))
-		{
-			int32 addedIndex = Transitions.Add(FActionsGraphTransition());
-			Transitions[addedIndex].TargetIndex = indexB;
-		}
-	}
+	virtual void AddTransition(int32 indexB) override;
+
+	virtual void RemoveTransition(int32 indexB) override;
 
 protected:
 

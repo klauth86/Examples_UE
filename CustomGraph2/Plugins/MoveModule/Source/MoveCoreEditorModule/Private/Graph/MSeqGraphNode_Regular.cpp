@@ -16,3 +16,22 @@ void UMSeqGraphNode_Regular::AllocateDefaultPins()
 	UEdGraphPin* Inputs = CreatePin(EGPD_Input, TEXT("Transition"), TEXT("In"));
 	UEdGraphPin* Outputs = CreatePin(EGPD_Output, TEXT("Transition"), TEXT("Next"));
 }
+
+void UMSeqGraphNode_Regular::AddTransition(int32 indexB)
+{
+	if (!NodeInstance.Transitions.FindByPredicate([indexB](const FActionsGraphTransition& transition) { return transition.TargetIndex == indexB; }))
+	{
+		int32 addedIndex = NodeInstance.Transitions.Add(FActionsGraphTransition());
+		NodeInstance.Transitions[addedIndex].TargetIndex = indexB;
+	}
+}
+
+void UMSeqGraphNode_Regular::RemoveTransition(int32 indexB)
+{
+	NodeInstance.Transitions.RemoveAll([indexB](const FActionsGraphTransition& transition) { return transition.TargetIndex == indexB; });
+
+	for (FActionsGraphTransition& transition : NodeInstance.Transitions)
+	{
+		if (transition.TargetIndex > indexB) transition.TargetIndex--;
+	}
+}

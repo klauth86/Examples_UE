@@ -14,5 +14,9 @@ public:
 
 	virtual bool CanCreateUnderSpecifiedSchema(const UEdGraphSchema* DesiredSchema) const override;
 
+	virtual void DestroyNode() override;
+
 	virtual void AddTransition(int32 indexB) {}
+
+	virtual void RemoveTransition(int32 indexB) {}
 };

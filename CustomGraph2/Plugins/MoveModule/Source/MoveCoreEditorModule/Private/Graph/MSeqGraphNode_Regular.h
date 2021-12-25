@@ -17,14 +17,9 @@ public:
 
 	virtual void AllocateDefaultPins() override;
 
-	virtual void AddTransition(int32 indexB) override
-	{
-		if (!NodeInstance.Transitions.FindByPredicate([indexB](const FActionsGraphTransition& transition) { return transition.TargetIndex == indexB; }))
-		{
-			int32 addedIndex = NodeInstance.Transitions.Add(FActionsGraphTransition());
-			NodeInstance.Transitions[addedIndex].TargetIndex = indexB;
-		}
-	}
+	virtual void AddTransition(int32 indexB) override;
+
+	virtual void RemoveTransition(int32 indexB) override;
 
 	void SetFightAction(UFightAction* fightAction) { NodeInstance.FightAction = fightAction; }
 

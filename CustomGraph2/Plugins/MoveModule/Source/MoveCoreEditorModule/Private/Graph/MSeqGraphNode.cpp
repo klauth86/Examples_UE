@@ -7,3 +7,17 @@ bool UMSeqGraphNode::CanCreateUnderSpecifiedSchema(const UEdGraphSchema* Desired
 {
 	return DesiredSchema->GetClass()->IsChildOf(UMSeqGraphSchema::StaticClass());
 }
+
+void UMSeqGraphNode::DestroyNode() {
+
+	int32 nodeIndex = GetGraph()->Nodes.IndexOfByKey(this);
+
+	for (UEdGraphNode* node : GetGraph()->Nodes)
+	{
+		if (UMSeqGraphNode* graphNode = Cast<UMSeqGraphNode>(node)) {
+			graphNode->RemoveTransition(nodeIndex);
+		}
+	}
+
+	Super::DestroyNode();
+}
