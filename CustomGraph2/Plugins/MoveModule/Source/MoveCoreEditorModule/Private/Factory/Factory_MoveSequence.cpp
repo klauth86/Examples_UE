@@ -15,6 +15,6 @@ uint32 UFactory_MoveSequence::GetMenuCategories() const { return EAssetTypeCateg
 
 UObject* UFactory_MoveSequence::FactoryCreateNew(UClass* InClass, UObject* InParent, FName InName, EObjectFlags Flags, UObject* Context, FFeedbackContext* Warn, FName CallingContext)
 {
-	auto NewObjectAsset = NewObject<UMoveSequence>(InParent, InClass, InName, Flags);
+	UMoveSequence* NewObjectAsset = NewObject<UMoveSequence>(InParent, InClass, InName, Flags);
 	return NewObjectAsset;
 }

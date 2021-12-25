@@ -10,7 +10,7 @@ void FATActions_MoveSequence::OpenAssetEditor(const TArray<UObject*>& InObjects,
 {
 	EToolkitMode::Type Mode = EditWithinLevelEditor.IsValid() ? EToolkitMode::WorldCentric : EToolkitMode::Standalone;
 
-	for (auto ObjIt = InObjects.CreateConstIterator(); ObjIt; ++ObjIt)
+	for (TArray<UObject*>::TConstIterator ObjIt = InObjects.CreateConstIterator(); ObjIt; ++ObjIt)
 	{
 		if (UMoveSequence* mSeq = Cast<UMoveSequence>(*ObjIt))
 		{

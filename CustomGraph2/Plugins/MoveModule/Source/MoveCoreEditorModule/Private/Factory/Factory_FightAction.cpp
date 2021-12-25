@@ -15,6 +15,6 @@ uint32 UFactory_FightAction::GetMenuCategories() const { return EAssetTypeCatego
 
 UObject* UFactory_FightAction::FactoryCreateNew(UClass* InClass, UObject* InParent, FName InName, EObjectFlags Flags, UObject* Context, FFeedbackContext* Warn, FName CallingContext)
 {
-	auto NewObjectAsset = NewObject<UFightAction>(InParent, InClass, InName, Flags);
+	UFightAction* NewObjectAsset = NewObject<UFightAction>(InParent, InClass, InName, Flags);
 	return NewObjectAsset;
 }

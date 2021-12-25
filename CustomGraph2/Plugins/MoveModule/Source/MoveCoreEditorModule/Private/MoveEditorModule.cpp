@@ -24,7 +24,7 @@ void FMoveCoreEditorModule::StartupModule()
 	RegisteredAssetTypeActions.Add(MakeShared<FATActions_MoveSequence>());
 	
 	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
-	for (auto& registeredAssetTypeAction : RegisteredAssetTypeActions)
+	for (TSharedPtr<FAssetTypeActions_Base>& registeredAssetTypeAction : RegisteredAssetTypeActions)
 	{
 		if (registeredAssetTypeAction.IsValid())
 		{
@@ -45,7 +45,7 @@ void FMoveCoreEditorModule::ShutdownModule()
 	}
 
 	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
-	for (auto& registeredAssetTypeAction : RegisteredAssetTypeActions)
+	for (TSharedPtr<FAssetTypeActions_Base>& registeredAssetTypeAction : RegisteredAssetTypeActions)
 	{
 		if (registeredAssetTypeAction.IsValid())
 		{

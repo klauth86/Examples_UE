@@ -72,8 +72,8 @@ void UMSeqGraphSchema::DroppedAssetsOnGraph(const TArray<struct FAssetData>& Ass
 
 		MSeqGraph->Modify();
 
-		auto NodePosX = GraphPosition.X;
-		auto NodePosY = GraphPosition.Y;
+		float NodePosX = GraphPosition.X;
+		float NodePosY = GraphPosition.Y;
 
 		for (int32 ClassIndex = 0; ClassIndex < fightActions.Num(); ClassIndex++)
 		{

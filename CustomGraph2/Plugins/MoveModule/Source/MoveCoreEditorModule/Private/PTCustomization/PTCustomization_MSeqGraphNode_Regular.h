@@ -1,9 +1,8 @@
 #pragma once
 
-#include "IPropertyTypeCustomization.h"
-#include "DetailLayoutBuilder.h"
+#include "PTCustomization_Base.h"
 
-class FPTCustomization_MSeqGraphNode_Regular : public IPropertyTypeCustomization
+class FPTCustomization_MSeqGraphNode_Regular : public FPTCustomization_Base
 {
 public:
 
@@ -16,4 +15,8 @@ public:
 	virtual void CustomizeHeader(TSharedRef<IPropertyHandle> PropertyHandle, FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& CustomizationUtils) override;
 	virtual void CustomizeChildren(TSharedRef<IPropertyHandle> PropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& CustomizationUtils) override;
 	// End of IPropertyTypeCustomization interface
+
+protected:
+
+	TSharedPtr<SGridPanel> grid;
 };

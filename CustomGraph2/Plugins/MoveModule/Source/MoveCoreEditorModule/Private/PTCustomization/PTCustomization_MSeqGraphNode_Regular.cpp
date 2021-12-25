@@ -1,4 +1,10 @@
 #include "PTCustomization_MSeqGraphNode_Regular.h"
+#include "IDetailChildrenBuilder.h"
+#include "Widgets/Layout/SGridPanel.h"
+#include "Graph/MSeqGraphNode_Regular.h"
+#include "MoveSequence.h"
+
+#define LOCTEXT_NAMESPACE "PropertyTypeCustomization_MSeqGraphNode_Regular.h"
 
 TSharedRef<IPropertyTypeCustomization> FPTCustomization_MSeqGraphNode_Regular::MakeInstance()
 {
@@ -14,19 +20,18 @@ void FPTCustomization_MSeqGraphNode_Regular::CustomizeChildren(TSharedRef<IPrope
 {
 	InternalPropertyHandle = PropertyHandle;
 
-	//ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
-	//	SNew(SVerticalBox)
-	//		+ SVerticalBox::Slot().FillHeight(1)[SAssignNew(grid, SGridPanel).FillColumn(0, 1).FillColumn(1, 0)]
-	//		+ SVerticalBox::Slot().AutoHeight().Padding(8)[SNew(SButton).OnClicked(this, &FPTCustomization_JoystickInput::Add).HAlign(HAlign_Center)[
-	//			SNew(STextBlock).Text(LOCTEXT("Add", "ADD"))
-	//		]]
-	//];
+	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Transitions"))[
+		SAssignNew(grid, SGridPanel).FillColumn(0, 1)
+	];
 
-	//if (FJoystickInput* joystickInput = GetPropertyAs<FJoystickInput>())
-	//{
-	//	for (int32 i = 0; i < joystickInput->InputElements.Num(); i++)
-	//	{
-	//		AddWidget(joystickInput, i);
-	//	}
-	//}
+	if (UMSeqGraphNode_Regular* node = GetPropertyAs<UMSeqGraphNode_Regular>()) {
+		int32 nodeIndex = node->GetGraph()->Nodes.IndexOfByKey(node);
+
+		if (UMoveSequence* moveSequence = node->GetGraph()->GetTypedOuter<UMoveSequence>())
+		{
+
+		}
+	}
 }
+
+#undef LOCTEXT_NAMESPACE

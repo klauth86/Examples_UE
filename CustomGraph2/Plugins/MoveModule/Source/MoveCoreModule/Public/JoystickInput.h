@@ -116,7 +116,7 @@ public:
 
 	const TArray<uint64>& GetInputElementsCode()
 	{
-		if (InputElements.Num() == 0) { for (auto& inputElement : InputElements) { InputElementsCode.Add(inputElement.PackedBits); } }
+		if (InputElements.Num() == 0) { for (FJoystickInputElement& inputElement : InputElements) { InputElementsCode.Add(inputElement.PackedBits); } }
 		return InputElementsCode;
 	}
 
