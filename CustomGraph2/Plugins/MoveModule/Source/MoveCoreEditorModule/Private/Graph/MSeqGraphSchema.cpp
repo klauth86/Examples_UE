@@ -60,6 +60,10 @@ const FPinConnectionResponse UMSeqGraphSchema::CanCreateConnection(const UEdGrap
 		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT(""));
 	}
 
+	if (UMSeqGraphNode* graphNode = Cast<UMSeqGraphNode>(PinA->GetOwningNode())) {
+		graphNode->AddTransition(graphNode->GetGraph()->Nodes.IndexOfByKey(PinB->GetOwningNode()));
+	}
+
 	return FPinConnectionResponse(CONNECT_RESPONSE_MAKE, TEXT(""));
 }
 

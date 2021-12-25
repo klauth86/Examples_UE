@@ -10,5 +10,9 @@ class MOVECOREEDITORMODULE_API UMSeqGraphNode : public UEdGraphNode
 {
 	GENERATED_BODY()
 
+public:
+
 	virtual bool CanCreateUnderSpecifiedSchema(const UEdGraphSchema* DesiredSchema) const override;
+
+	virtual void AddTransition(int32 indexB) {}
 };

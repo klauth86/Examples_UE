@@ -16,8 +16,10 @@ struct MOVECOREMODULE_API FActionsGraphTransition
 
 public:
 
+	UPROPERTY(EditAnywhere)
 	int32 TargetIndex;
 
+	UPROPERTY(EditAnywhere)
 	FJoystickInput TransitionInput;
 };
 
@@ -31,7 +33,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		UFightAction* FightAction;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere)
 		TArray<FActionsGraphTransition> Transitions;
 };
 
