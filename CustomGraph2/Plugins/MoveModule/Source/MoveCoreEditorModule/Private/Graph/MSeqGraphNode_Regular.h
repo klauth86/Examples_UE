@@ -19,7 +19,7 @@ public:
 
 	virtual void ClearTransitions() { NodeInstance.Transitions.Empty(); }
 
-	virtual void AddTransition(int32 indexB, const FJoystickInput& transitionInput = GJoystickInput::GetEmpty()) override;
+	virtual void AddTransition(int32 indexB, const FJoystickInput& transitionInput = FJoystickInput::GetEmpty()) override;
 
 	virtual void RemoveTransition(int32 indexB, bool decrementOthers) override;
 

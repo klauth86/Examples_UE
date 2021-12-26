@@ -648,7 +648,13 @@ void FMSeqEditor::FixupPastedNodes(UEdGraph* graph, const TSet<UEdGraphNode*>& P
 					for (UEdGraphPin* linkedToPin : pin->LinkedTo) {
 						UEdGraphNode* linkedToNode = linkedToPin->GetOwningNode();
 						int32 linkedToNodeIndex = graph->Nodes.IndexOfByKey(linkedToNode);
-						graphNode->AddTransition(linkedToNodeIndex);
+						
+						if (inputMapping.Contains(linkedToNode)) {
+							graphNode->AddTransition(linkedToNodeIndex, inputMapping[linkedToNode]);
+						}
+						else {
+							graphNode->AddTransition(linkedToNodeIndex);
+						}
 					}
 				}
 			}

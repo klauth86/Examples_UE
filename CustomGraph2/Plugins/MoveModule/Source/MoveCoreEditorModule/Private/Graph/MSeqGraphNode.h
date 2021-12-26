@@ -20,7 +20,7 @@ public:
 
 	virtual void ClearTransitions() {}
 
-	virtual void AddTransition(int32 indexB, const FJoystickInput& transitionInput = GJoystickInput::GetEmpty()) {}
+	virtual void AddTransition(int32 indexB, const FJoystickInput& transitionInput = FJoystickInput::GetEmpty()) {}
 
 	virtual void RemoveTransition(int32 indexB, bool decrementOthers) {}
 

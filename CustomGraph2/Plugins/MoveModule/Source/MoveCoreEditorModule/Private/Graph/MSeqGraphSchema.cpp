@@ -30,12 +30,6 @@ const FPinConnectionResponse UMSeqGraphSchema::CanCreateConnection(const UEdGrap
 		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Both are on the same node"));
 	}
 
-	if ((PinA->Direction == EGPD_Input && PinA->LinkedTo.Num() > 0) ||
-		(PinB->Direction == EGPD_Input && PinB->LinkedTo.Num() > 0))
-	{
-		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT(""));
-	}
-
 	// Compare the directions
 	bool bDirectionsOK = false;
 
@@ -48,14 +42,7 @@ const FPinConnectionResponse UMSeqGraphSchema::CanCreateConnection(const UEdGrap
 		bDirectionsOK = true;
 	}
 
-	if (bDirectionsOK)
-	{
-		if ((PinA->Direction == EGPD_Input && PinA->LinkedTo.Num() > 0) || (PinB->Direction == EGPD_Input && PinB->LinkedTo.Num() > 0))
-		{
-			return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Already connected with other"));
-		}
-	}
-	else
+	if (!bDirectionsOK)
 	{
 		return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT(""));
 	}
