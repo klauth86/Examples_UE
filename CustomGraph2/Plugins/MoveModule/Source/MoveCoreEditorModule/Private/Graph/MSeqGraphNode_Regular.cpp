@@ -32,7 +32,7 @@ void UMSeqGraphNode_Regular::RemoveTransition(int32 indexB, bool decrementOthers
 
 	if (decrementOthers)
 	{
-		for (FActionsGraphTransition& transition : Transitions)
+		for (FActionsGraphTransition& transition : NodeInstance.Transitions)
 		{
 			if (transition.TargetIndex > indexB) transition.TargetIndex--;
 		}
