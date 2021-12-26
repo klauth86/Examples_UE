@@ -75,13 +75,13 @@ void FMSeqEditor::InitEditor(const EToolkitMode::Type Mode, const TSharedPtr< cl
 				->Split
 				(
 					FTabManager::NewStack()
-					->SetSizeCoefficient(0.15f)
+					->SetSizeCoefficient(0.35f)
 					->AddTab(MSeqEditorPropertiesTabId, ETabState::OpenedTab)
 				)
 				->Split
 				(
 					FTabManager::NewStack()
-					->SetSizeCoefficient(0.7f)
+					->SetSizeCoefficient(0.5f)
 					->AddTab(MSeqEditorGraphTabId, ETabState::OpenedTab)
 				)
 				->Split
