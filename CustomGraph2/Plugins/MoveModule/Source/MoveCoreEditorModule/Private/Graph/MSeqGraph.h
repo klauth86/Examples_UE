@@ -21,7 +21,6 @@ public:
 	void Initialize();
 
 	void UpdateAsset(int32 UpdateFlags = 0);
-	void UpdateClassData();
 
 protected:
 

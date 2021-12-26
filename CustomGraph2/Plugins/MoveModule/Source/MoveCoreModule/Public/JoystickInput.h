@@ -112,6 +112,8 @@ struct MOVECOREMODULE_API FJoystickInput
 
 public:
 
+	static const FJoystickInput& GetEmpty() { static FJoystickInput empty; return empty; }
+
 	TArray<FJoystickInputElement> InputElements;
 
 	const TArray<uint64>& GetInputElementsCode()

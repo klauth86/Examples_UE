@@ -4,6 +4,7 @@
 
 #include "EdGraph/EdGraphNode.h"
 #include "MoveSequence.h"
+#include "JoystickInput.h"
 #include "MSeqGraphNode.generated.h"
 
 UCLASS()
@@ -17,7 +18,9 @@ public:
 
 	virtual void DestroyNode() override;
 
-	virtual void AddTransition(int32 indexB) {}
+	virtual void ClearTransitions() {}
+
+	virtual void AddTransition(int32 indexB, const FJoystickInput& transitionInput = GJoystickInput::GetEmpty()) {}
 
 	virtual void RemoveTransition(int32 indexB, bool decrementOthers) {}
 

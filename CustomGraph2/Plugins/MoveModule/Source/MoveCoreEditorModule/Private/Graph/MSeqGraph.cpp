@@ -16,7 +16,7 @@ void UMSeqGraph::Initialize() {
 	UnlockUpdates();
 }
 
-void UMSeqGraph::UpdateAsset(int32 UpdateFlags = 0)
+void UMSeqGraph::UpdateAsset(int32 UpdateFlags)
 {
 	if (IsLocked()) return;
 
@@ -35,8 +35,4 @@ void UMSeqGraph::UpdateAsset(int32 UpdateFlags = 0)
 			}
 		}
 	}
-}
-
-void UMSeqGraph::UpdateClassData() {
-
 }

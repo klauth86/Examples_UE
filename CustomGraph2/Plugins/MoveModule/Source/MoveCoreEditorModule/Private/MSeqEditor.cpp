@@ -610,11 +610,10 @@ void FMSeqEditor::PasteNodesHere(const FVector2D& Location)
 		}
 	}
 
-	FixupPastedNodes(PastedNodes, NewToOldNodeMapping);
+	FixupPastedNodes(EdGraph, PastedNodes, NewToOldNodeMapping);
 
 	if (mSeqGraph)
 	{
-		mSeqGraph->UpdateClassData();
 		mSeqGraph->UnlockUpdates();
 	}
 
@@ -629,9 +628,32 @@ void FMSeqEditor::PasteNodesHere(const FVector2D& Location)
 	}
 }
 
-void FMSeqEditor::FixupPastedNodes(const TSet<UEdGraphNode*>& PastedGraphNodes, const TMap<FGuid/*New*/, FGuid/*Old*/>& NewToOldNodeMapping)
+void FMSeqEditor::FixupPastedNodes(UEdGraph* graph, const TSet<UEdGraphNode*>& PastedGraphNodes, const TMap<FGuid/*New*/, FGuid/*Old*/>& NewToOldNodeMapping)
 {
+	for (UEdGraphNode* node : PastedGraphNodes)
+	{
+		if (UMSeqGraphNode* graphNode = Cast<UMSeqGraphNode>(node))
+		{
 
+			TMap<UEdGraphNode*, FJoystickInput> inputMapping;
+			for (const FActionsGraphTransition& transition : graphNode->GetTransitions())
+			{
+				if (graph->Nodes.IsValidIndex(transition.TargetIndex)) inputMapping.Add(graph->Nodes[transition.TargetIndex], transition.TransitionInput);
+			}
+
+			graphNode->ClearTransitions();
+
+			for (UEdGraphPin* pin : graphNode->Pins) {
+				if (pin->Direction == EGPD_Output) {
+					for (UEdGraphPin* linkedToPin : pin->LinkedTo) {
+						UEdGraphNode* linkedToNode = linkedToPin->GetOwningNode();
+						int32 linkedToNodeIndex = graph->Nodes.IndexOfByKey(linkedToNode);
+						graphNode->AddTransition(linkedToNodeIndex);
+					}
+				}
+			}
+		}
+	}
 }
 
 bool FMSeqEditor::CanPasteNodes() const
