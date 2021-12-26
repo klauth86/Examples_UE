@@ -9,8 +9,6 @@
 #include "PropertyEditorModule.h"
 #include "JoystickInput.h"
 #include "Customization/PTCustomization_JoystickInput.h"
-#include "Graph/MSeqGraphNode_Regular.h"
-#include "Customization/DCustomization_MSeqGraphNode_Regular.h"
 
 #define LOCTEXT_NAMESPACE "FMoveCoreEditorModule"
 
@@ -18,7 +16,6 @@ void FMoveCoreEditorModule::StartupModule()
 {
 	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
 	PropertyModule.RegisterCustomPropertyTypeLayout(FJoystickInput::StaticStruct()->GetFName(), FOnGetPropertyTypeCustomizationInstance::CreateStatic(&FPTCustomization_JoystickInput::MakeInstance));
-	PropertyModule.RegisterCustomClassLayout(UMSeqGraphNode_Regular::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FDCustomization_MSeqGraphNode_Regular::MakeInstance));
 
 	RegisteredAssetTypeActions.Add(MakeShared<FATActions_FightAction>());
 	RegisteredAssetTypeActions.Add(MakeShared<FATActions_MoveSequence>());
@@ -41,7 +38,6 @@ void FMoveCoreEditorModule::ShutdownModule()
 	{
 		FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
 		PropertyModule.UnregisterCustomPropertyTypeLayout(FJoystickInput::StaticStruct()->GetFName());
-		PropertyModule.UnregisterCustomClassLayout(UMSeqGraphNode_Regular::StaticClass()->GetFName());
 	}
 
 	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
