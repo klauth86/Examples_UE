@@ -18,15 +18,15 @@ public:
 	void LockUpdates() { bLockUpdates = 1; }
 	void UnlockUpdates() { bLockUpdates = 0; }
 
-	virtual void OnCreated() {}
-	virtual void OnLoaded() {}
-	virtual void Initialize() {}
+	void Initialize();
 
-	virtual void UpdateAsset(int32 UpdateFlags = 0) {}
-	void UpdateClassData() {}
-	virtual void OnNodesPasted(const FString& ImportStr) {}
+	void UpdateAsset(int32 UpdateFlags = 0);
+	void UpdateClassData();
 
 protected:
 
 	uint32 bLockUpdates : 1;
+
+	UPROPERTY()
+		int32 GraphVersion;
 };

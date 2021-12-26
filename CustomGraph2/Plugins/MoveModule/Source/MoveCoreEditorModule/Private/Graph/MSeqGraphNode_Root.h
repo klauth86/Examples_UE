@@ -3,7 +3,6 @@
 #pragma once
 
 #include "Graph/MSeqGraphNode.h"
-#include "MoveSequence.h"
 #include "MSeqGraphNode_Root.generated.h"
 
 UCLASS()
@@ -24,6 +23,8 @@ public:
 	virtual void AddTransition(int32 indexB) override;
 
 	virtual void RemoveTransition(int32 indexB, bool decrementOthers) override;
+
+	virtual const TArray<FActionsGraphTransition>& GetTransitions() const override { return Transitions; }
 
 protected:
 

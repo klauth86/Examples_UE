@@ -8,6 +8,7 @@
 #include "Widgets/Input/SCheckBox.h"
 #include "Widgets/Input/SButton.h"
 #include "JoystickInput.h"
+#include "Styling/SlateTypes.h"
 
 #define LOCTEXT_NAMESPACE "PropertyTypeCustomization_JoystickInput.h"
 
@@ -44,17 +45,22 @@ public:
 		SetColumnFill(7, 1);
 		SetColumnFill(8, 0);
 
+		FTextBlockStyle textStyle = FCoreStyle::Get().GetWidgetStyle< FTextBlockStyle >("NormalText");
+		textStyle.SetFontSize(6);
+
 		AddSlot(0, 0).VAlign(VAlign_Center)[
 			SNew(SGridPanel)
 
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftUpperTrigger)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftUpperTrigger)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftUpperTrigger)]
 
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftTrigger)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftTrigger)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftTrigger)]
 		];
 
@@ -64,36 +70,44 @@ public:
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_315)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_315)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_315)]
 				+ SGridPanel::Slot(1, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_0)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_0)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_0)]
 				+ SGridPanel::Slot(2, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_45)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_45)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_45)]
 
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_270)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_270)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_270)]
 				+ SGridPanel::Slot(2, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_90)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_90)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_90)]
 
 				+ SGridPanel::Slot(0, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_225)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_225)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_225)]
 				+ SGridPanel::Slot(1, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_180)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_180)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_180)]
 				+ SGridPanel::Slot(2, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_LeftStick_135)
 				.Text_Raw(this, &SJoytsickInputElement::Text_LeftStick_135)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_LeftStick_135)]
 		];
 
@@ -103,36 +117,44 @@ public:
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_315)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_315)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_315)]
 				+ SGridPanel::Slot(1, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_0)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_0)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_0)]
 				+ SGridPanel::Slot(2, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_45)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_45)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_45)]
 
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_270)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_270)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_270)]
 				+ SGridPanel::Slot(2, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_90)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_90)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_90)]
 
 				+ SGridPanel::Slot(0, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_225)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_225)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_225)]
 				+ SGridPanel::Slot(1, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_180)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_180)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_180)]
 				+ SGridPanel::Slot(2, 2)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightStick_135)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightStick_135)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightStick_135)]
 		];
 
@@ -142,11 +164,13 @@ public:
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightUpperTrigger)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightUpperTrigger)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightUpperTrigger)]
 
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_RightTrigger)
 				.Text_Raw(this, &SJoytsickInputElement::Text_RightTrigger)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_RightTrigger)]
 		];
 
@@ -156,18 +180,22 @@ public:
 				+ SGridPanel::Slot(0, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_X)
 				.Text_Raw(this, &SJoytsickInputElement::Text_X)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_X)]
 				+ SGridPanel::Slot(0, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_A)
 				.Text_Raw(this, &SJoytsickInputElement::Text_A)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_A)]
 				+ SGridPanel::Slot(1, 0)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_Y)
 				.Text_Raw(this, &SJoytsickInputElement::Text_Y)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_Y)]
 				+ SGridPanel::Slot(1, 1)[SNew(SButton)
 				.ButtonColorAndOpacity_Raw(this, &SJoytsickInputElement::ColorAndOpacity_B)
 				.Text_Raw(this, &SJoytsickInputElement::Text_B)
+				.TextStyle(&textStyle)
 				.OnClicked_Raw(this, &SJoytsickInputElement::OnClicked_B)]
 		];
 	}
@@ -1181,13 +1209,16 @@ void FPTCustomization_JoystickInput::CustomizeHeader(TSharedRef<IPropertyHandle>
 }
 
 void FPTCustomization_JoystickInput::CustomizeChildren(TSharedRef<IPropertyHandle> PropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& CustomizationUtils) {
+	FTextBlockStyle textStyle = FCoreStyle::Get().GetWidgetStyle< FTextBlockStyle >("NormalText");
+	textStyle.SetFontSize(6);
+
 	InternalPropertyHandle = PropertyHandle;
 
 	ChildBuilder.AddCustomRow(LOCTEXT("SearchString", "Joystick Input"))[
 		SNew(SVerticalBox)
 			+ SVerticalBox::Slot().FillHeight(1)[SAssignNew(grid, SGridPanel).FillColumn(0, 1).FillColumn(1, 0)]
 			+ SVerticalBox::Slot().AutoHeight().Padding(8)[SNew(SButton).OnClicked(this, &FPTCustomization_JoystickInput::Add).HAlign(HAlign_Center)[
-				SNew(STextBlock).Text(LOCTEXT("Add", "ADD"))
+				SNew(STextBlock).TextStyle(&textStyle).Text(LOCTEXT("Add", "ADD"))
 			]]
 	];
 
@@ -1223,12 +1254,15 @@ FReply FPTCustomization_JoystickInput::Remove(TSharedPtr<SJoytsickInputElement> 
 }
 
 void FPTCustomization_JoystickInput::AddWidget(FJoystickInput* joystickInput, int32 index) {
+	FTextBlockStyle textStyle = FCoreStyle::Get().GetWidgetStyle< FTextBlockStyle >("NormalText");
+	textStyle.SetFontSize(6);
+
 	TSharedPtr<SJoytsickInputElement> element = SNew(SJoytsickInputElement, joystickInput, index);
 	
 	TSharedPtr<SButton> button;
 	
 	grid->AddSlot(0, index).Padding(0, 8)[element.ToSharedRef()];
-	grid->AddSlot(1, index).Padding(8, 8).VAlign(VAlign_Center)[SAssignNew(button, SButton).VAlign(VAlign_Center)[SNew(STextBlock).Text(LOCTEXT("Remove", "REMOVE"))]];
+	grid->AddSlot(1, index).Padding(8, 8).VAlign(VAlign_Center)[SAssignNew(button, SButton).VAlign(VAlign_Center)[SNew(STextBlock).TextStyle(&textStyle).Text(LOCTEXT("Remove", "REMOVE"))]];
 
 	button->SetOnClicked(FOnClicked::CreateRaw(this, &FPTCustomization_JoystickInput::Remove, element, button));
 }

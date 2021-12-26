@@ -3,6 +3,7 @@
 #pragma once
 
 #include "EdGraph/EdGraphNode.h"
+#include "MoveSequence.h"
 #include "MSeqGraphNode.generated.h"
 
 UCLASS()
@@ -19,4 +20,8 @@ public:
 	virtual void AddTransition(int32 indexB) {}
 
 	virtual void RemoveTransition(int32 indexB, bool decrementOthers) {}
+
+	virtual const TArray<FActionsGraphTransition>& GetTransitions() const { static TArray<FActionsGraphTransition> empty; return empty; }
+
+	virtual UFightAction* GetFightAction() const { return nullptr; }
 };

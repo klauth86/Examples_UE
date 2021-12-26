@@ -21,6 +21,10 @@ public:
 
 	virtual void RemoveTransition(int32 indexB, bool decrementOthers) override;
 
+	virtual const TArray<FActionsGraphTransition>& GetTransitions() const override { return NodeInstance.Transitions; }
+
+	UFightAction* GetFightAction() const override { return NodeInstance.FightAction; }
+
 	void SetFightAction(UFightAction* fightAction) { NodeInstance.FightAction = fightAction; }
 
 protected:

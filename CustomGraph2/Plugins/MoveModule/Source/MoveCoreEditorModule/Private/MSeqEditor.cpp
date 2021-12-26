@@ -213,12 +213,6 @@ TSharedRef<SDockTab> FMSeqEditor::SpawnTab_Graph(const FSpawnTabArgs& Args)
 		// let's read data from BT script and generate nodes
 		const UEdGraphSchema* Schema = MoveSequence->EdGraph->GetSchema();
 		Schema->CreateDefaultNodesForGraph(*MoveSequence->EdGraph);
-
-		MyGraph->OnCreated();
-	}
-	else
-	{
-		MyGraph->OnLoaded();
 	}
 
 	MyGraph->Initialize();
@@ -621,7 +615,6 @@ void FMSeqEditor::PasteNodesHere(const FVector2D& Location)
 	if (mSeqGraph)
 	{
 		mSeqGraph->UpdateClassData();
-		mSeqGraph->OnNodesPasted(TextToImport);
 		mSeqGraph->UnlockUpdates();
 	}
 
