@@ -15,7 +15,7 @@ void UMSeqGraphNode::DestroyNode() {
 	for (UEdGraphNode* node : GetGraph()->Nodes)
 	{
 		if (UMSeqGraphNode* graphNode = Cast<UMSeqGraphNode>(node)) {
-			graphNode->RemoveTransition(nodeIndex);
+			graphNode->RemoveTransition(nodeIndex, true);
 		}
 	}
 

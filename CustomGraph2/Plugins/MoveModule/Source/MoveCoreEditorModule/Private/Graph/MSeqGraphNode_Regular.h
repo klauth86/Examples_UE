@@ -19,7 +19,7 @@ public:
 
 	virtual void AddTransition(int32 indexB) override;
 
-	virtual void RemoveTransition(int32 indexB) override;
+	virtual void RemoveTransition(int32 indexB, bool decrementOthers) override;
 
 	void SetFightAction(UFightAction* fightAction) { NodeInstance.FightAction = fightAction; }
 

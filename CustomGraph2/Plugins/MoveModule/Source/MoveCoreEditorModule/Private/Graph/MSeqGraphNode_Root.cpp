@@ -21,12 +21,15 @@ void UMSeqGraphNode_Root::AddTransition(int32 indexB)
 	}
 }
 
-void UMSeqGraphNode_Root::RemoveTransition(int32 indexB)
+void UMSeqGraphNode_Root::RemoveTransition(int32 indexB, bool decrementOthers)
 {
 	Transitions.RemoveAll([indexB](const FActionsGraphTransition& transition) { return transition.TargetIndex == indexB; });
 
-	for (FActionsGraphTransition& transition : Transitions)
+	if (decrementOthers)
 	{
-		if (transition.TargetIndex > indexB) transition.TargetIndex--;
+		for (FActionsGraphTransition& transition : Transitions)
+		{
+			if (transition.TargetIndex > indexB) transition.TargetIndex--;
+		}
 	}
 }

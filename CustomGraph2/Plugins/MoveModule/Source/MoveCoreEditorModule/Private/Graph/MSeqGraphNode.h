@@ -18,5 +18,5 @@ public:
 
 	virtual void AddTransition(int32 indexB) {}
 
-	virtual void RemoveTransition(int32 indexB) {}
+	virtual void RemoveTransition(int32 indexB, bool decrementOthers) {}
 };

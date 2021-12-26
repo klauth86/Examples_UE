@@ -67,6 +67,31 @@ const FPinConnectionResponse UMSeqGraphSchema::CanCreateConnection(const UEdGrap
 	return FPinConnectionResponse(CONNECT_RESPONSE_MAKE, TEXT(""));
 }
 
+void UMSeqGraphSchema::BreakPinLinks(UEdGraphPin& TargetPin, bool bSendsNodeNotifcation) const {
+
+	UEdGraphNode* targetNode = TargetPin.GetOwningNode();
+	int32 targetNodeIndex = targetNode->GetGraph()->Nodes.IndexOfByKey(targetNode);
+
+	for (UEdGraphPin* sourcePin : TargetPin.LinkedTo)
+	{
+		UMSeqGraphNode* sourceNode = Cast<UMSeqGraphNode>(sourcePin->GetOwningNode());
+		if (sourceNode) sourceNode->RemoveTransition(targetNodeIndex, false);
+	}
+
+	Super::BreakPinLinks(TargetPin, bSendsNodeNotifcation);
+}
+
+void UMSeqGraphSchema::BreakSinglePinLink(UEdGraphPin* SourcePin, UEdGraphPin* TargetPin) const {
+	
+	UEdGraphNode* targetNode = TargetPin->GetOwningNode();
+	int32 targetNodeIndex = targetNode->GetGraph()->Nodes.IndexOfByKey(targetNode);
+
+	UMSeqGraphNode* sourceNode = Cast<UMSeqGraphNode>(SourcePin->GetOwningNode());
+	if (sourceNode) sourceNode->RemoveTransition(targetNodeIndex, false);
+
+	Super::BreakSinglePinLink(SourcePin, TargetPin);
+}
+
 void UMSeqGraphSchema::DroppedAssetsOnGraph(const TArray<struct FAssetData>& Assets, const FVector2D& GraphPosition, UEdGraph* Graph) const {
 	UMSeqGraph* MSeqGraph = CastChecked<UMSeqGraph>(Graph);
 
