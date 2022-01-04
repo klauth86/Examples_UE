@@ -25,6 +25,8 @@ public:
 
 protected:
 
+	// SIMPLE
+
 	UFUNCTION(Exec)
 		void Host();
 
@@ -33,6 +35,16 @@ protected:
 
 	UFUNCTION(Exec)
 		void Leave();
+
+	// OSS
+
+	void HostOSS();
+
+	void JoinOSS(int32 index);
+
+	void CreateSessionOSS();
+
+	void FindSessionsOSS();
 
 	void Quit();
 

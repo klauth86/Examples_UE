@@ -15,4 +15,8 @@ protected:
 	virtual void NativeConstruct() override;
 
 	virtual void NativeDestruct() override;
+
+public:
+
+	virtual void AddServerToJoin(int32 index) {}
 };

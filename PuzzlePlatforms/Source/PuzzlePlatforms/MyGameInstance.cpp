@@ -9,6 +9,8 @@
 IOnlineSessionPtr SessionInterface;
 TSharedPtr<FOnlineSessionSearch> SessionSearch;
 
+const FName SESSION_NAME = "JUST MY APP SESSION";
+
 void UMyGameInstance::OnWorldChanged(UWorld* OldWorld, UWorld* NewWorld)
 {
 	if (!NewWorld) return;
@@ -36,6 +38,9 @@ void UMyGameInstance::Init()
 	ActionRouter::OnJoin.BindUObject(this, &UMyGameInstance::Join);
 	ActionRouter::OnLeave.BindUObject(this, &UMyGameInstance::Leave);
 	ActionRouter::OnQuit.BindUObject(this, &UMyGameInstance::Quit);
+
+	ActionRouter::OnHostOSS.BindUObject(this, &UMyGameInstance::HostOSS);
+	ActionRouter::OnJoinOSS.BindUObject(this, &UMyGameInstance::JoinOSS);
 
 	ActionRouter::OnWidgetConstruct.BindUObject(this, &UMyGameInstance::OnWidgetConstruct);
 	ActionRouter::OnWidgetDestruct.BindUObject(this, &UMyGameInstance::OnWidgetDestruct);
@@ -67,6 +72,9 @@ void UMyGameInstance::BeginDestroy()
 	ActionRouter::OnJoin.Unbind();
 	ActionRouter::OnLeave.Unbind();
 	ActionRouter::OnQuit.Unbind();
+
+	ActionRouter::OnHostOSS.Unbind();
+	ActionRouter::OnJoinOSS.Unbind();
 
 	ActionRouter::OnWidgetConstruct.Unbind();
 	ActionRouter::OnWidgetDestruct.Unbind();
@@ -107,6 +115,52 @@ void UMyGameInstance::Leave()
 	}
 
 	GetFirstLocalPlayerController()->ClientTravel("/Game/ThirdPersonCPP/Maps/LobbyMap", ETravelType::TRAVEL_Absolute);
+}
+
+void UMyGameInstance::HostOSS()
+{
+	if (SessionInterface.IsValid())
+	{
+		if (FNamedOnlineSession* existingSession = SessionInterface->GetNamedSession(SESSION_NAME))
+		{
+			SessionInterface->DestroySession(SESSION_NAME);
+		}
+		else
+		{
+			CreateSessionOSS();
+		}
+	}
+}
+
+void UMyGameInstance::JoinOSS(int32 index)
+{
+	if (!SessionInterface.IsValid()) return;
+	
+	if (!SessionSearch.IsValid()) return;
+
+	if (!SessionSearch->SearchResults.IsValidIndex(index)) return;
+
+	SessionInterface->JoinSession(0, SESSION_NAME, SessionSearch->SearchResults[index]);
+}
+
+void UMyGameInstance::CreateSessionOSS()
+{
+	FOnlineSessionSettings settings;
+	settings.bIsLANMatch = true;
+	settings.NumPublicConnections = 2;
+	settings.bShouldAdvertise = true;
+
+	SessionInterface->CreateSession(0, SESSION_NAME, settings);
+}
+
+void UMyGameInstance::FindSessionsOSS()
+{
+	SessionSearch = MakeShareable(new FOnlineSessionSearch());
+	
+	if (SessionSearch.IsValid())
+	{
+		SessionInterface->FindSessions(0, SessionSearch.ToSharedRef());
+	}
 }
 
 void UMyGameInstance::Quit()
@@ -158,20 +212,60 @@ void UMyGameInstance::ToggleGameMenu()
 
 void UMyGameInstance::OnCreateSessionComplete(FName SessionName, bool Success)
 {
+	if (SESSION_NAME != SessionName) return;
 
+	if (!Success) return;
+
+	if (CurrentWidget)
+	{
+		CurrentWidget->RemoveFromViewport();
+		CurrentWidget = nullptr;
+	}
+
+	GetWorld()->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
 }
 
 void UMyGameInstance::OnDestroySessionComplete(FName SessionName, bool Success)
 {
+	if (SESSION_NAME != SessionName) return;
 
+	if (!Success) return;
+
+	CreateSessionOSS();
 }
 
 void UMyGameInstance::OnFindSessionsComplete(bool Success)
 {
+	UWorld* world = GetWorld();
 
+	if (world->RemovePIEPrefix(world->GetPathName()) == MainMenuMap.GetAssetPathString()) return;
+
+	if (Success && SessionSearch.IsValid())
+	{
+		TArray<FString> ServerNames;
+		for (const FOnlineSessionSearchResult& SearchResult : SessionSearch->SearchResults)
+		{
+			ServerNames.Add(SearchResult.GetSessionIdStr());
+		}
+
+		//Menu->SetServerList(ServerNames);
+	}
 }
 
 void UMyGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
 {
+	if (SESSION_NAME != SessionName) return;
 
+	if (Result != EOnJoinSessionCompleteResult::Success) return;
+
+	FString address;
+	if (!SessionInterface->GetResolvedConnectString(SessionName, address)) return;
+
+	if (CurrentWidget)
+	{
+		CurrentWidget->RemoveFromViewport();
+		CurrentWidget = nullptr;
+	}
+
+	GetFirstLocalPlayerController()->ClientTravel(address, ETravelType::TRAVEL_Absolute);
 }
