@@ -43,6 +43,6 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "MainMenuWidget")
 		void RefreshServersToJoin();
 
-	UPROPERTY(EditDefaultsOnly, Category = "MyGameInstance")
+	UPROPERTY(EditDefaultsOnly, Category = "MainMenuWidget")
 		TSubclassOf<UServerButtonWidget> ServerButtonWidgetClass;
 };
