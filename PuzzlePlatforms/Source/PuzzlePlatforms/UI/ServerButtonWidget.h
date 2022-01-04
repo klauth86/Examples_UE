@@ -5,19 +5,24 @@
 #include "Blueprint/UserWidget.h"
 #include "ServerButtonWidget.generated.h"
 
-class UButton;
-
 UCLASS()
 class PUZZLEPLATFORMS_API UServerButtonWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
+protected:
+	
+	UFUNCTION(BlueprintCallable, Category = "ServerButtonWidget")
+		void Join();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void Init_BP(const FString& serverName);
+
 public:
 
-	UButton* GetButton() const { return Button; }
+	void Init(const FString& serverName, int32 index) { Index = index; Init_BP(serverName); }
 
 protected:
 
-	UPROPERTY(meta = (BindWidget))
-		UButton* Button;
+	int32 Index;
 };

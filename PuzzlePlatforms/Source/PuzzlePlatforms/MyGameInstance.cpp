@@ -42,6 +42,8 @@ void UMyGameInstance::Init()
 	ActionRouter::OnHostOSS.BindUObject(this, &UMyGameInstance::HostOSS);
 	ActionRouter::OnJoinOSS.BindUObject(this, &UMyGameInstance::JoinOSS);
 
+	ActionRouter::RefreshServersToJoin.BindUObject(this, &UMyGameInstance::FindSessionsOSS);
+
 	ActionRouter::OnWidgetConstruct.BindUObject(this, &UMyGameInstance::OnWidgetConstruct);
 	ActionRouter::OnWidgetDestruct.BindUObject(this, &UMyGameInstance::OnWidgetDestruct);
 
@@ -75,6 +77,8 @@ void UMyGameInstance::BeginDestroy()
 
 	ActionRouter::OnHostOSS.Unbind();
 	ActionRouter::OnJoinOSS.Unbind();
+
+	ActionRouter::RefreshServersToJoin.Unbind();
 
 	ActionRouter::OnWidgetConstruct.Unbind();
 	ActionRouter::OnWidgetDestruct.Unbind();
@@ -242,13 +246,16 @@ void UMyGameInstance::OnFindSessionsComplete(bool Success)
 
 	if (Success && SessionSearch.IsValid())
 	{
-		TArray<FString> ServerNames;
-		for (const FOnlineSessionSearchResult& SearchResult : SessionSearch->SearchResults)
-		{
-			ServerNames.Add(SearchResult.GetSessionIdStr());
-		}
+		if (CurrentWidget) {
 
-		//Menu->SetServerList(ServerNames);
+			CurrentWidget->ClearServersToJoin();
+
+			for (size_t index = 0; index < SessionSearch->SearchResults.Num(); index++)
+			{
+				FString serverName = SessionSearch->SearchResults[index].GetSessionIdStr();
+				CurrentWidget->AddServerToJoin(serverName, index);
+			}
+		}
 	}
 }
 

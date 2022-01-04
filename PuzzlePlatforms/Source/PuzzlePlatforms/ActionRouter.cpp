@@ -8,5 +8,7 @@ FToggleEvent ActionRouter::OnQuit;
 FToggleEvent ActionRouter::OnHostOSS;
 FJoinOSSEvent ActionRouter::OnJoinOSS;
 
+FToggleEvent ActionRouter::RefreshServersToJoin;
+
 FToggleEvent ActionRouter::OnWidgetConstruct;
 FToggleEvent ActionRouter::OnWidgetDestruct;

@@ -18,5 +18,7 @@ protected:
 
 public:
 
-	virtual void AddServerToJoin(int32 index) {}
+	virtual void AddServerToJoin(const FString& serverName, int32 index) {}
+
+	virtual void ClearServersToJoin() {}
 };

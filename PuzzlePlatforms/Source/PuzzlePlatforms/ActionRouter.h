@@ -17,6 +17,8 @@ namespace ActionRouter
 	extern FToggleEvent OnHostOSS;
 	extern FJoinOSSEvent OnJoinOSS;
 
+	extern FToggleEvent RefreshServersToJoin;
+
 	extern FToggleEvent OnWidgetConstruct;
 	extern FToggleEvent OnWidgetDestruct;
 }

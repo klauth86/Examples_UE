@@ -4,18 +4,14 @@
 #include "UI/ServerButtonWidget.h"
 #include "ActionRouter.h"
 
-#include "Components/Button.h"
-
-void UMainMenuWidget::AddServerToJoin(int32 index)
+void UMainMenuWidget::AddServerToJoin(const FString& serverName, int32 index)
 {
 	if (ServerButtonWidgetClass)
 	{
 		if (UServerButtonWidget* serverButton = CreateWidget<UServerButtonWidget>(this, ServerButtonWidgetClass))
 		{
-			if (UButton* button = serverButton->GetButton())
-			{
-				button->OnClicked.AddDynamic(this, &UMainMenuWidget::JoinOSS, index);
-			}
+			serverButton->Init(serverName, index);
+			AddServerToJoin_BP(serverButton);
 		}
 	}
 }
@@ -28,4 +24,4 @@ void UMainMenuWidget::Quit() { ActionRouter::OnQuit.ExecuteIfBound(); }
 
 void UMainMenuWidget::HostOSS() { ActionRouter::OnHostOSS.ExecuteIfBound(); }
 
-void UMainMenuWidget::JoinOSS(int32 index) { ActionRouter::OnJoinOSS.ExecuteIfBound(index); }
+void UMainMenuWidget::RefreshServersToJoin() { ActionRouter::RefreshServersToJoin.ExecuteIfBound(); }

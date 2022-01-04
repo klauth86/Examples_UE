@@ -12,12 +12,19 @@ class PUZZLEPLATFORMS_API UMainMenuWidget : public UBaseWidget
 {
 	GENERATED_BODY()
 	
-public:
+protected:
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void AddServerToJoin(UWidget* widget);
+	void AddServerToJoin_BP(UWidget* widget);
 
-	virtual void AddServerToJoin(int32 index) override;
+	UFUNCTION(BlueprintImplementableEvent)
+	void ClearServersToJoin_BP();
+
+public:
+
+	virtual void AddServerToJoin(const FString& serverName, int32 index) override;
+
+	virtual void ClearServersToJoin() override { ClearServersToJoin_BP(); }
 
 protected:
 
@@ -34,7 +41,7 @@ protected:
 		void HostOSS();
 
 	UFUNCTION(BlueprintCallable, Category = "MainMenuWidget")
-		void JoinOSS(int32 index);
+		void RefreshServersToJoin();
 
 	UPROPERTY(EditDefaultsOnly, Category = "MyGameInstance")
 		TSubclassOf<UServerButtonWidget> ServerButtonWidgetClass;
