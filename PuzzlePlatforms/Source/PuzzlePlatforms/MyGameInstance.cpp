@@ -70,6 +70,8 @@ void UMyGameInstance::BeginDestroy()
 		SessionInterface->OnJoinSessionCompleteDelegates.RemoveAll(this);
 	}
 
+	SessionInterface.Reset();
+
 	ActionRouter::OnHost.Unbind();
 	ActionRouter::OnJoin.Unbind();
 	ActionRouter::OnLeave.Unbind();
@@ -242,7 +244,7 @@ void UMyGameInstance::OnFindSessionsComplete(bool Success)
 {
 	UWorld* world = GetWorld();
 
-	if (world->RemovePIEPrefix(world->GetPathName()) == MainMenuMap.GetAssetPathString()) return;
+	if (world->RemovePIEPrefix(world->GetPathName()) != MainMenuMap.GetAssetPathString()) return;
 
 	if (Success && SessionSearch.IsValid())
 	{
