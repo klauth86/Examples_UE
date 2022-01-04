@@ -3,6 +3,11 @@
 #include "MyGameInstance.h"
 #include "UI/BaseWidget.h"
 #include "ActionRouter.h"
+#include "OnlineSubsystem.h"
+#include "OnlineSessionSettings.h"
+
+IOnlineSessionPtr SessionInterface;
+TSharedPtr<FOnlineSessionSearch> SessionSearch;
 
 void UMyGameInstance::OnWorldChanged(UWorld* OldWorld, UWorld* NewWorld)
 {
@@ -34,10 +39,30 @@ void UMyGameInstance::Init()
 
 	ActionRouter::OnWidgetConstruct.BindUObject(this, &UMyGameInstance::OnWidgetConstruct);
 	ActionRouter::OnWidgetDestruct.BindUObject(this, &UMyGameInstance::OnWidgetDestruct);
+
+	if (IOnlineSubsystem* oss = IOnlineSubsystem::Get())
+	{
+		SessionInterface = oss->GetSessionInterface();
+		if (SessionInterface.IsValid())
+		{
+			SessionInterface->OnCreateSessionCompleteDelegates.AddUObject(this, &UMyGameInstance::OnCreateSessionComplete);
+			SessionInterface->OnDestroySessionCompleteDelegates.AddUObject(this, &UMyGameInstance::OnCreateSessionComplete);
+			SessionInterface->OnFindSessionsCompleteDelegates.AddUObject(this, &UMyGameInstance::OnFindSessionsComplete);
+			SessionInterface->OnJoinSessionCompleteDelegates.AddUObject(this, &UMyGameInstance::OnJoinSessionComplete);
+		}
+	}
 }
 
 void UMyGameInstance::BeginDestroy()
 {
+	if (SessionInterface.IsValid())
+	{
+		SessionInterface->OnCreateSessionCompleteDelegates.RemoveAll(this);
+		SessionInterface->OnDestroySessionCompleteDelegates.RemoveAll(this);
+		SessionInterface->OnFindSessionsCompleteDelegates.RemoveAll(this);
+		SessionInterface->OnJoinSessionCompleteDelegates.RemoveAll(this);
+	}
+
 	ActionRouter::OnHost.Unbind();
 	ActionRouter::OnJoin.Unbind();
 	ActionRouter::OnLeave.Unbind();
@@ -129,4 +154,24 @@ void UMyGameInstance::ToggleGameMenu()
 		CurrentWidget = CreateWidget<UBaseWidget>(this, GameMenuWidgetClass);
 		CurrentWidget->AddToViewport();
 	}
+}
+
+void UMyGameInstance::OnCreateSessionComplete(FName SessionName, bool Success)
+{
+
+}
+
+void UMyGameInstance::OnDestroySessionComplete(FName SessionName, bool Success)
+{
+
+}
+
+void UMyGameInstance::OnFindSessionsComplete(bool Success)
+{
+
+}
+
+void UMyGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
+{
+
 }

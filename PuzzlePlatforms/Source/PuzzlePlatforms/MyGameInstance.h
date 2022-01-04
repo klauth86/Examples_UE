@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Engine/GameInstance.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "MyGameInstance.generated.h"
 
 class UBaseWidget;
@@ -40,6 +41,14 @@ protected:
 	void OnWidgetDestruct();
 
 	void ToggleGameMenu();
+
+	void OnCreateSessionComplete(FName SessionName, bool Success);
+	
+	void OnDestroySessionComplete(FName SessionName, bool Success);
+	
+	void OnFindSessionsComplete(bool Success);
+	
+	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
 
 protected:
 
