@@ -135,7 +135,8 @@ void UMyGameInstance::Leave()
 		CurrentWidget = nullptr;
 	}
 
-	GetFirstLocalPlayerController()->ClientTravel("/Game/ThirdPersonCPP/Maps/LobbyMap", ETravelType::TRAVEL_Absolute);
+	//
+	//GetFirstLocalPlayerController()->ClientTravel("/Game/ThirdPersonCPP/Maps/LobbyMap", ETravelType::TRAVEL_Absolute);
 }
 
 void UMyGameInstance::HostOSS()
@@ -255,7 +256,7 @@ void UMyGameInstance::OnCreateSessionComplete(FName SessionName, bool Success)
 		CurrentWidget = nullptr;
 	}
 
-	GetWorld()->ServerTravel("/Game/ThirdPersonCPP/Maps/Lobby?listen");
+	GetWorld()->ServerTravel("/Game/ThirdPersonCPP/Maps/LobbyMap?listen");
 }
 
 void UMyGameInstance::OnDestroySessionComplete(FName SessionName, bool Success)
@@ -313,5 +314,5 @@ void UMyGameInstance::OnNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENe
 
 void UMyGameInstance::LoadMainMenu()
 {
-	GetFirstLocalPlayerController()->ClientTravel("/Game/MenuSystem/MainMenu", ETravelType::TRAVEL_Absolute);
+	GetFirstLocalPlayerController()->ClientTravel("/Game/MenuSystem/MainMenuMap", ETravelType::TRAVEL_Absolute);
 }
