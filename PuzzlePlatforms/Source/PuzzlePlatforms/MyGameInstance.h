@@ -46,6 +46,8 @@ protected:
 
 	void FindSessionsOSS();
 
+	void OnStartGame();
+
 	void Quit();
 
 	void OnWidgetConstruct();
@@ -61,6 +63,10 @@ protected:
 	void OnFindSessionsComplete(bool Success);
 	
 	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+
+	void OnNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString);
+
+	void LoadMainMenu();
 
 protected:
 

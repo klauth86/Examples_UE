@@ -11,6 +11,6 @@ public class PuzzlePlatforms : ModuleRules
 
 		PublicIncludePaths.AddRange(new string[] { Path.Combine(ModuleDirectory, "") });
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "UMG", "OnlineSubsystem" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "UMG", "OnlineSubsystem", "OnlineSubsystemSteam" });
 	}
 }

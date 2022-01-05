@@ -19,6 +19,8 @@ namespace ActionRouter
 
 	extern FToggleEvent RefreshServersToJoin;
 
+	extern FToggleEvent OnStartGame;
+
 	extern FToggleEvent OnWidgetConstruct;
 	extern FToggleEvent OnWidgetDestruct;
 }

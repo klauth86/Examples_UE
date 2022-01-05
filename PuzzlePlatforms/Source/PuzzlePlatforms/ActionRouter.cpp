@@ -10,5 +10,7 @@ FJoinOSSEvent ActionRouter::OnJoinOSS;
 
 FToggleEvent ActionRouter::RefreshServersToJoin;
 
+FToggleEvent ActionRouter::OnStartGame;
+
 FToggleEvent ActionRouter::OnWidgetConstruct;
 FToggleEvent ActionRouter::OnWidgetDestruct;
